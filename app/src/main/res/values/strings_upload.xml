@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Owner: ROM uploads to a RomM library over SFTP and SMB
+      Key prefix: upload_
+      Keys are named for the usage site, never for the English text.
+    -->
+
+    <!-- Upload notification channel and progress notification -->
+    <string name="upload_channel_name">ROM uploads</string>
+    <string name="upload_channel_description">Shows progress while ROMs upload to RomM</string>
+    <!-- Title of the ongoing notification. %1$d is the number of unfinished uploads. -->
+    <string name="upload_notification_title">ROM uploads (%1$d)</string>
+    <!-- %1$s is the game title being uploaded. -->
+    <string name="upload_notification_uploading">Uploading %1$s</string>
+    <string name="upload_notification_preparing">Preparing uploads…</string>
+    <string name="upload_notification_paused">Uploads paused</string>
+    <string name="upload_notification_waiting_network">Waiting for a network connection</string>
+    <string name="upload_notification_waiting_wifi">Waiting for Wi-Fi</string>
+    <string name="upload_notification_waiting_charger">Waiting for the charger</string>
+    <string name="upload_notification_retrying">Connection lost, retrying soon</string>
+    <string name="upload_action_pause">Pause</string>
+    <string name="upload_action_resume">Resume</string>
+    <string name="upload_action_cancel">Cancel</string>
+    <string name="upload_summary_title">ROM uploads finished</string>
+    <!-- %1$d uploaded games, %2$d games already on the server, %3$d failed games. -->
+    <string name="upload_summary_counts">Uploaded: %1$d · Already there: %2$d · Failed: %3$d</string>
+</resources>

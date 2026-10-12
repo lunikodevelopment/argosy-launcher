@@ -56,7 +56,6 @@ class UploadPlanner(
     private val tree: LocalTree,
     private val platformResolver: PlatformResolver,
     private val folderResolver: RemotePlatformFolderResolver,
-    private val catalog: PlatformCatalog,
     private val layout: RemoteLayout
 ) {
     private val grouper = GameFileGrouper(tree)

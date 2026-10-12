@@ -22,7 +22,6 @@ class UploadPlannerTest {
         tree = tree,
         platformResolver = PlatformResolver(catalog, emptyMap()),
         folderResolver = RemotePlatformFolderResolver(emptyMap(), emptyMap()),
-        catalog = catalog,
         layout = RemoteLayout(root, template, protocol)
     )
 

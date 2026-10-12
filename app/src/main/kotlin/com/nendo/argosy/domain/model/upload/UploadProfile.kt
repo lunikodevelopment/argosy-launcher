@@ -43,14 +43,14 @@ data class UploadSettings(
     val duplicatePolicy: DuplicatePolicy = DuplicatePolicy.DEFAULT,
     val wifiOnly: Boolean = false,
     val chargingOnly: Boolean = false,
-    val bandwidthLimitKbps: Int = 0,
-    val inGameBandwidthLimitKbps: Int = DEFAULT_IN_GAME_LIMIT_KBPS,
+    val bandwidthLimitKiBps: Int = 0,
+    val inGameBandwidthLimitKiBps: Int = DEFAULT_IN_GAME_LIMIT_KIBPS,
     val scanAfterUpload: Boolean = true,
     val notifyOnCompletion: Boolean = true
 ) {
     companion object {
         const val DEFAULT_CONCURRENCY = 1
         const val MAX_CONCURRENCY = 3
-        const val DEFAULT_IN_GAME_LIMIT_KBPS = 2048
+        const val DEFAULT_IN_GAME_LIMIT_KIBPS = 1024
     }
 }

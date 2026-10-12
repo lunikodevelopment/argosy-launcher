@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_channel_name">ROM-Uploads</string>
+    <string name="upload_channel_description">Zeigt den Fortschritt beim Hochladen von ROMs zu RomM</string>
+    <string name="upload_notification_title">ROM-Uploads (%1$d)</string>
+    <string name="upload_notification_uploading">%1$s wird hochgeladen</string>
+    <string name="upload_notification_preparing">Uploads werden vorbereitet…</string>
+    <string name="upload_notification_paused">Uploads pausiert</string>
+    <string name="upload_notification_waiting_network">Warten auf Netzwerkverbindung</string>
+    <string name="upload_notification_waiting_wifi">Warten auf WLAN</string>
+    <string name="upload_notification_waiting_charger">Warten auf Ladegerät</string>
+    <string name="upload_notification_retrying">Verbindung verloren, neuer Versuch folgt</string>
+    <string name="upload_action_pause">Pausieren</string>
+    <string name="upload_action_resume">Fortsetzen</string>
+    <string name="upload_action_cancel">Abbrechen</string>
+    <string name="upload_summary_title">ROM-Uploads abgeschlossen</string>
+    <string name="upload_summary_counts">Hochgeladen: %1$d · Bereits vorhanden: %2$d · Fehlgeschlagen: %3$d</string>
+</resources>

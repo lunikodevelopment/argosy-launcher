@@ -7,4 +7,6 @@ object ServiceNotificationIds {
     const val COMPANION_GUARD = 0x4001
     const val GAME_SESSION = 0x5000
     const val STEAM = 0x6000
+    const val UPLOAD = 0x7000
+    const val UPLOAD_SUMMARY = 0x7001
 }

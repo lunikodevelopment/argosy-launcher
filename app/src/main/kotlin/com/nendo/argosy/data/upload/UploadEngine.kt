@@ -41,11 +41,8 @@ data class UploadRate(
 )
 
 /**
- * Persistent upload queue runner. Jobs survive process death through [store], run at most
- * [maxConcurrent] at a time on [dispatcher], retry retryable failures with [retryPolicy] backoff,
- * and park in WAITING_FOR_NETWORK while connectivity is down. A paused, cancelled or interrupted
- * file is never resumed in place: its remote temporary file is discarded and rewritten on the next
- * attempt, and files that already reached their final name are not sent again.
+ * Persistent upload queue runner with a concurrency cap, retry backoff and a network wait state.
+ * An interrupted file restarts from zero; files already renamed into place are never sent again.
  */
 class UploadEngine(
     private val scope: CoroutineScope,
@@ -55,7 +52,8 @@ class UploadEngine(
     private val localSource: LocalSource,
     private val limiter: BandwidthLimiter,
     private val retryPolicy: RetryPolicy = RetryPolicy(),
-    private val clock: () -> Long = System::currentTimeMillis
+    private val clock: () -> Long = System::currentTimeMillis,
+    private val workerScope: (() -> Unit) -> Unit = { it() }
 ) {
     private enum class StopReason { PAUSE, CANCEL, NETWORK }
 
@@ -188,7 +186,7 @@ class UploadEngine(
         toStart.forEach { job ->
             running[job.id] = scope.launch(dispatcher) {
                 try {
-                    runJob(job.id)
+                    workerScope { runJob(job.id) }
                 } finally {
                     running.remove(job.id)
                     stopRequests.remove(job.id)

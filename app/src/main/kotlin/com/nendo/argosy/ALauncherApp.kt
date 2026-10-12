@@ -16,6 +16,7 @@ import com.nendo.argosy.data.sync.SaveSyncDownloadObserver
 import com.nendo.argosy.data.update.ApkInstallManager
 import android.content.Intent
 import com.nendo.argosy.data.download.DownloadServiceController
+import com.nendo.argosy.data.upload.UploadServiceController
 import com.nendo.argosy.data.steam.SteamAuthManager
 import com.nendo.argosy.data.steam.SteamContentManager
 import com.nendo.argosy.data.steam.SteamService
@@ -87,6 +88,9 @@ class ArgosyApp : Application(), Configuration.Provider, ImageLoaderFactory {
 
     @Inject
     lateinit var downloadServiceController: DownloadServiceController
+
+    @Inject
+    lateinit var uploadServiceController: UploadServiceController
 
     @Inject
     lateinit var syncServiceController: SyncServiceController
@@ -178,6 +182,7 @@ class ArgosyApp : Application(), Configuration.Provider, ImageLoaderFactory {
         cheatsDownloadObserver.start()
         titleIdDownloadObserver.start()
         downloadServiceController.start()
+        uploadServiceController.start()
         syncServiceController.start()
         pushInstallCoordinator.start()
         siblingGroupRepository.start()

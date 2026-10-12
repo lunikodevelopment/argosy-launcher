@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_channel_name">Загрузка ROM</string>
+    <string name="upload_channel_description">Показывает ход загрузки ROM в RomM</string>
+    <string name="upload_notification_title">Загрузка ROM (%1$d)</string>
+    <string name="upload_notification_uploading">Загрузка: %1$s</string>
+    <string name="upload_notification_preparing">Подготовка загрузки…</string>
+    <string name="upload_notification_paused">Загрузка приостановлена</string>
+    <string name="upload_notification_waiting_network">Ожидание подключения к сети</string>
+    <string name="upload_notification_waiting_wifi">Ожидание Wi-Fi</string>
+    <string name="upload_notification_waiting_charger">Ожидание зарядки</string>
+    <string name="upload_notification_retrying">Соединение потеряно, скоро повтор</string>
+    <string name="upload_action_pause">Пауза</string>
+    <string name="upload_action_resume">Продолжить</string>
+    <string name="upload_action_cancel">Отмена</string>
+    <string name="upload_summary_title">Загрузка ROM завершена</string>
+    <string name="upload_summary_counts">Загружено: %1$d · Уже есть: %2$d · Ошибки: %3$d</string>
+</resources>
