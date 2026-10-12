@@ -323,7 +323,9 @@ object SettingsBackupKeys {
         SettingsBackupKey("upload_in_game_limit_kibps", SettingsBackupType.INT),
         SettingsBackupKey("upload_scan_after_upload", SettingsBackupType.BOOLEAN),
         SettingsBackupKey("upload_notify_on_completion", SettingsBackupType.BOOLEAN),
-        SettingsBackupKey("upload_remote_folder_mappings_json", SettingsBackupType.STRING)
+        SettingsBackupKey("upload_remote_folder_mappings_json", SettingsBackupType.STRING),
+        SettingsBackupKey("sftp_server_port", SettingsBackupType.INT),
+        SettingsBackupKey("sftp_server_writable", SettingsBackupType.BOOLEAN)
     )
 
     val EXPORTED: List<SettingsBackupKey> =

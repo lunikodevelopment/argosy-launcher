@@ -129,6 +129,7 @@ class SettingsViewModel @Inject constructor(
     val installerDelegate: com.nendo.argosy.ui.screens.settings.delegates.ManagedInstallerSettingsDelegate,
     val romUploadDelegate: com.nendo.argosy.ui.screens.settings.delegates.RomUploadSettingsDelegate,
     val romUploadImportDelegate: com.nendo.argosy.ui.screens.settings.delegates.RomUploadImportDelegate,
+    val sftpServerDelegate: com.nendo.argosy.ui.screens.settings.delegates.SftpServerSettingsDelegate,
     val soundsDelegate: SoundSettingsDelegate,
     val ambientAudioDelegate: AmbientAudioSettingsDelegate,
     val emulatorDelegate: EmulatorSettingsDelegate,
@@ -296,6 +297,7 @@ class SettingsViewModel @Inject constructor(
         installerDelegate.observeJobs(viewModelScope)
         romUploadDelegate.observe(viewModelScope)
         romUploadImportDelegate.observe(viewModelScope)
+        sftpServerDelegate.observe(viewModelScope)
 
         // TODO: Remove after testing manage=true Android/data access
         storageDelegate.testManagedStorageAccess(viewModelScope)

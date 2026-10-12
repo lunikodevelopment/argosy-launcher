@@ -1809,6 +1809,7 @@ data class SettingsUiState(
     val syncSettings: SyncSettingsState = SyncSettingsState(),
     val romUpload: RomUploadState = RomUploadState(),
     val romUploadImport: RomUploadImportState = RomUploadImportState(),
+    val sftpServer: SftpServerUiState = SftpServerUiState(),
     val steam: SteamSettingsState = SteamSettingsState(),
     val jellyfin: JellyfinState = JellyfinState(),
     val retroAchievements: RASettingsState = RASettingsState(),

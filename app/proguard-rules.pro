@@ -68,3 +68,9 @@
 -keep class discordpp.** { *; }
 -dontwarn com.discord.socialsdk.**
 -dontwarn discordpp.**
+
+# Embedded SFTP server
+-keep class org.apache.sshd.** { *; }
+-dontwarn org.apache.sshd.**
+-dontwarn org.slf4j.**
+-dontwarn net.i2p.crypto.eddsa.**

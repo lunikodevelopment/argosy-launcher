@@ -153,6 +153,25 @@ container chroots the user to its home directory). Mount the same host directory
   share `media`, library root `romm/library`. Leave the root empty when the share is the library.
 - Make sure the share user can create and rename files in the platform folders.
 
+## SFTP server on the handheld
+
+Settings > RomM > ROM uploads > SFTP server turns the handheld into an SFTP server, so a computer on the same
+Wi-Fi can copy ROMs to and from the ROM folder chosen under Storage.
+
+- Off by default and never persisted as "on": it runs only after you flip the switch, and stays off after the app
+  or the device restarts. A foreground notification shows the address and has a Stop action.
+- Port 2222 by default (2222, 2022, 8022 and 22222 are offered). Ports below 1024 need root on Android.
+- Login is user `argosy` with a random password shown in Connection details. New password replaces it and signs
+  connected computers out. The password is kept in the same encrypted store as the upload credentials.
+- Read-only unless Allow uploads is on. Peers outside private, link-local and loopback ranges are dropped, and a
+  connection gets three authentication attempts.
+- Changing the port, Allow uploads or the password while it runs restarts the server.
+- Only SFTP. There is no SMB server (port 445 needs root) and no email.
+
+Android caveats: the server is Apache MINA SSHD, which targets desktop Java. It is compiled into the app and its
+logic is unit tested on a JVM, but behaviour on Android (host key generation, file attributes, large transfers)
+has to be confirmed on a device. If the handheld sleeps the Wi-Fi radio can drop; keep the screen on while copying.
+
 ## Docker bind mounts and named volumes
 
 Argosy writes through the SSH or SMB server, so that server has to see the **same files** RomM reads.

@@ -9,4 +9,5 @@ object ServiceNotificationIds {
     const val STEAM = 0x6000
     const val UPLOAD = 0x7000
     const val UPLOAD_SUMMARY = 0x7001
+    const val SFTP_SERVER = 0x7100
 }

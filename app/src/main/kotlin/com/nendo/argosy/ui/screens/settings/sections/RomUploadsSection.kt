@@ -19,6 +19,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import com.nendo.argosy.R
+import com.nendo.argosy.data.sftpserver.SftpServerController
+import com.nendo.argosy.data.sftpserver.SftpServerFailure
+import com.nendo.argosy.ui.screens.settings.SftpServerUiState
 import com.nendo.argosy.ui.common.labelRes
 import com.nendo.argosy.ui.components.ActionPreference
 import com.nendo.argosy.ui.components.CyclePreference
@@ -51,6 +54,11 @@ internal sealed class RomUploadItem(val key: String, val section: String) {
     data object Bandwidth : RomUploadItem("bandwidth", SECTION_TRANSFERS)
     data object InGameLimit : RomUploadItem("inGameLimit", SECTION_TRANSFERS)
     data object NotifyOnCompletion : RomUploadItem("notifyOnCompletion", SECTION_TRANSFERS)
+    data object ServerToggle : RomUploadItem("serverToggle", SECTION_SERVER)
+    data object ServerPort : RomUploadItem("serverPort", SECTION_SERVER)
+    data object ServerWritable : RomUploadItem("serverWritable", SECTION_SERVER)
+    data object ServerDetails : RomUploadItem("serverDetails", SECTION_SERVER)
+    data object ServerRegenerate : RomUploadItem("serverRegenerate", SECTION_SERVER)
     data object ScanAfterUpload : RomUploadItem("scanAfterUpload", SECTION_SCAN)
     data object ScanToken : RomUploadItem("scanToken", SECTION_SCAN)
     data object RemoveScanToken : RomUploadItem("removeScanToken", SECTION_SCAN)
@@ -60,6 +68,7 @@ internal sealed class RomUploadItem(val key: String, val section: String) {
         const val SECTION_SERVERS = "servers"
         const val SECTION_TRANSFERS = "transfers"
         const val SECTION_SCAN = "scan"
+        const val SECTION_SERVER = "server"
     }
 }
 
@@ -68,7 +77,7 @@ internal fun buildRomUploadItems(state: RomUploadState): List<RomUploadItem> = b
     add(RomUploadItem.Queue)
     add(RomUploadItem.ImportLocal)
     add(RomUploadItem.ImportMissing)
-    add(RomUploadItem.Header("serversHeader", RomUploadItem.SECTION_SERVERS, R.string.upload_settings_section_servers))
+    add(RomUploadItem.Header("serversHeader", RomUploadItem.SECTION_SERVERS, R.string.sftp_settings_sections))
     state.profiles.forEach { add(RomUploadItem.Profile(it.id)) }
     add(RomUploadItem.AddProfile)
     add(RomUploadItem.Header("transfersHeader", RomUploadItem.SECTION_TRANSFERS, R.string.upload_settings_section_transfers))
@@ -83,6 +92,12 @@ internal fun buildRomUploadItems(state: RomUploadState): List<RomUploadItem> = b
     add(RomUploadItem.ScanAfterUpload)
     add(RomUploadItem.ScanToken)
     if (state.hasScanToken) add(RomUploadItem.RemoveScanToken)
+    add(RomUploadItem.Header("serverHeader", RomUploadItem.SECTION_SERVER, R.string.sftp_settings_section))
+    add(RomUploadItem.ServerToggle)
+    add(RomUploadItem.ServerPort)
+    add(RomUploadItem.ServerWritable)
+    add(RomUploadItem.ServerDetails)
+    add(RomUploadItem.ServerRegenerate)
 }
 
 private fun romUploadsLayout(state: RomUploadState) = SettingsLayout<RomUploadItem, Unit>(
@@ -93,9 +108,10 @@ private fun romUploadsLayout(state: RomUploadState) = SettingsLayout<RomUploadIt
     sectionTitleRes = {
         when (it) {
             RomUploadItem.SECTION_QUEUE -> R.string.upload_settings_section_queue
-            RomUploadItem.SECTION_SERVERS -> R.string.upload_settings_section_servers
+            RomUploadItem.SECTION_SERVERS -> R.string.sftp_settings_sections
             RomUploadItem.SECTION_TRANSFERS -> R.string.upload_settings_section_transfers
             RomUploadItem.SECTION_SCAN -> R.string.upload_settings_section_scan
+            RomUploadItem.SECTION_SERVER -> R.string.sftp_settings_section
             else -> null
         }
     }
@@ -115,6 +131,20 @@ internal fun speedLimitLabel(kibps: Int): String = when {
 }
 
 private const val KIB_PER_MIB = 1024
+
+@Composable
+private fun sftpDetailsText(server: SftpServerUiState): String = when {
+    server.failure == SftpServerFailure.NO_ROM_FOLDER -> stringResource(R.string.sftp_settings_error_no_rom_folder)
+    server.failure != null -> stringResource(R.string.sftp_settings_error_start_failed)
+    server.running -> stringResource(
+        R.string.sftp_settings_details_running,
+        server.address ?: stringResource(R.string.sftp_notification_no_address),
+        server.activePort,
+        SftpServerController.USERNAME,
+        server.password.orEmpty()
+    )
+    else -> stringResource(R.string.sftp_settings_details_stopped)
+}
 
 @Composable
 fun RomUploadsSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
@@ -137,6 +167,7 @@ fun RomUploadsSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
     }
 
     val settings = state.settings
+    val server = uiState.sftpServer
     SectionPaneLayout(
         items = items,
         sections = sections,
@@ -289,6 +320,43 @@ fun RomUploadsSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
                 } else {
                     stringResource(R.string.upload_settings_scan_token_missing)
                 },
+                isFocused = isFocused(item),
+                onClick = { activate(item) }
+            )
+            RomUploadItem.ServerToggle -> SwitchPreference(
+                title = stringResource(R.string.sftp_settings_toggle_title),
+                subtitle = stringResource(
+                    if (server.running) R.string.sftp_settings_toggle_on else R.string.sftp_settings_toggle_off
+                ),
+                isEnabled = server.running,
+                isFocused = isFocused(item),
+                onToggle = { activate(item) }
+            )
+            RomUploadItem.ServerPort -> CyclePreference(
+                title = stringResource(R.string.sftp_settings_port_title),
+                value = server.port.toString(),
+                isFocused = isFocused(item),
+                onClick = { cycle(item, 1) },
+                onPrev = { cycle(item, -1) }
+            )
+            RomUploadItem.ServerWritable -> SwitchPreference(
+                title = stringResource(R.string.sftp_settings_writable_title),
+                subtitle = stringResource(R.string.sftp_settings_writable_subtitle),
+                isEnabled = server.writable,
+                isFocused = isFocused(item),
+                onToggle = { activate(item) }
+            )
+            RomUploadItem.ServerDetails -> ActionPreference(
+                icon = Icons.Default.Dns,
+                title = stringResource(R.string.sftp_settings_details_title),
+                subtitle = sftpDetailsText(server),
+                isFocused = isFocused(item),
+                onClick = { activate(item) }
+            )
+            RomUploadItem.ServerRegenerate -> ActionPreference(
+                icon = Icons.Default.Key,
+                title = stringResource(R.string.sftp_settings_regenerate_title),
+                subtitle = stringResource(R.string.sftp_settings_regenerate_subtitle),
                 isFocused = isFocused(item),
                 onClick = { activate(item) }
             )

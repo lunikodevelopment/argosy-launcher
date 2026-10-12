@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sftp_channel_name">SFTP सर्वर</string>
+    <string name="sftp_notification_title">SFTP सर्वर चालू है</string>
+    <string name="sftp_notification_starting">शुरू हो रहा है…</string>
+    <string name="sftp_notification_no_address">कोई नेटवर्क पता नहीं</string>
+    <string name="sftp_notification_running">%1$s पोर्ट %2$d</string>
+    <string name="sftp_action_stop">रोकें</string>
+    <string name="sftp_settings_section">SFTP सर्वर</string>
+    <string name="sftp_settings_toggle_title">SFTP सर्वर चलाएँ</string>
+    <string name="sftp_settings_toggle_off">बंद। आपके Wi-Fi पर मौजूद कंप्यूटर को इस डिवाइस से और इस डिवाइस पर ROM कॉपी करने देता है</string>
+    <string name="sftp_settings_toggle_on">सूचना बनी रहने तक चालू। केवल लोकल नेटवर्क</string>
+    <string name="sftp_settings_port_title">सर्वर पोर्ट</string>
+    <string name="sftp_settings_writable_title">अपलोड की अनुमति दें</string>
+    <string name="sftp_settings_writable_subtitle">बंद होने पर कंप्यूटर केवल पढ़ और डाउनलोड कर सकते हैं</string>
+    <string name="sftp_settings_details_title">कनेक्शन विवरण</string>
+    <string name="sftp_settings_details_running">%3$s@%1$s पोर्ट %2$d, पासवर्ड %4$s</string>
+    <string name="sftp_settings_details_stopped">सर्वर चलने पर दिखाया जाता है</string>
+    <string name="sftp_settings_regenerate_title">नया पासवर्ड</string>
+    <string name="sftp_settings_regenerate_subtitle">पासवर्ड बदलता है और जुड़े हुए कंप्यूटर साइन आउट हो जाते हैं</string>
+    <string name="sftp_settings_error_no_rom_folder">पहले स्टोरेज में ROM फ़ोल्डर चुनें</string>
+    <string name="sftp_settings_error_start_failed">शुरू नहीं हो सका। पोर्ट पहले से उपयोग में हो सकता है</string>
+</resources>

@@ -144,6 +144,9 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/{LICENSE,LICENSE.txt,NOTICE,NOTICE.txt}"
+            pickFirsts += "META-INF/versions/*/module-info.class"
         }
     }
 
@@ -298,6 +301,8 @@ dependencies {
     // ROM uploads to a RomM library host over SFTP and SMB2/3
     implementation(libs.sshj)
     implementation(libs.smbj)
+    implementation(libs.apache.sshd.core)
+    implementation(libs.apache.sshd.sftp)
 
     // argosy-sigil — title id / serial extraction (replaces in-tree :libchdr +
     // Iso9660Utils + AesXts + ZArchiveReader + GameCubeHeaderParser.parseRomHeader)
@@ -323,8 +328,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation("net.java.dev.jna:jna:5.14.0")
     testImplementation("org.json:json:20240303")
-    testImplementation(libs.apache.sshd.core)
-    testImplementation(libs.apache.sshd.sftp)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

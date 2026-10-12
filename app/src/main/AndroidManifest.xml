@@ -188,6 +188,15 @@
         </service>
 
         <service
+            android:name=".data.sftpserver.SftpServerService"
+            android:foregroundServiceType="specialUse|dataSync"
+            android:exported="false">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="lan_sftp_server" />
+        </service>
+
+        <service
             android:name=".hardware.ScreenCaptureService"
             android:foregroundServiceType="mediaProjection"
             android:exported="false" />

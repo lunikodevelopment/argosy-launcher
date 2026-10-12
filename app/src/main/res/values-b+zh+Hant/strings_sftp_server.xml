@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sftp_channel_name">SFTP 伺服器</string>
+    <string name="sftp_notification_title">SFTP 伺服器已開啟</string>
+    <string name="sftp_notification_starting">正在啟動…</string>
+    <string name="sftp_notification_no_address">沒有網路位址</string>
+    <string name="sftp_notification_running">%1$s 連接埠 %2$d</string>
+    <string name="sftp_action_stop">停止</string>
+    <string name="sftp_settings_section">SFTP 伺服器</string>
+    <string name="sftp_settings_toggle_title">執行 SFTP 伺服器</string>
+    <string name="sftp_settings_toggle_off">已關閉。允許同一 Wi-Fi 下的電腦向本裝置複製 ROM 或從本裝置複製 ROM</string>
+    <string name="sftp_settings_toggle_on">通知存在期間保持開啟。僅限本機網路</string>
+    <string name="sftp_settings_port_title">伺服器連接埠</string>
+    <string name="sftp_settings_writable_title">允許上傳</string>
+    <string name="sftp_settings_writable_subtitle">關閉時電腦只能讀取和下載</string>
+    <string name="sftp_settings_details_title">連線資訊</string>
+    <string name="sftp_settings_details_running">%3$s@%1$s 連接埠 %2$d，密碼 %4$s</string>
+    <string name="sftp_settings_details_stopped">伺服器執行時顯示</string>
+    <string name="sftp_settings_regenerate_title">新密碼</string>
+    <string name="sftp_settings_regenerate_subtitle">取代密碼並讓已連線的電腦登出</string>
+    <string name="sftp_settings_error_no_rom_folder">請先在儲存空間中選擇 ROM 資料夾</string>
+    <string name="sftp_settings_error_start_failed">無法啟動。連接埠可能已被占用</string>
+</resources>

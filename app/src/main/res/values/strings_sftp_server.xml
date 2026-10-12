@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Owner: optional on-device SFTP server (data/sftpserver)
+      Key prefix: sftp_
+      Keys are named for the usage site, never for the English text.
+    -->
+    <string name="sftp_channel_name">SFTP server</string>
+    <string name="sftp_notification_title">SFTP server on</string>
+    <string name="sftp_notification_starting">Starting…</string>
+    <string name="sftp_notification_no_address">no network address</string>
+    <!-- %1$s is the device address, %2$d the port. -->
+    <string name="sftp_notification_running">%1$s port %2$d</string>
+    <string name="sftp_action_stop">Stop</string>
+    <string name="sftp_settings_section">SFTP server</string>
+    <string name="sftp_settings_toggle_title">Run SFTP server</string>
+    <string name="sftp_settings_toggle_off">Off. Lets a computer on your Wi-Fi copy ROMs to and from this device</string>
+    <string name="sftp_settings_toggle_on">On while the notification stays. Local network only</string>
+    <string name="sftp_settings_port_title">Server port</string>
+    <string name="sftp_settings_writable_title">Allow uploads</string>
+    <string name="sftp_settings_writable_subtitle">Off means computers can only read and download</string>
+    <string name="sftp_settings_details_title">Connection details</string>
+    <!-- %1$s address, %2$d port, %3$s user name, %4$s password. -->
+    <string name="sftp_settings_details_running">%3$s@%1$s port %2$d, password %4$s</string>
+    <string name="sftp_settings_details_stopped">Shown while the server runs</string>
+    <string name="sftp_settings_regenerate_title">New password</string>
+    <string name="sftp_settings_regenerate_subtitle">Replaces the password and signs connected computers out</string>
+    <string name="sftp_settings_error_no_rom_folder">Choose a ROM folder in Storage first</string>
+    <string name="sftp_settings_error_start_failed">Could not start. The port may already be in use</string>
+</resources>

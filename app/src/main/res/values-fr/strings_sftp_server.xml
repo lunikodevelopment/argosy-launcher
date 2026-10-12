@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sftp_channel_name">Serveur SFTP</string>
+    <string name="sftp_notification_title">Serveur SFTP actif</string>
+    <string name="sftp_notification_starting">Démarrage…</string>
+    <string name="sftp_notification_no_address">aucune adresse réseau</string>
+    <string name="sftp_notification_running">%1$s port %2$d</string>
+    <string name="sftp_action_stop">Arrêter</string>
+    <string name="sftp_settings_section">Serveur SFTP</string>
+    <string name="sftp_settings_toggle_title">Lancer le serveur SFTP</string>
+    <string name="sftp_settings_toggle_off">Désactivé. Permet à un ordinateur de votre Wi-Fi de copier des ROM depuis et vers cet appareil</string>
+    <string name="sftp_settings_toggle_on">Actif tant que la notification reste affichée. Réseau local uniquement</string>
+    <string name="sftp_settings_port_title">Port du serveur</string>
+    <string name="sftp_settings_writable_title">Autoriser les envois</string>
+    <string name="sftp_settings_writable_subtitle">Désactivé : les ordinateurs peuvent seulement lire et télécharger</string>
+    <string name="sftp_settings_details_title">Informations de connexion</string>
+    <string name="sftp_settings_details_running">%3$s@%1$s port %2$d, mot de passe %4$s</string>
+    <string name="sftp_settings_details_stopped">Affichées tant que le serveur fonctionne</string>
+    <string name="sftp_settings_regenerate_title">Nouveau mot de passe</string>
+    <string name="sftp_settings_regenerate_subtitle">Remplace le mot de passe et déconnecte les ordinateurs connectés</string>
+    <string name="sftp_settings_error_no_rom_folder">Choisissez d\'abord un dossier de ROM dans Stockage</string>
+    <string name="sftp_settings_error_start_failed">Démarrage impossible. Le port est peut-être déjà utilisé</string>
+</resources>

@@ -42,11 +42,17 @@ data class UploadPreferences(
     val profiles: List<UploadProfile> = emptyList(),
     val defaultProfileId: String? = null,
     val localFolderMappings: Map<String, String> = emptyMap(),
-    val remoteFolderMappings: Map<String, String> = emptyMap()
+    val remoteFolderMappings: Map<String, String> = emptyMap(),
+    val sftpServerPort: Int = DEFAULT_SFTP_SERVER_PORT,
+    val sftpServerWritable: Boolean = false
 ) {
     val defaultProfile: UploadProfile?
         get() = profiles.firstOrNull { it.id == defaultProfileId } ?: profiles.firstOrNull()
 }
+
+const val DEFAULT_SFTP_SERVER_PORT = 2222
+const val MIN_SFTP_SERVER_PORT = 1024
+private const val MAX_PORT = 65535
 
 @Singleton
 class UploadPreferencesRepository @Inject constructor(
@@ -66,6 +72,8 @@ class UploadPreferencesRepository @Inject constructor(
         val DEFAULT_PROFILE = stringPreferencesKey("upload_default_profile")
         val LOCAL_FOLDER_MAPPINGS = stringPreferencesKey("upload_local_folder_mappings_json")
         val REMOTE_FOLDER_MAPPINGS = stringPreferencesKey("upload_remote_folder_mappings_json")
+        val SFTP_SERVER_PORT = intPreferencesKey("sftp_server_port")
+        val SFTP_SERVER_WRITABLE = booleanPreferencesKey("sftp_server_writable")
     }
 
     private val profilesAdapter = moshi.adapter<List<UploadProfileRecord>>(
@@ -92,7 +100,9 @@ class UploadPreferencesRepository @Inject constructor(
             profiles = decodeProfiles(prefs[Keys.PROFILES]),
             defaultProfileId = prefs[Keys.DEFAULT_PROFILE],
             localFolderMappings = decodeMap(prefs[Keys.LOCAL_FOLDER_MAPPINGS]),
-            remoteFolderMappings = decodeMap(prefs[Keys.REMOTE_FOLDER_MAPPINGS])
+            remoteFolderMappings = decodeMap(prefs[Keys.REMOTE_FOLDER_MAPPINGS]),
+            sftpServerPort = (prefs[Keys.SFTP_SERVER_PORT] ?: DEFAULT_SFTP_SERVER_PORT).coerceIn(MIN_SFTP_SERVER_PORT, MAX_PORT),
+            sftpServerWritable = prefs[Keys.SFTP_SERVER_WRITABLE] ?: false
         )
     }
 
@@ -128,6 +138,14 @@ class UploadPreferencesRepository @Inject constructor(
 
     suspend fun setNotifyOnCompletion(enabled: Boolean) {
         dataStore.edit { it[Keys.NOTIFY_ON_COMPLETION] = enabled }
+    }
+
+    suspend fun setSftpServerPort(port: Int) {
+        dataStore.edit { it[Keys.SFTP_SERVER_PORT] = port.coerceIn(MIN_SFTP_SERVER_PORT, MAX_PORT) }
+    }
+
+    suspend fun setSftpServerWritable(enabled: Boolean) {
+        dataStore.edit { it[Keys.SFTP_SERVER_WRITABLE] = enabled }
     }
 
     suspend fun saveProfile(profile: UploadProfile) {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sftp_channel_name">SFTP-Server</string>
+    <string name="sftp_notification_title">SFTP-Server aktiv</string>
+    <string name="sftp_notification_starting">Wird gestartet…</string>
+    <string name="sftp_notification_no_address">keine Netzwerkadresse</string>
+    <string name="sftp_notification_running">%1$s Port %2$d</string>
+    <string name="sftp_action_stop">Stoppen</string>
+    <string name="sftp_settings_section">SFTP-Server</string>
+    <string name="sftp_settings_toggle_title">SFTP-Server ausführen</string>
+    <string name="sftp_settings_toggle_off">Aus. Erlaubt einem Computer im WLAN, ROMs von und auf dieses Gerät zu kopieren</string>
+    <string name="sftp_settings_toggle_on">Läuft, solange die Benachrichtigung besteht. Nur im lokalen Netzwerk</string>
+    <string name="sftp_settings_port_title">Server-Port</string>
+    <string name="sftp_settings_writable_title">Uploads erlauben</string>
+    <string name="sftp_settings_writable_subtitle">Aus bedeutet: Computer können nur lesen und herunterladen</string>
+    <string name="sftp_settings_details_title">Verbindungsdaten</string>
+    <string name="sftp_settings_details_running">%3$s@%1$s Port %2$d, Passwort %4$s</string>
+    <string name="sftp_settings_details_stopped">Wird angezeigt, solange der Server läuft</string>
+    <string name="sftp_settings_regenerate_title">Neues Passwort</string>
+    <string name="sftp_settings_regenerate_subtitle">Ersetzt das Passwort und meldet verbundene Computer ab</string>
+    <string name="sftp_settings_error_no_rom_folder">Wähle zuerst im Speicher einen ROM-Ordner</string>
+    <string name="sftp_settings_error_start_failed">Start fehlgeschlagen. Der Port wird möglicherweise bereits verwendet</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sftp_channel_name">SFTP-сервер</string>
+    <string name="sftp_notification_title">SFTP-сервер включён</string>
+    <string name="sftp_notification_starting">Запуск…</string>
+    <string name="sftp_notification_no_address">нет сетевого адреса</string>
+    <string name="sftp_notification_running">%1$s порт %2$d</string>
+    <string name="sftp_action_stop">Остановить</string>
+    <string name="sftp_settings_section">SFTP-сервер</string>
+    <string name="sftp_settings_toggle_title">Запустить SFTP-сервер</string>
+    <string name="sftp_settings_toggle_off">Выключено. Позволяет компьютеру в вашей сети Wi-Fi копировать ROM на это устройство и с него</string>
+    <string name="sftp_settings_toggle_on">Работает, пока есть уведомление. Только локальная сеть</string>
+    <string name="sftp_settings_port_title">Порт сервера</string>
+    <string name="sftp_settings_writable_title">Разрешить загрузку</string>
+    <string name="sftp_settings_writable_subtitle">Если выключено, компьютеры могут только читать и скачивать</string>
+    <string name="sftp_settings_details_title">Данные для подключения</string>
+    <string name="sftp_settings_details_running">%3$s@%1$s порт %2$d, пароль %4$s</string>
+    <string name="sftp_settings_details_stopped">Показываются, пока сервер работает</string>
+    <string name="sftp_settings_regenerate_title">Новый пароль</string>
+    <string name="sftp_settings_regenerate_subtitle">Заменяет пароль и отключает подключённые компьютеры</string>
+    <string name="sftp_settings_error_no_rom_folder">Сначала выберите папку ROM в разделе «Хранилище»</string>
+    <string name="sftp_settings_error_start_failed">Не удалось запустить. Возможно, порт уже занят</string>
+</resources>

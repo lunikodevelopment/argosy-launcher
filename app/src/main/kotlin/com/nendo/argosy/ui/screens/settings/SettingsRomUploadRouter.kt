@@ -53,6 +53,17 @@ internal fun routeRomUploadsActivate(vm: SettingsViewModel, item: RomUploadItem)
         RomUploadItem.ChargingOnly -> toggled { delegate.toggleChargingOnly(scope) }
         RomUploadItem.NotifyOnCompletion -> toggled { delegate.toggleNotifyOnCompletion(scope) }
         RomUploadItem.ScanAfterUpload -> toggled { delegate.toggleScanAfterUpload(scope) }
+        RomUploadItem.ServerToggle -> toggled { vm.sftpServerDelegate.toggleServer() }
+        RomUploadItem.ServerWritable -> toggled { vm.sftpServerDelegate.toggleWritable(scope) }
+        RomUploadItem.ServerPort -> {
+            routeRomUploadsCycle(vm, item, 1)
+            InputResult.handled(SoundType.TOGGLE)
+        }
+        RomUploadItem.ServerDetails -> InputResult.handled(SoundType.BOUNDARY)
+        RomUploadItem.ServerRegenerate -> {
+            vm.sftpServerDelegate.regeneratePassword(scope)
+            InputResult.handled(SoundType.SELECT)
+        }
         RomUploadItem.ScanToken -> {
             delegate.openTextEntry(RomUploadTextField.SCAN_TOKEN)
             InputResult.handled(SoundType.OPEN_MODAL)
@@ -76,6 +87,9 @@ internal fun routeRomUploadsCycle(vm: SettingsViewModel, item: RomUploadItem, di
         RomUploadItem.ChargingOnly -> delegate.toggleChargingOnly(scope)
         RomUploadItem.NotifyOnCompletion -> delegate.toggleNotifyOnCompletion(scope)
         RomUploadItem.ScanAfterUpload -> delegate.toggleScanAfterUpload(scope)
+        RomUploadItem.ServerToggle -> vm.sftpServerDelegate.toggleServer()
+        RomUploadItem.ServerWritable -> vm.sftpServerDelegate.toggleWritable(scope)
+        RomUploadItem.ServerPort -> vm.sftpServerDelegate.cyclePort(scope, direction)
         else -> return false
     }
     return true
