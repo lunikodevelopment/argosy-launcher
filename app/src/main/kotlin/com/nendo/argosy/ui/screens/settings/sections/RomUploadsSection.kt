@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.Dns
+import androidx.compose.material.icons.filled.FolderOpen
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.LinkOff
 import androidx.compose.runtime.Composable
@@ -39,6 +40,7 @@ internal sealed class RomUploadItem(val key: String, val section: String) {
     class Header(key: String, section: String, val titleRes: Int) : RomUploadItem(key, section)
 
     data object Queue : RomUploadItem("queue", SECTION_QUEUE)
+    data object ImportLocal : RomUploadItem("importLocal", SECTION_QUEUE)
     data class Profile(val profileId: String) : RomUploadItem("profile-$profileId", SECTION_SERVERS)
     data object AddProfile : RomUploadItem("addProfile", SECTION_SERVERS)
     data object DuplicatePolicy : RomUploadItem("duplicatePolicy", SECTION_TRANSFERS)
@@ -63,6 +65,7 @@ internal sealed class RomUploadItem(val key: String, val section: String) {
 internal fun buildRomUploadItems(state: RomUploadState): List<RomUploadItem> = buildList {
     add(RomUploadItem.Header("queueHeader", RomUploadItem.SECTION_QUEUE, R.string.upload_settings_section_queue))
     add(RomUploadItem.Queue)
+    add(RomUploadItem.ImportLocal)
     add(RomUploadItem.Header("serversHeader", RomUploadItem.SECTION_SERVERS, R.string.upload_settings_section_servers))
     state.profiles.forEach { add(RomUploadItem.Profile(it.id)) }
     add(RomUploadItem.AddProfile)
@@ -160,6 +163,20 @@ fun RomUploadsSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
                     stringResource(R.string.upload_settings_queue_idle)
                 },
                 isFocused = isFocused(item),
+                onClick = { activate(item) }
+            )
+            RomUploadItem.ImportLocal -> ActionPreference(
+                icon = Icons.Default.FolderOpen,
+                title = stringResource(R.string.upload_settings_import_title),
+                subtitle = stringResource(
+                    if (state.profiles.isEmpty()) {
+                        R.string.upload_settings_import_needs_server
+                    } else {
+                        R.string.upload_settings_import_subtitle
+                    }
+                ),
+                isFocused = isFocused(item),
+                isEnabled = state.profiles.isNotEmpty(),
                 onClick = { activate(item) }
             )
             is RomUploadItem.Profile -> {
@@ -271,4 +288,5 @@ fun RomUploadsSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
     }
 
     RomUploadTextEntryModal(state, viewModel)
+    RomUploadImportModal(uiState.romUploadImport, viewModel.romUploadImportDelegate)
 }

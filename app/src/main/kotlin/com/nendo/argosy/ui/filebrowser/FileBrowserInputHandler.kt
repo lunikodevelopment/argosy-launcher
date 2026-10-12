@@ -48,11 +48,25 @@ class FileBrowserInputHandler(
     }
 
     override fun onContextMenu(): InputResult {
+        if (viewModel.state.value.isMultiSelect) {
+            return if (viewModel.finishMultiSelection()) {
+                InputResult.handled(SoundType.SELECT)
+            } else {
+                InputResult.handled(SoundType.BOUNDARY)
+            }
+        }
         onUseCurrentFolder()
         return InputResult.HANDLED
     }
 
     override fun onSecondaryAction(): InputResult {
+        if (viewModel.state.value.isMultiSelect) {
+            return if (viewModel.toggleFocusedSelection()) {
+                InputResult.handled(SoundType.TOGGLE)
+            } else {
+                InputResult.handled(SoundType.BOUNDARY)
+            }
+        }
         viewModel.showCreateFolderDialog()
         return InputResult.HANDLED
     }

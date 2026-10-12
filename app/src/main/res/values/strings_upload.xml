@@ -237,4 +237,39 @@ Only trust it if the server was reinstalled or its keys were regenerated.</strin
     <string name="upload_queue_hold_offline">Waiting for a network connection</string>
     <string name="upload_queue_hold_wifi">Waiting for Wi-Fi, as set in ROM uploads</string>
     <string name="upload_queue_hold_charger">Waiting for the charger, as set in ROM uploads</string>
+
+    <!-- Import local ROMs -->
+    <string name="upload_settings_import_title">Import local ROMs to RomM</string>
+    <string name="upload_settings_import_subtitle">Pick files or folders on this device to upload</string>
+    <string name="upload_settings_import_needs_server">Add a server first</string>
+    <string name="upload_import_browser_title">Choose ROMs to upload</string>
+    <string name="upload_import_title">Import to RomM</string>
+    <string name="upload_import_include_uncertain">Include uncertain platforms</string>
+    <string name="upload_import_include_uncertain_subtitle">Guessed only from the file extension</string>
+    <string name="upload_import_yes">Yes</string>
+    <string name="upload_import_no">No</string>
+    <string name="upload_import_nothing_found">No ROMs found in the selection.</string>
+    <!-- %1$d is the game count, %2$s the server name. -->
+    <string name="upload_import_overwrite_message">Existing copies of %1$d games on %2$s will be replaced. This can\'t be undone.</string>
+    <plurals name="upload_import_start">
+        <item quantity="one">Upload %d game</item>
+        <item quantity="other">Upload %d games</item>
+    </plurals>
+    <!-- %1$d is the game count, %2$s the total size such as 4.2 GB. -->
+    <plurals name="upload_import_ready">
+        <item quantity="one">%1$d game ready (%2$s)</item>
+        <item quantity="other">%1$d games ready (%2$s)</item>
+    </plurals>
+    <plurals name="upload_import_uncertain">
+        <item quantity="one">%d more game has an uncertain platform</item>
+        <item quantity="other">%d more games have an uncertain platform</item>
+    </plurals>
+    <plurals name="upload_import_unplaceable">
+        <item quantity="one">%d game has no RomM folder and will be skipped</item>
+        <item quantity="other">%d games have no RomM folder and will be skipped</item>
+    </plurals>
+    <plurals name="upload_import_unreadable">
+        <item quantity="one">%d selected item couldn\'t be read</item>
+        <item quantity="other">%d selected items couldn\'t be read</item>
+    </plurals>
 </resources>

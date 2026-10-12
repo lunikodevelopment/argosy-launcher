@@ -1261,6 +1261,16 @@ fun SettingsScreen(
         )
     }
 
+    if (uiState.romUploadImport.browserOpen) {
+        FileBrowserScreen(
+            mode = FileBrowserMode.MULTI_SELECTION,
+            title = stringResource(R.string.upload_import_browser_title),
+            onPathSelected = {},
+            onPathsSelected = { paths -> viewModel.romUploadImportDelegate.onPathsSelected(paths) },
+            onDismiss = { viewModel.romUploadImportDelegate.closeBrowser() }
+        )
+    }
+
     if (uiState.romUpload.keyFileBrowserOpen) {
         FileBrowserScreen(
             mode = FileBrowserMode.FILE_SELECTION,

@@ -193,4 +193,45 @@
     <string name="upload_queue_hold_offline">Ожидание подключения к сети</string>
     <string name="upload_queue_hold_wifi">Ожидание Wi-Fi, как задано в настройках загрузки</string>
     <string name="upload_queue_hold_charger">Ожидание зарядки, как задано в настройках загрузки</string>
+    <string name="upload_settings_import_title">Импорт локальных ROM в RomM</string>
+    <string name="upload_settings_import_subtitle">Выберите файлы или папки на этом устройстве для загрузки</string>
+    <string name="upload_settings_import_needs_server">Сначала добавьте сервер</string>
+    <string name="upload_import_browser_title">Выберите ROM для загрузки</string>
+    <string name="upload_import_title">Импорт в RomM</string>
+    <string name="upload_import_include_uncertain">Включать неточные платформы</string>
+    <string name="upload_import_include_uncertain_subtitle">Определены только по расширению файла</string>
+    <string name="upload_import_yes">Да</string>
+    <string name="upload_import_no">Нет</string>
+    <string name="upload_import_nothing_found">В выбранном ROM не найдены.</string>
+    <string name="upload_import_overwrite_message">Существующие копии игр (%1$d) на %2$s будут заменены. Это нельзя отменить.</string>
+    <plurals name="upload_import_start">
+        <item quantity="one">Загрузить %d игру</item>
+        <item quantity="few">Загрузить %d игры</item>
+        <item quantity="many">Загрузить %d игр</item>
+        <item quantity="other">Загрузить %d игры</item>
+    </plurals>
+    <plurals name="upload_import_ready">
+        <item quantity="one">%1$d игра готова (%2$s)</item>
+        <item quantity="few">%1$d игры готовы (%2$s)</item>
+        <item quantity="many">%1$d игр готово (%2$s)</item>
+        <item quantity="other">%1$d игры готовы (%2$s)</item>
+    </plurals>
+    <plurals name="upload_import_uncertain">
+        <item quantity="one">Ещё у %d игры платформа не определена точно</item>
+        <item quantity="few">Ещё у %d игр платформа не определена точно</item>
+        <item quantity="many">Ещё у %d игр платформа не определена точно</item>
+        <item quantity="other">Ещё у %d игр платформа не определена точно</item>
+    </plurals>
+    <plurals name="upload_import_unplaceable">
+        <item quantity="one">У %d игры нет папки в RomM, она будет пропущена</item>
+        <item quantity="few">У %d игр нет папки в RomM, они будут пропущены</item>
+        <item quantity="many">У %d игр нет папки в RomM, они будут пропущены</item>
+        <item quantity="other">У %d игр нет папки в RomM, они будут пропущены</item>
+    </plurals>
+    <plurals name="upload_import_unreadable">
+        <item quantity="one">Не удалось прочитать %d выбранный элемент</item>
+        <item quantity="few">Не удалось прочитать %d выбранных элемента</item>
+        <item quantity="many">Не удалось прочитать %d выбранных элементов</item>
+        <item quantity="other">Не удалось прочитать %d выбранных элемента</item>
+    </plurals>
 </resources>

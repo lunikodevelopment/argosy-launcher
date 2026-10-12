@@ -21,7 +21,8 @@ enum class FocusedPane {
 enum class FileBrowserMode {
     FOLDER_SELECTION,
     FILE_SELECTION,
-    FILE_OR_FOLDER_SELECTION
+    FILE_OR_FOLDER_SELECTION,
+    MULTI_SELECTION
 }
 
 data class FileFilter(
@@ -63,6 +64,9 @@ data class FileBrowserState(
     val hasPermission: Boolean = true,
     val showCreateFolderDialog: Boolean = false,
     val newFolderName: String = "",
-    @StringRes val createFolderErrorRes: Int? = null
-)
+    @StringRes val createFolderErrorRes: Int? = null,
+    val selectedPaths: Set<String> = emptySet()
+) {
+    val isMultiSelect: Boolean get() = mode == FileBrowserMode.MULTI_SELECTION
+}
 

@@ -54,6 +54,7 @@ internal class ModalInputRouter(private val viewModel: SettingsViewModel) {
         interceptRomUploadHostKeyPrompt(state, method)?.let { return it }
         interceptRomUploadDeleteConfirm(state, method)?.let { return it }
         interceptRomUploadJobMenu(state, method)?.let { return it }
+        interceptRomUploadImport(state, method)?.let { return it }
 
         return null
     }
@@ -151,6 +152,36 @@ internal class ModalInputRouter(private val viewModel: SettingsViewModel) {
             InputMethod.CONFIRM -> { viewModel.confirmRomUploadDeleteFocus(); InputResult.HANDLED }
             InputMethod.BACK -> {
                 delegate.dismissDelete()
+                InputResult.handled(SoundType.CLOSE_MODAL)
+            }
+            else -> InputResult.HANDLED
+        }
+    }
+
+    private fun interceptRomUploadImport(state: SettingsUiState, method: InputMethod): InputResult? {
+        val import = state.romUploadImport
+        if (!import.visible) return null
+        val delegate = viewModel.romUploadImportDelegate
+        val confirming = import.overwriteConfirmFocus != null
+        return when (method) {
+            InputMethod.UP -> { if (!confirming) delegate.moveFocus(-1); InputResult.HANDLED }
+            InputMethod.DOWN -> { if (!confirming) delegate.moveFocus(1); InputResult.HANDLED }
+            InputMethod.LEFT, InputMethod.RIGHT -> {
+                val direction = if (method == InputMethod.LEFT) -1 else 1
+                when {
+                    confirming -> { delegate.moveOverwriteFocus(direction); InputResult.HANDLED }
+                    delegate.cycleFocused(direction) -> InputResult.handled(SoundType.TOGGLE)
+                    else -> InputResult.handled(SoundType.BOUNDARY)
+                }
+            }
+            InputMethod.CONFIRM -> if (confirming) {
+                delegate.confirmOverwriteFocus()
+                InputResult.handled(SoundType.SELECT)
+            } else {
+                InputResult.handled(delegate.confirmFocused())
+            }
+            InputMethod.BACK -> {
+                if (confirming) delegate.dismissOverwrite() else delegate.dismiss()
                 InputResult.handled(SoundType.CLOSE_MODAL)
             }
             else -> InputResult.HANDLED

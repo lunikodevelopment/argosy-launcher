@@ -191,4 +191,35 @@
     <string name="upload_queue_hold_offline">नेटवर्क कनेक्शन की प्रतीक्षा</string>
     <string name="upload_queue_hold_wifi">ROM अपलोड सेटिंग के अनुसार Wi-Fi की प्रतीक्षा</string>
     <string name="upload_queue_hold_charger">ROM अपलोड सेटिंग के अनुसार चार्जर की प्रतीक्षा</string>
+    <string name="upload_settings_import_title">स्थानीय ROM को RomM में आयात करें</string>
+    <string name="upload_settings_import_subtitle">अपलोड करने के लिए इस डिवाइस की फ़ाइलें या फ़ोल्डर चुनें</string>
+    <string name="upload_settings_import_needs_server">पहले एक सर्वर जोड़ें</string>
+    <string name="upload_import_browser_title">अपलोड करने के लिए ROM चुनें</string>
+    <string name="upload_import_title">RomM में आयात करें</string>
+    <string name="upload_import_include_uncertain">अनिश्चित प्लेटफ़ॉर्म शामिल करें</string>
+    <string name="upload_import_include_uncertain_subtitle">केवल फ़ाइल एक्सटेंशन से अनुमानित</string>
+    <string name="upload_import_yes">हाँ</string>
+    <string name="upload_import_no">नहीं</string>
+    <string name="upload_import_nothing_found">चयन में कोई ROM नहीं मिला।</string>
+    <string name="upload_import_overwrite_message">%2$s पर %1$d गेम की मौजूदा प्रतियाँ बदल दी जाएँगी। इसे पूर्ववत नहीं किया जा सकता।</string>
+    <plurals name="upload_import_start">
+        <item quantity="one">%d गेम अपलोड करें</item>
+        <item quantity="other">%d गेम अपलोड करें</item>
+    </plurals>
+    <plurals name="upload_import_ready">
+        <item quantity="one">%1$d गेम तैयार (%2$s)</item>
+        <item quantity="other">%1$d गेम तैयार (%2$s)</item>
+    </plurals>
+    <plurals name="upload_import_uncertain">
+        <item quantity="one">%d और गेम का प्लेटफ़ॉर्म अनिश्चित है</item>
+        <item quantity="other">%d और गेम का प्लेटफ़ॉर्म अनिश्चित है</item>
+    </plurals>
+    <plurals name="upload_import_unplaceable">
+        <item quantity="one">%d गेम का RomM फ़ोल्डर नहीं है और उसे छोड़ दिया जाएगा</item>
+        <item quantity="other">%d गेम का RomM फ़ोल्डर नहीं है और उन्हें छोड़ दिया जाएगा</item>
+    </plurals>
+    <plurals name="upload_import_unreadable">
+        <item quantity="one">चुने गए %d आइटम को पढ़ा नहीं जा सका</item>
+        <item quantity="other">चुने गए %d आइटम को पढ़ा नहीं जा सका</item>
+    </plurals>
 </resources>

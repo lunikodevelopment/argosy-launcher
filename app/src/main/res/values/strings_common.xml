@@ -1592,6 +1592,12 @@
     <string name="ui_file_browser_footer_new_folder">New Folder</string>
     <!-- Footer hint in the browser. Verb phrase: takes the folder currently open. -->
     <string name="ui_file_browser_footer_use_folder">Use Folder</string>
+    <string name="ui_file_browser_title_multi">Select Files and Folders</string>
+    <string name="ui_file_browser_select_toggle">Select or deselect</string>
+    <string name="ui_file_browser_footer_open_or_select">Open or Select</string>
+    <string name="ui_file_browser_footer_toggle_select">Select</string>
+    <!-- %1$d is how many files and folders are selected. -->
+    <string name="ui_file_browser_footer_done_count">Done (%1$d)</string>
     <!-- Heading of the modal that makes a folder. Noun phrase. -->
     <string name="ui_file_browser_new_folder_title">New Folder</string>
     <!-- Label of that modal's text field. Noun phrase naming what to type. -->

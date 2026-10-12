@@ -774,6 +774,11 @@
     <string name="ui_file_browser_footer_back">Назад</string>
     <string name="ui_file_browser_footer_new_folder">Новая папка</string>
     <string name="ui_file_browser_footer_use_folder">Использовать папку</string>
+    <string name="ui_file_browser_title_multi">Выбор файлов и папок</string>
+    <string name="ui_file_browser_select_toggle">Выбрать или снять выбор</string>
+    <string name="ui_file_browser_footer_open_or_select">Открыть или выбрать</string>
+    <string name="ui_file_browser_footer_toggle_select">Выбрать</string>
+    <string name="ui_file_browser_footer_done_count">Готово (%1$d)</string>
     <string name="ui_file_browser_new_folder_title">Новая папка</string>
     <string name="ui_file_browser_new_folder_field_label">Имя папки</string>
     <string name="ui_file_browser_new_folder_cancel">Отмена</string>

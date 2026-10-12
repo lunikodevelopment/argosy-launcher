@@ -31,6 +31,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.CheckBox
+import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
@@ -94,6 +96,7 @@ fun FileBrowserScreen(
     fileFilter: FileFilter? = null,
     onPathSelected: (String) -> Unit,
     onDismiss: () -> Unit,
+    onPathsSelected: (List<String>) -> Unit = {},
     viewModel: FileBrowserViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -143,6 +146,11 @@ fun FileBrowserScreen(
         }
     }
 
+    val currentOnPathsSelected by rememberUpdatedState(onPathsSelected)
+    LaunchedEffect(Unit) {
+        viewModel.resultPaths.collect { paths -> currentOnPathsSelected(paths) }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -158,6 +166,8 @@ fun FileBrowserScreen(
                         stringResource(R.string.ui_file_browser_title_file)
                     FileBrowserMode.FILE_OR_FOLDER_SELECTION ->
                         stringResource(R.string.ui_file_browser_title_file_or_folder)
+                    FileBrowserMode.MULTI_SELECTION ->
+                        stringResource(R.string.ui_file_browser_title_multi)
                 }
             )
 
@@ -205,12 +215,16 @@ fun FileBrowserScreen(
                             isFocused = state.focusedPane == FocusedPane.FILES,
                             isLoading = state.isLoading,
                             errorRes = state.errorRes,
+                            selectedPaths = if (state.isMultiSelect) state.selectedPaths else null,
+                            onToggleSelect = { viewModel.toggleSelection(it) },
                             onEntryClick = { entry ->
                                 if (entry.isDirectory) {
                                     viewModel.navigate(entry.path)
                                 } else if (mode == FileBrowserMode.FILE_SELECTION ||
                                            mode == FileBrowserMode.FILE_OR_FOLDER_SELECTION) {
                                     onPathSelected(entry.path)
+                                } else if (state.isMultiSelect) {
+                                    viewModel.toggleSelection(entry)
                                 }
                             },
                             modifier = Modifier.weight(1f)
@@ -218,14 +232,24 @@ fun FileBrowserScreen(
                     }
                 }
 
-                FileBrowserFooter(
-                    mode = mode,
-                    currentPath = state.currentPath,
-                    onOpenFocused = { viewModel.confirmFocusedItem() },
-                    onUseCurrentFolder = useCurrentFolder,
-                    onNewFolder = { viewModel.showCreateFolderDialog() },
-                    onCancel = onDismiss
-                )
+                if (state.isMultiSelect) {
+                    MultiSelectFooter(
+                        selectedCount = state.selectedPaths.size,
+                        onOpenFocused = { viewModel.confirmFocusedItem() },
+                        onToggleFocused = { viewModel.toggleFocusedSelection() },
+                        onDone = { viewModel.finishMultiSelection() },
+                        onCancel = onDismiss
+                    )
+                } else {
+                    FileBrowserFooter(
+                        mode = mode,
+                        currentPath = state.currentPath,
+                        onOpenFocused = { viewModel.confirmFocusedItem() },
+                        onUseCurrentFolder = useCurrentFolder,
+                        onNewFolder = { viewModel.showCreateFolderDialog() },
+                        onCancel = onDismiss
+                    )
+                }
             }
         }
 
@@ -488,7 +512,9 @@ private fun FilePane(
     isLoading: Boolean,
     @StringRes errorRes: Int?,
     onEntryClick: (FileEntry) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    selectedPaths: Set<String>? = null,
+    onToggleSelect: (FileEntry) -> Unit = {}
 ) {
     val listState = rememberLazyListState()
 
@@ -592,7 +618,9 @@ private fun FilePane(
                         FileItem(
                             entry = entry,
                             isFocused = isFocused && index == focusedIndex,
-                            onClick = { onEntryClick(entry) }
+                            onClick = { onEntryClick(entry) },
+                            isSelected = selectedPaths?.takeIf { !entry.isParentLink }?.contains(entry.path),
+                            onToggleSelect = { onToggleSelect(entry) }
                         )
                     }
                 }
@@ -605,7 +633,9 @@ private fun FilePane(
 private fun FileItem(
     entry: FileEntry,
     isFocused: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    isSelected: Boolean? = null,
+    onToggleSelect: () -> Unit = {}
 ) {
     val icon: ImageVector = when {
         entry.isParentLink -> Icons.AutoMirrored.Filled.KeyboardArrowLeft
@@ -662,6 +692,17 @@ private fun FileItem(
                 color = contentColor.copy(alpha = 0.6f)
             )
         }
+        if (isSelected != null) {
+            Spacer(modifier = Modifier.width(Dimens.spacingSm))
+            Icon(
+                imageVector = if (isSelected) Icons.Default.CheckBox else Icons.Default.CheckBoxOutlineBlank,
+                contentDescription = stringResource(R.string.ui_file_browser_select_toggle),
+                tint = if (isSelected) MaterialTheme.colorScheme.primary else contentColor.copy(alpha = 0.6f),
+                modifier = Modifier
+                    .size(Dimens.iconMd)
+                    .clickableNoFocus(onClick = onToggleSelect)
+            )
+        }
     }
 }
 
@@ -679,7 +720,7 @@ private fun FileBrowserFooter(
             stringResource(R.string.ui_file_browser_footer_select_file)
         FileBrowserMode.FILE_OR_FOLDER_SELECTION ->
             stringResource(R.string.ui_file_browser_footer_select_file_or_folder)
-        FileBrowserMode.FOLDER_SELECTION ->
+        FileBrowserMode.FOLDER_SELECTION, FileBrowserMode.MULTI_SELECTION ->
             stringResource(R.string.ui_file_browser_footer_open_folder)
     }
     val showFolderOptions = mode == FileBrowserMode.FOLDER_SELECTION ||
@@ -705,6 +746,37 @@ private fun FileBrowserFooter(
                 InputButton.A -> onOpenFocused()
                 InputButton.Y -> onNewFolder()
                 InputButton.X -> onUseCurrentFolder()
+                InputButton.B -> onCancel()
+                else -> {}
+            }
+        }
+    )
+    FooterSpacer()
+}
+
+@Composable
+private fun MultiSelectFooter(
+    selectedCount: Int,
+    onOpenFocused: () -> Unit,
+    onToggleFocused: () -> Unit,
+    onDone: () -> Unit,
+    onCancel: () -> Unit
+) {
+    val hints = buildList {
+        add(InputButton.A to stringResource(R.string.ui_file_browser_footer_open_or_select))
+        add(InputButton.Y to stringResource(R.string.ui_file_browser_footer_toggle_select))
+        if (selectedCount > 0) {
+            add(InputButton.X to stringResource(R.string.ui_file_browser_footer_done_count, selectedCount))
+        }
+        add(InputButton.B to stringResource(R.string.ui_file_browser_footer_back))
+    }
+    FooterHints(
+        hints = hints,
+        onHintClick = { button ->
+            when (button) {
+                InputButton.A -> onOpenFocused()
+                InputButton.Y -> onToggleFocused()
+                InputButton.X -> onDone()
                 InputButton.B -> onCancel()
                 else -> {}
             }

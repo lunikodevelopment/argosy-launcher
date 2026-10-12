@@ -732,6 +732,11 @@
     <string name="ui_file_browser_footer_back">返回</string>
     <string name="ui_file_browser_footer_new_folder">新建文件夹</string>
     <string name="ui_file_browser_footer_use_folder">使用此文件夹</string>
+    <string name="ui_file_browser_title_multi">选择文件和文件夹</string>
+    <string name="ui_file_browser_select_toggle">选择或取消选择</string>
+    <string name="ui_file_browser_footer_open_or_select">打开或选择</string>
+    <string name="ui_file_browser_footer_toggle_select">选择</string>
+    <string name="ui_file_browser_footer_done_count">完成（%1$d）</string>
     <string name="ui_file_browser_new_folder_title">新建文件夹</string>
     <string name="ui_file_browser_new_folder_field_label">文件夹名称</string>
     <string name="ui_file_browser_new_folder_cancel">取消</string>

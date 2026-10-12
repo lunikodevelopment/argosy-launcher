@@ -35,6 +35,9 @@ class FileBrowserViewModel @Inject constructor(
     private val _resultPath = MutableSharedFlow<String>()
     val resultPath: SharedFlow<String> = _resultPath.asSharedFlow()
 
+    private val _resultPaths = MutableSharedFlow<List<String>>()
+    val resultPaths: SharedFlow<List<String>> = _resultPaths.asSharedFlow()
+
     init {
         recheckPermission()
     }
@@ -238,6 +241,8 @@ class FileBrowserViewModel @Inject constructor(
                     navigate(entry.path)
                 } else if (entry != null && state.mode == FileBrowserMode.FILE_SELECTION) {
                     selectPath(entry.path)
+                } else if (entry != null && state.isMultiSelect) {
+                    toggleSelection(entry)
                 }
             }
         }
@@ -250,7 +255,34 @@ class FileBrowserViewModel @Inject constructor(
     }
 
     fun setMode(mode: FileBrowserMode) {
-        _state.update { it.copy(mode = mode) }
+        _state.update { if (it.mode == mode) it else it.copy(mode = mode, selectedPaths = emptySet()) }
+    }
+
+    fun toggleSelection(entry: FileEntry): Boolean {
+        if (!_state.value.isMultiSelect || entry.isParentLink) return false
+        _state.update { state ->
+            val selected = if (entry.path in state.selectedPaths) {
+                state.selectedPaths - entry.path
+            } else {
+                state.selectedPaths + entry.path
+            }
+            state.copy(selectedPaths = selected)
+        }
+        return true
+    }
+
+    fun toggleFocusedSelection(): Boolean {
+        val state = _state.value
+        if (state.focusedPane != FocusedPane.FILES) return false
+        val entry = state.entries.getOrNull(state.fileFocusIndex) ?: return false
+        return toggleSelection(entry)
+    }
+
+    fun finishMultiSelection(): Boolean {
+        val selected = _state.value.selectedPaths
+        if (!_state.value.isMultiSelect || selected.isEmpty()) return false
+        viewModelScope.launch { _resultPaths.emit(selected.sorted()) }
+        return true
     }
 
     fun setFileFilter(filter: FileFilter?) {

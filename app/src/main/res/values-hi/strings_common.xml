@@ -764,6 +764,11 @@
     <string name="ui_file_browser_footer_back">वापस</string>
     <string name="ui_file_browser_footer_new_folder">नया फ़ोल्डर</string>
     <string name="ui_file_browser_footer_use_folder">फ़ोल्डर इस्तेमाल करें</string>
+    <string name="ui_file_browser_title_multi">फ़ाइलें और फ़ोल्डर चुनें</string>
+    <string name="ui_file_browser_select_toggle">चुनें या चयन हटाएँ</string>
+    <string name="ui_file_browser_footer_open_or_select">खोलें या चुनें</string>
+    <string name="ui_file_browser_footer_toggle_select">चुनें</string>
+    <string name="ui_file_browser_footer_done_count">हो गया (%1$d)</string>
     <string name="ui_file_browser_new_folder_title">नया फ़ोल्डर</string>
     <string name="ui_file_browser_new_folder_field_label">फ़ोल्डर का नाम</string>
     <string name="ui_file_browser_new_folder_cancel">रद्द करें</string>

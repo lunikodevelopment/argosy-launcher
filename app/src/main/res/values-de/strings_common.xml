@@ -764,6 +764,11 @@
     <string name="ui_file_browser_footer_back">Zurück</string>
     <string name="ui_file_browser_footer_new_folder">Neuer Ordner</string>
     <string name="ui_file_browser_footer_use_folder">Ordner verwenden</string>
+    <string name="ui_file_browser_title_multi">Dateien und Ordner auswählen</string>
+    <string name="ui_file_browser_select_toggle">Auswählen oder abwählen</string>
+    <string name="ui_file_browser_footer_open_or_select">Öffnen oder auswählen</string>
+    <string name="ui_file_browser_footer_toggle_select">Auswählen</string>
+    <string name="ui_file_browser_footer_done_count">Fertig (%1$d)</string>
     <string name="ui_file_browser_new_folder_title">Neuer Ordner</string>
     <string name="ui_file_browser_new_folder_field_label">Ordnername</string>
     <string name="ui_file_browser_new_folder_cancel">Abbrechen</string>

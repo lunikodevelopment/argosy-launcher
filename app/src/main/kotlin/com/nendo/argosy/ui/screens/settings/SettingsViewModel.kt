@@ -128,6 +128,7 @@ class SettingsViewModel @Inject constructor(
     val controlsDelegate: ControlsSettingsDelegate,
     val installerDelegate: com.nendo.argosy.ui.screens.settings.delegates.ManagedInstallerSettingsDelegate,
     val romUploadDelegate: com.nendo.argosy.ui.screens.settings.delegates.RomUploadSettingsDelegate,
+    val romUploadImportDelegate: com.nendo.argosy.ui.screens.settings.delegates.RomUploadImportDelegate,
     val soundsDelegate: SoundSettingsDelegate,
     val ambientAudioDelegate: AmbientAudioSettingsDelegate,
     val emulatorDelegate: EmulatorSettingsDelegate,
@@ -294,6 +295,7 @@ class SettingsViewModel @Inject constructor(
         routeStartControllerDetectionPolling(this)
         installerDelegate.observeJobs(viewModelScope)
         romUploadDelegate.observe(viewModelScope)
+        romUploadImportDelegate.observe(viewModelScope)
 
         // TODO: Remove after testing manage=true Android/data access
         storageDelegate.testManagedStorageAccess(viewModelScope)

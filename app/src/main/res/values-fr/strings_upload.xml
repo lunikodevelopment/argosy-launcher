@@ -192,4 +192,40 @@ Ne lui faites confiance que si le serveur a été réinstallé ou ses clés rég
     <string name="upload_queue_hold_offline">En attente d’une connexion réseau</string>
     <string name="upload_queue_hold_wifi">En attente du Wi-Fi, comme réglé dans Envois de ROM</string>
     <string name="upload_queue_hold_charger">En attente du chargeur, comme réglé dans Envois de ROM</string>
+    <string name="upload_settings_import_title">Importer des ROM locales vers RomM</string>
+    <string name="upload_settings_import_subtitle">Choisissez des fichiers ou dossiers de cet appareil à envoyer</string>
+    <string name="upload_settings_import_needs_server">Ajoutez d’abord un serveur</string>
+    <string name="upload_import_browser_title">Choisir les ROM à envoyer</string>
+    <string name="upload_import_title">Importer vers RomM</string>
+    <string name="upload_import_include_uncertain">Inclure les plateformes incertaines</string>
+    <string name="upload_import_include_uncertain_subtitle">Devinées uniquement d’après l’extension</string>
+    <string name="upload_import_yes">Oui</string>
+    <string name="upload_import_no">Non</string>
+    <string name="upload_import_nothing_found">Aucune ROM trouvée dans la sélection.</string>
+    <string name="upload_import_overwrite_message">Les copies existantes de %1$d jeux sur %2$s seront remplacées. Cette action est irréversible.</string>
+    <plurals name="upload_import_start">
+        <item quantity="one">Envoyer %d jeu</item>
+        <item quantity="many">Envoyer %d jeux</item>
+        <item quantity="other">Envoyer %d jeux</item>
+    </plurals>
+    <plurals name="upload_import_ready">
+        <item quantity="one">%1$d jeu prêt (%2$s)</item>
+        <item quantity="many">%1$d jeux prêts (%2$s)</item>
+        <item quantity="other">%1$d jeux prêts (%2$s)</item>
+    </plurals>
+    <plurals name="upload_import_uncertain">
+        <item quantity="one">%d autre jeu a une plateforme incertaine</item>
+        <item quantity="many">%d autres jeux ont une plateforme incertaine</item>
+        <item quantity="other">%d autres jeux ont une plateforme incertaine</item>
+    </plurals>
+    <plurals name="upload_import_unplaceable">
+        <item quantity="one">%d jeu n’a pas de dossier RomM et sera ignoré</item>
+        <item quantity="many">%d jeux n’ont pas de dossier RomM et seront ignorés</item>
+        <item quantity="other">%d jeux n’ont pas de dossier RomM et seront ignorés</item>
+    </plurals>
+    <plurals name="upload_import_unreadable">
+        <item quantity="one">%d élément sélectionné n’a pas pu être lu</item>
+        <item quantity="many">%d éléments sélectionnés n’ont pas pu être lus</item>
+        <item quantity="other">%d éléments sélectionnés n’ont pas pu être lus</item>
+    </plurals>
 </resources>

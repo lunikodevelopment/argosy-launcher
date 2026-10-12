@@ -20,6 +20,11 @@ internal fun routeRomUploadsActivate(vm: SettingsViewModel, item: RomUploadItem)
     val scope = vm.viewModelScope
     return when (item) {
         is RomUploadItem.Header -> InputResult.HANDLED
+        RomUploadItem.ImportLocal -> if (vm.romUploadImportDelegate.openBrowser()) {
+            InputResult.handled(SoundType.OPEN_MODAL)
+        } else {
+            InputResult.handled(SoundType.BOUNDARY)
+        }
         RomUploadItem.Queue -> {
             vm.navigateToSection(SettingsSection.ROM_UPLOAD_QUEUE)
             InputResult.HANDLED

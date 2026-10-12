@@ -192,4 +192,40 @@ Confía solo si el servidor se reinstaló o se regeneraron sus claves.</string>
     <string name="upload_queue_hold_offline">Esperando una conexión de red</string>
     <string name="upload_queue_hold_wifi">Esperando Wi-Fi, según los ajustes de subidas</string>
     <string name="upload_queue_hold_charger">Esperando el cargador, según los ajustes de subidas</string>
+    <string name="upload_settings_import_title">Importar ROM locales a RomM</string>
+    <string name="upload_settings_import_subtitle">Elige archivos o carpetas de este dispositivo para subir</string>
+    <string name="upload_settings_import_needs_server">Añade primero un servidor</string>
+    <string name="upload_import_browser_title">Elige las ROM que subir</string>
+    <string name="upload_import_title">Importar a RomM</string>
+    <string name="upload_import_include_uncertain">Incluir plataformas inciertas</string>
+    <string name="upload_import_include_uncertain_subtitle">Deducidas solo por la extensión del archivo</string>
+    <string name="upload_import_yes">Sí</string>
+    <string name="upload_import_no">No</string>
+    <string name="upload_import_nothing_found">No se encontraron ROM en la selección.</string>
+    <string name="upload_import_overwrite_message">Se reemplazarán las copias existentes de %1$d juegos en %2$s. Esto no se puede deshacer.</string>
+    <plurals name="upload_import_start">
+        <item quantity="one">Subir %d juego</item>
+        <item quantity="many">Subir %d juegos</item>
+        <item quantity="other">Subir %d juegos</item>
+    </plurals>
+    <plurals name="upload_import_ready">
+        <item quantity="one">%1$d juego listo (%2$s)</item>
+        <item quantity="many">%1$d juegos listos (%2$s)</item>
+        <item quantity="other">%1$d juegos listos (%2$s)</item>
+    </plurals>
+    <plurals name="upload_import_uncertain">
+        <item quantity="one">%d juego más tiene una plataforma incierta</item>
+        <item quantity="many">%d juegos más tienen una plataforma incierta</item>
+        <item quantity="other">%d juegos más tienen una plataforma incierta</item>
+    </plurals>
+    <plurals name="upload_import_unplaceable">
+        <item quantity="one">%d juego no tiene carpeta en RomM y se omitirá</item>
+        <item quantity="many">%d juegos no tienen carpeta en RomM y se omitirán</item>
+        <item quantity="other">%d juegos no tienen carpeta en RomM y se omitirán</item>
+    </plurals>
+    <plurals name="upload_import_unreadable">
+        <item quantity="one">No se pudo leer %d elemento seleccionado</item>
+        <item quantity="many">No se pudieron leer %d elementos seleccionados</item>
+        <item quantity="other">No se pudieron leer %d elementos seleccionados</item>
+    </plurals>
 </resources>

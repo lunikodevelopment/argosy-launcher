@@ -60,6 +60,10 @@ internal fun routeObserveDelegateStates(vm: SettingsViewModel) {
         vm._uiState.update { it.copy(romUpload = romUpload) }
     }.launchIn(vm.viewModelScope)
 
+    vm.romUploadImportDelegate.state.onEach { romUploadImport ->
+        vm._uiState.update { it.copy(romUploadImport = romUploadImport) }
+    }.launchIn(vm.viewModelScope)
+
     vm.soundsDelegate.state.onEach { sounds ->
         vm._uiState.update { it.copy(sounds = sounds) }
     }.launchIn(vm.viewModelScope)

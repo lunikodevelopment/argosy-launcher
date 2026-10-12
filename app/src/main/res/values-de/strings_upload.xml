@@ -191,4 +191,35 @@ Nur vertrauen, wenn der Server neu installiert oder seine Schlüssel neu erzeugt
     <string name="upload_queue_hold_offline">Warte auf eine Netzwerkverbindung</string>
     <string name="upload_queue_hold_wifi">Warte auf WLAN, wie in den ROM-Uploads eingestellt</string>
     <string name="upload_queue_hold_charger">Warte auf das Ladegerät, wie in den ROM-Uploads eingestellt</string>
+    <string name="upload_settings_import_title">Lokale ROMs zu RomM importieren</string>
+    <string name="upload_settings_import_subtitle">Dateien oder Ordner auf diesem Gerät zum Hochladen auswählen</string>
+    <string name="upload_settings_import_needs_server">Zuerst einen Server hinzufügen</string>
+    <string name="upload_import_browser_title">ROMs zum Hochladen auswählen</string>
+    <string name="upload_import_title">Zu RomM importieren</string>
+    <string name="upload_import_include_uncertain">Unsichere Plattformen einbeziehen</string>
+    <string name="upload_import_include_uncertain_subtitle">Nur anhand der Dateiendung geschätzt</string>
+    <string name="upload_import_yes">Ja</string>
+    <string name="upload_import_no">Nein</string>
+    <string name="upload_import_nothing_found">In der Auswahl wurden keine ROMs gefunden.</string>
+    <string name="upload_import_overwrite_message">Vorhandene Kopien von %1$d Spielen auf %2$s werden ersetzt. Das kann nicht rückgängig gemacht werden.</string>
+    <plurals name="upload_import_start">
+        <item quantity="one">%d Spiel hochladen</item>
+        <item quantity="other">%d Spiele hochladen</item>
+    </plurals>
+    <plurals name="upload_import_ready">
+        <item quantity="one">%1$d Spiel bereit (%2$s)</item>
+        <item quantity="other">%1$d Spiele bereit (%2$s)</item>
+    </plurals>
+    <plurals name="upload_import_uncertain">
+        <item quantity="one">%d weiteres Spiel hat eine unsichere Plattform</item>
+        <item quantity="other">%d weitere Spiele haben eine unsichere Plattform</item>
+    </plurals>
+    <plurals name="upload_import_unplaceable">
+        <item quantity="one">%d Spiel hat keinen RomM-Ordner und wird übersprungen</item>
+        <item quantity="other">%d Spiele haben keinen RomM-Ordner und werden übersprungen</item>
+    </plurals>
+    <plurals name="upload_import_unreadable">
+        <item quantity="one">%d ausgewähltes Element konnte nicht gelesen werden</item>
+        <item quantity="other">%d ausgewählte Elemente konnten nicht gelesen werden</item>
+    </plurals>
 </resources>

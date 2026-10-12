@@ -44,6 +44,19 @@ Select an upload to pause, resume, retry or cancel it. Completed and skipped upl
 to do. **Pause all**, **Resume all** and **Clear finished** sit at the bottom; clearing only tidies
 the list and never touches files on the device or the server.
 
+## Importing local ROMs
+
+Settings → RomM → ROM uploads → **Import local ROMs to RomM** opens a file browser where you
+can tick any number of files and folders. In the browser, A opens a folder, Y ticks or unticks the
+focused row (or tap its box), X finishes, and B goes back.
+
+Argosy then plans the selection against the server you pick. A folder named after a platform
+becomes one game per file group and subfolder, a folder of platform folders is treated as a
+library, and any other folder is a single game that keeps its internal structure. The dialog
+reports how many games are ready, how many have a platform guessed only from the file extension
+(left out unless you turn on **Include uncertain platforms**), how many have no RomM folder and
+will be skipped, and how many selections could not be read.
+
 ## How it works
 
 1. Argosy groups the selected files into games. Multi-disc and multi-file sets (`.m3u`, `.cue` +

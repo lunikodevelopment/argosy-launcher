@@ -750,6 +750,11 @@
     <string name="ui_file_browser_footer_back">返回</string>
     <string name="ui_file_browser_footer_new_folder">新增資料夾</string>
     <string name="ui_file_browser_footer_use_folder">使用此資料夾</string>
+    <string name="ui_file_browser_title_multi">選擇檔案和資料夾</string>
+    <string name="ui_file_browser_select_toggle">選擇或取消選擇</string>
+    <string name="ui_file_browser_footer_open_or_select">開啟或選擇</string>
+    <string name="ui_file_browser_footer_toggle_select">選擇</string>
+    <string name="ui_file_browser_footer_done_count">完成（%1$d）</string>
     <string name="ui_file_browser_new_folder_title">新增資料夾</string>
     <string name="ui_file_browser_new_folder_field_label">資料夾名稱</string>
     <string name="ui_file_browser_new_folder_cancel">取消</string>

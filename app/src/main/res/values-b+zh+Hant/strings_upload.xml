@@ -190,4 +190,30 @@
     <string name="upload_queue_hold_offline">正在等待網路連線</string>
     <string name="upload_queue_hold_wifi">依 ROM 上傳設定，正在等待 Wi-Fi</string>
     <string name="upload_queue_hold_charger">依 ROM 上傳設定，正在等待充電</string>
+    <string name="upload_settings_import_title">將本機 ROM 匯入 RomM</string>
+    <string name="upload_settings_import_subtitle">選擇此裝置上要上傳的檔案或資料夾</string>
+    <string name="upload_settings_import_needs_server">請先新增伺服器</string>
+    <string name="upload_import_browser_title">選擇要上傳的 ROM</string>
+    <string name="upload_import_title">匯入到 RomM</string>
+    <string name="upload_import_include_uncertain">包含不確定的平台</string>
+    <string name="upload_import_include_uncertain_subtitle">僅根據副檔名推測</string>
+    <string name="upload_import_yes">是</string>
+    <string name="upload_import_no">否</string>
+    <string name="upload_import_nothing_found">所選內容中未找到 ROM。</string>
+    <string name="upload_import_overwrite_message">%2$s 上已有的 %1$d 個遊戲副本將被取代。此操作無法復原。</string>
+    <plurals name="upload_import_start">
+        <item quantity="other">上傳 %d 個遊戲</item>
+    </plurals>
+    <plurals name="upload_import_ready">
+        <item quantity="other">%1$d 個遊戲就緒（%2$s）</item>
+    </plurals>
+    <plurals name="upload_import_uncertain">
+        <item quantity="other">另有 %d 個遊戲的平台不確定</item>
+    </plurals>
+    <plurals name="upload_import_unplaceable">
+        <item quantity="other">%d 個遊戲沒有 RomM 資料夾，將被略過</item>
+    </plurals>
+    <plurals name="upload_import_unreadable">
+        <item quantity="other">無法讀取 %d 個所選項目</item>
+    </plurals>
 </resources>

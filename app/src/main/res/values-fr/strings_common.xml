@@ -789,6 +789,11 @@
     <string name="ui_file_browser_footer_back">Retour</string>
     <string name="ui_file_browser_footer_new_folder">Nouveau dossier</string>
     <string name="ui_file_browser_footer_use_folder">Utiliser le dossier</string>
+    <string name="ui_file_browser_title_multi">Sélectionner des fichiers et dossiers</string>
+    <string name="ui_file_browser_select_toggle">Sélectionner ou désélectionner</string>
+    <string name="ui_file_browser_footer_open_or_select">Ouvrir ou sélectionner</string>
+    <string name="ui_file_browser_footer_toggle_select">Sélectionner</string>
+    <string name="ui_file_browser_footer_done_count">Terminé (%1$d)</string>
     <string name="ui_file_browser_new_folder_title">Nouveau dossier</string>
     <string name="ui_file_browser_new_folder_field_label">Nom du dossier</string>
     <string name="ui_file_browser_new_folder_cancel">Annuler</string>
