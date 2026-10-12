@@ -23,9 +23,8 @@ sealed interface LibraryScanState {
 }
 
 /**
- * Asks RomM to scan the platform folders an upload batch wrote to, then pulls the resulting library
- * changes into Argosy. Uses the separate scan token when one is stored, otherwise the signed-in
- * session; a server older than 5.4.0 or a token without `tasks.run` ends as [LibraryScanState.NotScanned].
+ * RomM scan of the platform folders an upload batch wrote to, followed by a pull of the resulting
+ * library changes into Argosy, authenticated with the stored scan token or the signed-in session.
  */
 @Singleton
 class RommScanService @Inject constructor(
