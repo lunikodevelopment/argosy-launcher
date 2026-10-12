@@ -10,6 +10,8 @@ class FakeRemoteTransferClient : RemoteTransferClient {
     val operations = mutableListOf<String>()
     var failUploadAfterBytes: Long? = null
     var truncateUploadsBy: Int = 0
+    var failNextUploads: Int = 0
+    var failureKind: UploadErrorKind = UploadErrorKind.NETWORK_LOST
 
     fun dir(path: String): FakeRemoteTransferClient {
         var current = path
@@ -45,6 +47,11 @@ class FakeRemoteTransferClient : RemoteTransferClient {
         cancellation: CancellationCheck
     ) {
         operations += "upload $destination"
+        if (failNextUploads > 0) {
+            failNextUploads--
+            files[destination] = ByteArray(1)
+            throw TransferException(failureKind, "injected failure")
+        }
         val out = ByteArrayOutputStream()
         val buffer = ByteArray(4)
         var sent = 0L

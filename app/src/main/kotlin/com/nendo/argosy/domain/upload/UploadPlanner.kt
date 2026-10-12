@@ -6,6 +6,7 @@ import com.nendo.argosy.domain.model.upload.PlannedGame
 import com.nendo.argosy.domain.model.upload.PlatformMatch
 import com.nendo.argosy.domain.model.upload.RemotePlatformFolder
 import com.nendo.argosy.domain.model.upload.TransferProtocol
+import com.nendo.argosy.domain.model.upload.UploadProfile
 import java.security.MessageDigest
 
 data class LocalSelection(
@@ -31,7 +32,7 @@ data class RemoteLayout(
 
     companion object {
         const val PLATFORM_TOKEN = "{platform}"
-        const val DEFAULT_PLATFORM_TEMPLATE = "roms/{platform}"
+        const val DEFAULT_PLATFORM_TEMPLATE = UploadProfile.DEFAULT_PLATFORM_TEMPLATE
     }
 }
 
