@@ -30,6 +30,9 @@ zstdJni = "1.5.6-8"
 javasteam = "1.8.1"
 spongycastle = "1.58.0.0"
 bouncycastle = "1.80"
+sshj = "0.40.0"
+smbj = "0.14.0"
+apacheSshd = "2.15.0"
 protobuf = "4.30.2"
 upokecenterCbor = "4.5.4"
 socketIoClient = "2.1.1"
@@ -111,6 +114,10 @@ javasteam = { group = "io.github.joshuatam", name = "javasteam", version.ref = "
 javasteam-depotdownloader = { group = "io.github.joshuatam", name = "javasteam-depotdownloader", version.ref = "javasteam" }
 spongycastle = { group = "com.madgag.spongycastle", name = "prov", version.ref = "spongycastle" }
 bouncycastle = { group = "org.bouncycastle", name = "bcprov-jdk18on", version.ref = "bouncycastle" }
+sshj = { group = "com.hierynomus", name = "sshj", version.ref = "sshj" }
+smbj = { group = "com.hierynomus", name = "smbj", version.ref = "smbj" }
+apache-sshd-core = { group = "org.apache.sshd", name = "sshd-core", version.ref = "apacheSshd" }
+apache-sshd-sftp = { group = "org.apache.sshd", name = "sshd-sftp", version.ref = "apacheSshd" }
 protobuf-java = { group = "com.google.protobuf", name = "protobuf-java", version.ref = "protobuf" }
 
 # CBOR (BLE wire format text section)
