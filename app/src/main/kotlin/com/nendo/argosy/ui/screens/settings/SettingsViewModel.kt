@@ -127,6 +127,7 @@ class SettingsViewModel @Inject constructor(
     val displayDelegate: DisplaySettingsDelegate,
     val controlsDelegate: ControlsSettingsDelegate,
     val installerDelegate: com.nendo.argosy.ui.screens.settings.delegates.ManagedInstallerSettingsDelegate,
+    val romUploadDelegate: com.nendo.argosy.ui.screens.settings.delegates.RomUploadSettingsDelegate,
     val soundsDelegate: SoundSettingsDelegate,
     val ambientAudioDelegate: AmbientAudioSettingsDelegate,
     val emulatorDelegate: EmulatorSettingsDelegate,
@@ -292,6 +293,7 @@ class SettingsViewModel @Inject constructor(
         permissionsDelegate.observeLockScreenArt(viewModelScope)
         routeStartControllerDetectionPolling(this)
         installerDelegate.observeJobs(viewModelScope)
+        romUploadDelegate.observe(viewModelScope)
 
         // TODO: Remove after testing manage=true Android/data access
         storageDelegate.testManagedStorageAccess(viewModelScope)
@@ -1495,6 +1497,14 @@ class SettingsViewModel @Inject constructor(
         controlsDelegate.clearShortcutKey(viewModelScope, shortcut)
     fun refreshUsageStatsPermission() = controlsDelegate.refreshUsageStatsPermission()
     fun openUsageStatsSettings() = controlsDelegate.openUsageStatsSettings()
+    fun submitRomUploadTextEntry() = romUploadDelegate.submitTextEntry(viewModelScope)
+    fun trustRomUploadHostKey() = romUploadDelegate.trustPresentedKey(viewModelScope)
+    fun deleteRomUploadProfile() = romUploadDelegate.deleteDraftProfile(viewModelScope) { navigateBack() }
+    fun importRomUploadPrivateKey(path: String) = romUploadDelegate.importPrivateKey(viewModelScope, path)
+    fun confirmRomUploadTextEntry() = romUploadDelegate.confirmTextEntryFocus(viewModelScope)
+    fun confirmRomUploadHostKeyFocus() = romUploadDelegate.confirmHostKeyFocus(viewModelScope)
+    fun confirmRomUploadDeleteFocus() = romUploadDelegate.confirmDeleteFocus(viewModelScope) { navigateBack() }
+
     fun openManagedInstallers() = installerDelegate.openScreen(viewModelScope)
     fun reconcileManagedInstall() = installerDelegate.reconcilePendingInstall()
     fun installManagedInstaller(rowId: Long) = installerDelegate.install(viewModelScope, rowId)

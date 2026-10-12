@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.shareIn
 import java.time.Instant
+import com.nendo.argosy.domain.model.upload.DuplicatePolicy
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -35,7 +36,8 @@ class UserPreferencesRepository @Inject constructor(
     private val appPrefs: AppPreferencesRepository,
     private val builtinPrefs: BuiltinEmulatorPreferencesRepository,
     private val sessionPrefs: SessionPreferencesRepository,
-    private val jellyfinPrefs: JellyfinPreferencesRepository
+    private val jellyfinPrefs: JellyfinPreferencesRepository,
+    private val uploadPrefs: UploadPreferencesRepository
 ) {
     private val shareScope = com.nendo.argosy.util.SafeCoroutineScope(Dispatchers.Default, "UserPreferences")
 
@@ -50,8 +52,9 @@ class UserPreferencesRepository @Inject constructor(
             PreferencesSources(display, sync, controls, storage, app)
         },
         builtinPrefs.isBuiltinLibretroEnabled(),
-        jellyfinPrefs.preferences
-    ) { sources, builtinEnabled, jellyfin ->
+        jellyfinPrefs.preferences,
+        uploadPrefs.preferences
+    ) { sources, builtinEnabled, jellyfin, romUpload ->
         val (display, sync, controls, storage, app) = sources
         UserPreferences(
             firstRunComplete = app.firstRunComplete,
@@ -258,7 +261,8 @@ class UserPreferencesRepository @Inject constructor(
             mediaSubtitleLanguage = jellyfin.subtitleLanguage,
             mediaBurnInImageSubtitles = jellyfin.burnInImageSubtitles,
             mediaConfirmPlayerExit = jellyfin.confirmPlayerExit,
-            shareMediaPresence = jellyfin.shareMediaPresence
+            shareMediaPresence = jellyfin.shareMediaPresence,
+            romUpload = romUpload
         )
     }
 
@@ -518,6 +522,16 @@ class UserPreferencesRepository @Inject constructor(
     suspend fun setLastIntegrityCheckTime(timeMs: Long) = storagePrefs.setLastIntegrityCheckTime(timeMs)
     suspend fun setSteamInstallVolume(volume: String?) = storagePrefs.setSteamInstallVolume(volume)
     suspend fun setMediaStoragePath(path: String?) = storagePrefs.setMediaStoragePath(path)
+
+    suspend fun setUploadMaxConcurrent(value: Int) = uploadPrefs.setMaxConcurrent(value)
+    suspend fun setUploadDuplicatePolicy(policy: DuplicatePolicy) = uploadPrefs.setDuplicatePolicy(policy)
+    suspend fun setUploadWifiOnly(enabled: Boolean) = uploadPrefs.setWifiOnly(enabled)
+    suspend fun setUploadChargingOnly(enabled: Boolean) = uploadPrefs.setChargingOnly(enabled)
+    suspend fun setUploadBandwidthLimitKiBps(value: Int) = uploadPrefs.setBandwidthLimitKiBps(value)
+    suspend fun setUploadInGameBandwidthLimitKiBps(value: Int) = uploadPrefs.setInGameBandwidthLimitKiBps(value)
+    suspend fun setUploadScanAfterUpload(enabled: Boolean) = uploadPrefs.setScanAfterUpload(enabled)
+    suspend fun setUploadNotifyOnCompletion(enabled: Boolean) = uploadPrefs.setNotifyOnCompletion(enabled)
+    suspend fun setUploadDefaultProfile(profileId: String) = uploadPrefs.setDefaultProfile(profileId)
 
     suspend fun setJellyfinServerUrl(url: String?) = jellyfinPrefs.setServerUrl(url)
     suspend fun setJellyfinDeviceId(deviceId: String) = jellyfinPrefs.setDeviceId(deviceId)
@@ -974,7 +988,8 @@ data class UserPreferences(
     val mediaSubtitleLanguage: MediaSubtitleLanguage = MediaSubtitleLanguage.ENGLISH,
     val mediaBurnInImageSubtitles: Boolean = false,
     val mediaConfirmPlayerExit: Boolean = false,
-    val shareMediaPresence: Boolean = true
+    val shareMediaPresence: Boolean = true,
+    val romUpload: UploadPreferences = UploadPreferences()
 ) {
     val isSocialLinked: Boolean get() = socialSessionToken != null
 

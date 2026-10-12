@@ -109,6 +109,7 @@ private fun routeApplySectionExit(vm: SettingsViewModel, section: SettingsSectio
     when (section) {
         SettingsSection.SHADER_STACK -> routeFlushShaderChain(vm)
         SettingsSection.STEAM_SETTINGS -> vm.cancelSteamQrAuth()
+        SettingsSection.ROM_UPLOAD_PROFILE -> vm.romUploadDelegate.leaveDraft(vm.viewModelScope)
         else -> {}
     }
 }

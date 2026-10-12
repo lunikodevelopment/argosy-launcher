@@ -18,6 +18,7 @@ import com.nendo.argosy.ui.screens.settings.sections.input.InterfaceSectionInput
 import com.nendo.argosy.ui.screens.settings.sections.input.LightSectionsInput
 import com.nendo.argosy.ui.screens.settings.sections.input.PlayTimeListSectionInput
 import com.nendo.argosy.ui.screens.settings.sections.input.PlayTimeSectionInput
+import com.nendo.argosy.ui.screens.settings.sections.input.RomUploadsSectionInput
 import com.nendo.argosy.ui.screens.settings.sections.input.ShaderStackSectionInput
 import com.nendo.argosy.ui.screens.settings.sections.input.StorageCachesSectionInput
 import com.nendo.argosy.ui.screens.settings.sections.input.StorageGamesSectionInput
@@ -73,6 +74,9 @@ class SettingsInputHandler(
         put(SettingsSection.PLAY_TIME_GAMES, playTimeListInput)
         put(SettingsSection.DRIVERS, DriversSectionInput(viewModel))
         put(SettingsSection.FRAME_PICKER, FrameSectionInput(viewModel))
+        val romUploadsInput = RomUploadsSectionInput(viewModel)
+        put(SettingsSection.ROM_UPLOADS, romUploadsInput)
+        put(SettingsSection.ROM_UPLOAD_PROFILE, romUploadsInput)
         for (s in listOf(
             SettingsSection.MAIN,
             SettingsSection.ACCOUNTS,

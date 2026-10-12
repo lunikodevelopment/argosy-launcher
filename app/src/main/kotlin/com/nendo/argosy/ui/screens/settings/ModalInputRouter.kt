@@ -50,6 +50,9 @@ internal class ModalInputRouter(private val viewModel: SettingsViewModel) {
         interceptScreenRoleModal(state, method)?.let { return it }
         interceptInstallerVariantPicker(state, method)?.let { return it }
         interceptInstallerAddModal(state, method)?.let { return it }
+        interceptRomUploadTextEntry(state, method)?.let { return it }
+        interceptRomUploadHostKeyPrompt(state, method)?.let { return it }
+        interceptRomUploadDeleteConfirm(state, method)?.let { return it }
 
         return null
     }
@@ -100,6 +103,53 @@ internal class ModalInputRouter(private val viewModel: SettingsViewModel) {
             InputMethod.CONFIRM -> { viewModel.confirmInstallerAdd(); InputResult.HANDLED }
             InputMethod.BACK -> {
                 viewModel.dismissInstallerAddModal()
+                InputResult.handled(SoundType.CLOSE_MODAL)
+            }
+            else -> InputResult.HANDLED
+        }
+    }
+
+    private fun interceptRomUploadTextEntry(state: SettingsUiState, method: InputMethod): InputResult? {
+        if (state.romUpload.textEntry == null) return null
+        val delegate = viewModel.romUploadDelegate
+        return when (method) {
+            InputMethod.UP -> { delegate.moveTextEntryRow(TextEntryRow.FIELD); InputResult.HANDLED }
+            InputMethod.DOWN -> { delegate.moveTextEntryRow(TextEntryRow.BUTTONS); InputResult.HANDLED }
+            InputMethod.LEFT -> { delegate.moveTextEntryButton(-1); InputResult.HANDLED }
+            InputMethod.RIGHT -> { delegate.moveTextEntryButton(1); InputResult.HANDLED }
+            InputMethod.CONFIRM -> { viewModel.confirmRomUploadTextEntry(); InputResult.HANDLED }
+            InputMethod.BACK -> {
+                delegate.closeTextEntry()
+                InputResult.handled(SoundType.CLOSE_MODAL)
+            }
+            else -> InputResult.HANDLED
+        }
+    }
+
+    private fun interceptRomUploadHostKeyPrompt(state: SettingsUiState, method: InputMethod): InputResult? {
+        if (state.romUpload.hostKeyPrompt == null) return null
+        val delegate = viewModel.romUploadDelegate
+        return when (method) {
+            InputMethod.LEFT, InputMethod.UP -> { delegate.moveHostKeyFocus(-1); InputResult.HANDLED }
+            InputMethod.RIGHT, InputMethod.DOWN -> { delegate.moveHostKeyFocus(1); InputResult.HANDLED }
+            InputMethod.CONFIRM -> { viewModel.confirmRomUploadHostKeyFocus(); InputResult.HANDLED }
+            InputMethod.BACK -> {
+                delegate.dismissHostKeyPrompt()
+                InputResult.handled(SoundType.CLOSE_MODAL)
+            }
+            else -> InputResult.HANDLED
+        }
+    }
+
+    private fun interceptRomUploadDeleteConfirm(state: SettingsUiState, method: InputMethod): InputResult? {
+        if (state.romUpload.deleteConfirmFocus == null) return null
+        val delegate = viewModel.romUploadDelegate
+        return when (method) {
+            InputMethod.LEFT, InputMethod.UP -> { delegate.moveDeleteFocus(-1); InputResult.HANDLED }
+            InputMethod.RIGHT, InputMethod.DOWN -> { delegate.moveDeleteFocus(1); InputResult.HANDLED }
+            InputMethod.CONFIRM -> { viewModel.confirmRomUploadDeleteFocus(); InputResult.HANDLED }
+            InputMethod.BACK -> {
+                delegate.dismissDelete()
                 InputResult.handled(SoundType.CLOSE_MODAL)
             }
             else -> InputResult.HANDLED

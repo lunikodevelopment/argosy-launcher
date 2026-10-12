@@ -26,6 +26,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import com.nendo.argosy.ui.primitives.ModalActionButton
 import com.nendo.argosy.ui.theme.Dimens
@@ -64,7 +66,8 @@ fun TextEntryModal(
     placeholder: String? = null,
     errorMessage: String? = null,
     canSubmit: Boolean = text.isNotBlank(),
-    keyboardType: KeyboardType = KeyboardType.Text
+    keyboardType: KeyboardType = KeyboardType.Text,
+    secret: Boolean = false
 ) {
     val theme = LocalArgosyTheme.current
     var fieldValue by remember { mutableStateOf(TextFieldValue(text, TextRange(text.length))) }
@@ -93,6 +96,7 @@ fun TextEntryModal(
             label = { Text(label) },
             placeholder = placeholder?.let { { Text(it) } },
             singleLine = true,
+            visualTransformation = if (secret) PasswordVisualTransformation() else VisualTransformation.None,
             shape = fieldShape,
             modifier = Modifier
                 .fillMaxWidth()
@@ -104,7 +108,11 @@ fun TextEntryModal(
                         Modifier
                     }
                 ),
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = ImeAction.Done),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = if (secret) KeyboardType.Password else keyboardType,
+                autoCorrectEnabled = !secret,
+                imeAction = ImeAction.Done
+            ),
             keyboardActions = KeyboardActions(onDone = { submit() })
         )
         if (errorMessage != null) {
