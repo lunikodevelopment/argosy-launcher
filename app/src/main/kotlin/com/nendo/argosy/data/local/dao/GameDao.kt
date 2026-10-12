@@ -231,6 +231,9 @@ interface GameDao {
     """)
     fun observePlayableList(ownerUserId: Long?): Flow<List<GameListItem>>
 
+    @Query("SELECT * FROM games WHERE source = 'LOCAL_ONLY' AND rommId IS NULL AND localPath IS NOT NULL ORDER BY sortTitle ASC")
+    suspend fun getLocalOnlyWithFiles(): List<GameEntity>
+
     @Query("""
         SELECT id, platformId, platformSlug, title, sortTitle, localPath, source, isFavorite,
                EXISTS(SELECT 1 FROM user_roms_hidden h WHERE h.gameId = games.id AND (h.ownerUserId IS NULL OR h.ownerUserId IS :ownerUserId)) AS isHidden,

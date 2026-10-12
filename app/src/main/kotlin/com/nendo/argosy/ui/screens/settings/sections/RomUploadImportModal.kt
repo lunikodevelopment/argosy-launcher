@@ -18,6 +18,7 @@ import com.nendo.argosy.ui.components.InputButton
 import com.nendo.argosy.ui.components.Modal
 import com.nendo.argosy.ui.primitives.ArgosyConfirmModal
 import com.nendo.argosy.ui.screens.gamedetail.components.OptionItem
+import com.nendo.argosy.ui.screens.settings.RomUploadImportKind
 import com.nendo.argosy.ui.screens.settings.RomUploadImportPhase
 import com.nendo.argosy.ui.screens.settings.RomUploadImportRow
 import com.nendo.argosy.ui.screens.settings.RomUploadImportState
@@ -30,7 +31,9 @@ internal fun RomUploadImportModal(state: RomUploadImportState, delegate: RomUplo
     if (!state.visible) return
 
     Modal(
-        title = stringResource(R.string.upload_import_title),
+        title = stringResource(
+            if (state.kind == RomUploadImportKind.MISSING) R.string.upload_import_missing_title else R.string.upload_import_title
+        ),
         onDismiss = { delegate.dismiss() },
         footerHints = listOf(InputButton.DPAD_HORIZONTAL to stringResource(R.string.upload_detail_footer_change)),
         onFooterHintClick = { button ->
@@ -99,7 +102,11 @@ private fun ImportSummary(state: RomUploadImportState) {
     ) {
         when (state.phase) {
             RomUploadImportPhase.PLANNING -> Note(stringResource(R.string.upload_detail_planning))
-            RomUploadImportPhase.EMPTY -> Note(stringResource(R.string.upload_import_nothing_found), warning = true)
+            RomUploadImportPhase.EMPTY -> if (state.kind == RomUploadImportKind.MISSING) {
+                Note(stringResource(R.string.upload_import_missing_none))
+            } else {
+                Note(stringResource(R.string.upload_import_nothing_found), warning = true)
+            }
             RomUploadImportPhase.READY -> {
                 Note(
                     pluralStringResource(

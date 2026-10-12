@@ -57,6 +57,12 @@ reports how many games are ready, how many have a platform guessed only from the
 (left out unless you turn on **Include uncertain platforms**), how many have no RomM folder and
 will be skipped, and how many selections could not be read.
 
+### Upload missing ROMs
+
+**Upload missing ROMs**, next to it, takes every game Argosy found on this device that RomM does
+not have (local-only games with files) and runs the same dialog on them. Games already synced
+from RomM are never touched, and the dialog says so when nothing is missing.
+
 ## How it works
 
 1. Argosy groups the selected files into games. Multi-disc and multi-file sets (`.m3u`, `.cue` +

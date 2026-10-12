@@ -829,6 +829,8 @@ class GameRepository @Inject constructor(
 
     suspend fun getById(id: Long): GameEntity? = gameDao.getById(id)
 
+    suspend fun getLocalOnlyWithFiles(): List<GameEntity> = gameDao.getLocalOnlyWithFiles()
+
     fun observeById(id: Long): Flow<GameEntity?> = gameDao.observeById(id)
 
     suspend fun getPlayedGames(): List<GameEntity> = gameDao.getPlayedGames(hiddenOwnerId())

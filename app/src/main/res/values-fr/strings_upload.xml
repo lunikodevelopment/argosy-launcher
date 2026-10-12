@@ -228,4 +228,8 @@ Ne lui faites confiance que si le serveur a été réinstallé ou ses clés rég
         <item quantity="many">%d éléments sélectionnés n’ont pas pu être lus</item>
         <item quantity="other">%d éléments sélectionnés n’ont pas pu être lus</item>
     </plurals>
+    <string name="upload_settings_missing_title">Envoyer les ROM manquantes</string>
+    <string name="upload_settings_missing_subtitle">Jeux de cet appareil que RomM n’a pas</string>
+    <string name="upload_import_missing_title">Envoyer les ROM manquantes</string>
+    <string name="upload_import_missing_none">Tous les jeux de cet appareil sont déjà dans RomM.</string>
 </resources>

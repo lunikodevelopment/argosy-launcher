@@ -52,6 +52,8 @@ import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
+data class LocalGameRef(val path: String, val platformSlug: String, val title: String)
+
 sealed interface ConnectionTestResult {
     data class Success(val platformFolders: Int, val freeBytes: Long?) : ConnectionTestResult
     data class HostKeyUntrusted(
@@ -164,6 +166,14 @@ class UploadManager @Inject constructor(
         val selection = LocalSelection(localPath, fileAccess.isDirectory(localPath), platformSlug, title)
         plannerFor(profile).plan(listOf(selection))
     }
+
+    suspend fun planLocalGames(games: List<LocalGameRef>, profile: UploadProfile): UploadPlan =
+        withContext(Dispatchers.IO) {
+            val selections = games.map {
+                LocalSelection(it.path, fileAccess.isDirectory(it.path), it.platformSlug, it.title)
+            }
+            plannerFor(profile).plan(selections)
+        }
 
     suspend fun planPaths(paths: List<String>, profile: UploadProfile): UploadPlan = withContext(Dispatchers.IO) {
         val selections = paths.map { LocalSelection(it, fileAccess.isDirectory(it)) }

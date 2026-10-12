@@ -25,6 +25,11 @@ internal fun routeRomUploadsActivate(vm: SettingsViewModel, item: RomUploadItem)
         } else {
             InputResult.handled(SoundType.BOUNDARY)
         }
+        RomUploadItem.ImportMissing -> if (vm.romUploadImportDelegate.openMissing()) {
+            InputResult.handled(SoundType.OPEN_MODAL)
+        } else {
+            InputResult.handled(SoundType.BOUNDARY)
+        }
         RomUploadItem.Queue -> {
             vm.navigateToSection(SettingsSection.ROM_UPLOAD_QUEUE)
             InputResult.HANDLED

@@ -222,4 +222,8 @@
         <item quantity="one">चुने गए %d आइटम को पढ़ा नहीं जा सका</item>
         <item quantity="other">चुने गए %d आइटम को पढ़ा नहीं जा सका</item>
     </plurals>
+    <string name="upload_settings_missing_title">गायब ROM अपलोड करें</string>
+    <string name="upload_settings_missing_subtitle">इस डिवाइस के वे गेम जो RomM में नहीं हैं</string>
+    <string name="upload_import_missing_title">गायब ROM अपलोड करें</string>
+    <string name="upload_import_missing_none">इस डिवाइस का हर गेम पहले से RomM में है।</string>
 </resources>

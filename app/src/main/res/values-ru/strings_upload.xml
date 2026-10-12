@@ -234,4 +234,8 @@
         <item quantity="many">Не удалось прочитать %d выбранных элементов</item>
         <item quantity="other">Не удалось прочитать %d выбранных элемента</item>
     </plurals>
+    <string name="upload_settings_missing_title">Загрузить отсутствующие ROM</string>
+    <string name="upload_settings_missing_subtitle">Игры на этом устройстве, которых нет в RomM</string>
+    <string name="upload_import_missing_title">Загрузить отсутствующие ROM</string>
+    <string name="upload_import_missing_none">Все игры на этом устройстве уже есть в RomM.</string>
 </resources>

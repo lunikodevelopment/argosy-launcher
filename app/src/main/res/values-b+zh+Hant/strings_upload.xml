@@ -216,4 +216,8 @@
     <plurals name="upload_import_unreadable">
         <item quantity="other">無法讀取 %d 個所選項目</item>
     </plurals>
+    <string name="upload_settings_missing_title">上傳缺少的 ROM</string>
+    <string name="upload_settings_missing_subtitle">此裝置上 RomM 沒有的遊戲</string>
+    <string name="upload_import_missing_title">上傳缺少的 ROM</string>
+    <string name="upload_import_missing_none">此裝置上的所有遊戲都已在 RomM 中。</string>
 </resources>

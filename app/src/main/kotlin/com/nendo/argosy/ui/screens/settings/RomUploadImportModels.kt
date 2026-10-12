@@ -4,9 +4,12 @@ import com.nendo.argosy.domain.model.upload.DuplicatePolicy
 
 enum class RomUploadImportRow { SERVER, POLICY, UNCERTAIN, UPLOAD, CANCEL }
 
+enum class RomUploadImportKind { PICKED, MISSING }
+
 enum class RomUploadImportPhase { PLANNING, READY, EMPTY }
 
 data class RomUploadImportState(
+    val kind: RomUploadImportKind = RomUploadImportKind.PICKED,
     val browserOpen: Boolean = false,
     val visible: Boolean = false,
     val phase: RomUploadImportPhase = RomUploadImportPhase.PLANNING,

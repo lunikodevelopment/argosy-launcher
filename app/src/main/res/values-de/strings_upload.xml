@@ -222,4 +222,8 @@ Nur vertrauen, wenn der Server neu installiert oder seine Schlüssel neu erzeugt
         <item quantity="one">%d ausgewähltes Element konnte nicht gelesen werden</item>
         <item quantity="other">%d ausgewählte Elemente konnten nicht gelesen werden</item>
     </plurals>
+    <string name="upload_settings_missing_title">Fehlende ROMs hochladen</string>
+    <string name="upload_settings_missing_subtitle">Spiele auf diesem Gerät, die RomM nicht hat</string>
+    <string name="upload_import_missing_title">Fehlende ROMs hochladen</string>
+    <string name="upload_import_missing_none">Jedes Spiel auf diesem Gerät ist bereits in RomM.</string>
 </resources>

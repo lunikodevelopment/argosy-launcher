@@ -272,4 +272,8 @@ Only trust it if the server was reinstalled or its keys were regenerated.</strin
         <item quantity="one">%d selected item couldn\'t be read</item>
         <item quantity="other">%d selected items couldn\'t be read</item>
     </plurals>
+    <string name="upload_settings_missing_title">Upload missing ROMs</string>
+    <string name="upload_settings_missing_subtitle">Games on this device that RomM doesn\'t have</string>
+    <string name="upload_import_missing_title">Upload missing ROMs</string>
+    <string name="upload_import_missing_none">Every game on this device is already in RomM.</string>
 </resources>
