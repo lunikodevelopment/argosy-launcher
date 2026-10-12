@@ -220,4 +220,9 @@
     <string name="upload_settings_missing_subtitle">此设备上 RomM 没有的游戏</string>
     <string name="upload_import_missing_title">上传缺失的 ROM</string>
     <string name="upload_import_missing_none">此设备上的所有游戏都已在 RomM 中。</string>
+    <string name="upload_downloads_wifi_only_title">仅在 Wi-Fi 下下载</string>
+    <string name="upload_downloads_wifi_only_subtitle">使用移动数据时下载会等待，连接 Wi-Fi 后继续</string>
+    <string name="upload_downloads_charging_only_title">仅在充电时下载</string>
+    <string name="upload_downloads_charging_only_subtitle">下载会等待接上充电器</string>
+    <string name="upload_downloads_bandwidth_title">下载速度限制</string>
 </resources>

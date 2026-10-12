@@ -226,4 +226,9 @@ Nur vertrauen, wenn der Server neu installiert oder seine Schlüssel neu erzeugt
     <string name="upload_settings_missing_subtitle">Spiele auf diesem Gerät, die RomM nicht hat</string>
     <string name="upload_import_missing_title">Fehlende ROMs hochladen</string>
     <string name="upload_import_missing_none">Jedes Spiel auf diesem Gerät ist bereits in RomM.</string>
+    <string name="upload_downloads_wifi_only_title">Nur im WLAN herunterladen</string>
+    <string name="upload_downloads_wifi_only_subtitle">Downloads warten bei Mobilfunk und laufen im WLAN weiter</string>
+    <string name="upload_downloads_charging_only_title">Nur beim Laden herunterladen</string>
+    <string name="upload_downloads_charging_only_subtitle">Downloads warten, bis das Ladegerät angeschlossen ist</string>
+    <string name="upload_downloads_bandwidth_title">Download-Geschwindigkeitslimit</string>
 </resources>

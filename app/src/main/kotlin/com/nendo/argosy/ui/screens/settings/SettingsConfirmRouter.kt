@@ -573,6 +573,18 @@ private fun routeStorageConfirm(vm: SettingsViewModel, state: SettingsUiState): 
             vm.toggleAutoStartDownloads()
             return InputResult.handled(SoundType.TOGGLE)
         }
+        StorageItem.DownloadWifiOnly -> {
+            vm.toggleDownloadWifiOnly()
+            return InputResult.handled(SoundType.TOGGLE)
+        }
+        StorageItem.DownloadChargingOnly -> {
+            vm.toggleDownloadChargingOnly()
+            return InputResult.handled(SoundType.TOGGLE)
+        }
+        StorageItem.DownloadBandwidth -> {
+            vm.cycleDownloadBandwidth(1)
+            return InputResult.handled(SoundType.TOGGLE)
+        }
         StorageItem.Threshold -> {
             vm.requestEnumPicker(StorageItem.Threshold.key)
             return InputResult.handled(SoundType.OPEN_MODAL)

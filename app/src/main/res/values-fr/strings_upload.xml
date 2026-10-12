@@ -232,4 +232,9 @@ Ne lui faites confiance que si le serveur a été réinstallé ou ses clés rég
     <string name="upload_settings_missing_subtitle">Jeux de cet appareil que RomM n’a pas</string>
     <string name="upload_import_missing_title">Envoyer les ROM manquantes</string>
     <string name="upload_import_missing_none">Tous les jeux de cet appareil sont déjà dans RomM.</string>
+    <string name="upload_downloads_wifi_only_title">Télécharger uniquement en Wi-Fi</string>
+    <string name="upload_downloads_wifi_only_subtitle">Les téléchargements attendent en données mobiles et reprennent en Wi-Fi</string>
+    <string name="upload_downloads_charging_only_title">Télécharger uniquement en charge</string>
+    <string name="upload_downloads_charging_only_subtitle">Les téléchargements attendent le branchement du chargeur</string>
+    <string name="upload_downloads_bandwidth_title">Limite de vitesse de téléchargement</string>
 </resources>

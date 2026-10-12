@@ -27,6 +27,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import com.nendo.argosy.domain.upload.TransferHold
 import org.junit.rules.TemporaryFolder
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -89,7 +90,10 @@ class DownloadManagerAutoStartTest {
             homeTilePromptQueue = mockk(relaxed = true),
             customGridShapeStore = mockk(relaxed = true),
             extContentOrganizer = mockk(relaxed = true),
-            romStagingManager = mockk(relaxed = true)
+            romStagingManager = mockk(relaxed = true),
+            transferGate = mockk(relaxed = true) {
+                every { hold } returns MutableStateFlow(TransferHold.NONE)
+            }
         )
     }
 

@@ -226,4 +226,9 @@
     <string name="upload_settings_missing_subtitle">इस डिवाइस के वे गेम जो RomM में नहीं हैं</string>
     <string name="upload_import_missing_title">गायब ROM अपलोड करें</string>
     <string name="upload_import_missing_none">इस डिवाइस का हर गेम पहले से RomM में है।</string>
+    <string name="upload_downloads_wifi_only_title">केवल Wi-Fi पर डाउनलोड करें</string>
+    <string name="upload_downloads_wifi_only_subtitle">मोबाइल डेटा पर डाउनलोड रुकते हैं और Wi-Fi पर फिर शुरू होते हैं</string>
+    <string name="upload_downloads_charging_only_title">केवल चार्ज होते समय डाउनलोड करें</string>
+    <string name="upload_downloads_charging_only_subtitle">चार्जर लगने तक डाउनलोड रुके रहते हैं</string>
+    <string name="upload_downloads_bandwidth_title">डाउनलोड गति सीमा</string>
 </resources>

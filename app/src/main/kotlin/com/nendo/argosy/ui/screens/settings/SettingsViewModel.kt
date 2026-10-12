@@ -1711,6 +1711,9 @@ class SettingsViewModel @Inject constructor(
     fun toggleAllowRemoteInstalls() = storageDelegate.toggleAllowRemoteInstalls(viewModelScope)
 
     fun toggleAutoStartDownloads() = storageDelegate.toggleAutoStartDownloads(viewModelScope)
+    fun toggleDownloadWifiOnly() = storageDelegate.toggleDownloadWifiOnly(viewModelScope)
+    fun toggleDownloadChargingOnly() = storageDelegate.toggleDownloadChargingOnly(viewModelScope)
+    fun cycleDownloadBandwidth(direction: Int = 1) = storageDelegate.cycleDownloadBandwidth(viewModelScope, direction)
 
     fun toggleStageDownloadsInternally() = storageDelegate.toggleStageDownloadsInternally(viewModelScope)
     fun toggleFolderNameFromRom() = storageDelegate.toggleFolderNameFromRom(viewModelScope)

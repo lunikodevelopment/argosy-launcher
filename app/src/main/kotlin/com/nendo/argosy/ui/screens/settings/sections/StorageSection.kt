@@ -138,6 +138,9 @@ internal sealed class StorageItem(
     data object MaxDownloads : StorageItem("maxDownloads", "downloads")
     data object RemoteInstalls : StorageItem("remoteInstalls", "downloads")
     data object AutoStartDownloads : StorageItem("autoStartDownloads", "downloads")
+    data object DownloadWifiOnly : StorageItem("downloadWifiOnly", "downloads")
+    data object DownloadChargingOnly : StorageItem("downloadChargingOnly", "downloads")
+    data object DownloadBandwidth : StorageItem("downloadBandwidth", "downloads")
     data object Threshold : StorageItem("threshold", "downloads")
     data object InternalStaging : StorageItem("internalStaging", "downloads")
     data object FolderNameFromRom : StorageItem("folderNameFromRom", "downloads")
@@ -161,6 +164,7 @@ internal sealed class StorageItem(
                 LocationsSpacer, LocationsHeader,
                 GlobalRomPath, ImageCache, MusicLocation, BiosFolder, BuiltinSavePath, BuiltinStatePath,
                 DownloadsSpacer, DownloadsHeader, MaxDownloads, RemoteInstalls, AutoStartDownloads,
+                DownloadWifiOnly, DownloadChargingOnly, DownloadBandwidth,
                 Threshold, InternalStaging,
                 FolderNameFromRom,
                 DangerSpacer, DangerHeader, ResetLibrary, HardReset
@@ -683,6 +687,30 @@ fun StorageSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
                 isEnabled = storage.autoStartDownloads,
                 isFocused = isFocused(item),
                 onToggle = { viewModel.toggleAutoStartDownloads() }
+            )
+
+            StorageItem.DownloadWifiOnly -> SwitchPreference(
+                title = stringResource(R.string.upload_downloads_wifi_only_title),
+                subtitle = stringResource(R.string.upload_downloads_wifi_only_subtitle),
+                isEnabled = storage.downloadWifiOnly,
+                isFocused = isFocused(item),
+                onToggle = { viewModel.toggleDownloadWifiOnly() }
+            )
+
+            StorageItem.DownloadChargingOnly -> SwitchPreference(
+                title = stringResource(R.string.upload_downloads_charging_only_title),
+                subtitle = stringResource(R.string.upload_downloads_charging_only_subtitle),
+                isEnabled = storage.downloadChargingOnly,
+                isFocused = isFocused(item),
+                onToggle = { viewModel.toggleDownloadChargingOnly() }
+            )
+
+            StorageItem.DownloadBandwidth -> CyclePreference(
+                title = stringResource(R.string.upload_downloads_bandwidth_title),
+                value = speedLimitLabel(storage.downloadBandwidthLimitKiBps),
+                isFocused = isFocused(item),
+                onClick = { viewModel.cycleDownloadBandwidth(1) },
+                onPrev = { viewModel.cycleDownloadBandwidth(-1) }
             )
 
             StorageItem.Threshold -> {

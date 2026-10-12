@@ -45,8 +45,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
+import com.nendo.argosy.domain.download.DownloadRetryPolicy
+import com.nendo.argosy.domain.upload.TransferHold
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.RandomAccessFile
 import java.time.Instant
 import javax.inject.Inject
@@ -119,10 +122,26 @@ enum class DownloadState {
 
 private sealed class DownloadResult {
     data class Success(val bytesWritten: Long) : DownloadResult()
-    data class Failure(val reason: DownloadFailureReason) : DownloadResult()
+    data class Failure(val reason: DownloadFailureReason, val transient: Boolean = false) : DownloadResult()
     data class WaitingForStorage(val reason: DownloadFailureReason) : DownloadResult()
     data object Cancelled : DownloadResult()
 }
+
+private fun Throwable.isNoSpaceLeft(): Boolean {
+    var current: Throwable? = this
+    var depth = 0
+    while (current != null && depth < MAX_CAUSE_DEPTH) {
+        if ((current as? android.system.ErrnoException)?.errno == android.system.OsConstants.ENOSPC) return true
+        if (current.message?.contains("ENOSPC", ignoreCase = true) == true ||
+            current.message?.contains("No space left", ignoreCase = true) == true
+        ) return true
+        current = current.cause
+        depth++
+    }
+    return false
+}
+
+private const val MAX_CAUSE_DEPTH = 8
 
 private val INVALID_CONTENT_TYPES = listOf("image/", "text/html")
 private const val MIN_ROM_SIZE_BYTES = 1024L
@@ -179,7 +198,8 @@ class DownloadManager @Inject constructor(
     private val homeTilePromptQueue: com.nendo.argosy.data.repository.HomeTilePromptQueue,
     private val customGridShapeStore: CustomGridShapeStore,
     private val extContentOrganizer: ExtContentOrganizer,
-    private val romStagingManager: RomStagingManager
+    private val romStagingManager: RomStagingManager,
+    private val transferGate: DownloadTransferGate
 ) {
     private val _state = MutableStateFlow(DownloadQueueState())
     val state: StateFlow<DownloadQueueState> = _state.asStateFlow()
@@ -232,10 +252,59 @@ class DownloadManager @Inject constructor(
         File(context.getExternalFilesDir(null), "downloads").also { it.mkdirs() }
     }
 
+    private val retryPolicy = DownloadRetryPolicy()
+    private val retryAttempts = mutableMapOf<Long, Int>()
+    private val retryBytes = mutableMapOf<Long, Long>()
+    private val retryNotBefore = mutableMapOf<Long, Long>()
+    private var connectionRetryScheduled = false
+
     init {
         scope.launch {
             restoreQueueFromDatabase()
         }
+        scope.launch {
+            transferGate.start()
+            observeTransferHold()
+        }
+    }
+
+    private suspend fun observeTransferHold() {
+        var previous = TransferHold.NONE
+        transferGate.hold.collect { hold ->
+            if (hold != TransferHold.NONE) {
+                holdActiveDownloads()
+            } else if (previous != TransferHold.NONE) {
+                retryNotBefore.clear()
+                processQueue()
+            }
+            previous = hold
+        }
+    }
+
+    private fun holdActiveDownloads() {
+        val active = _state.value.activeDownloads
+        if (active.isEmpty()) return
+        Logger.info(TAG, "Transfer hold | parking ${active.size} active downloads")
+        active.forEach { downloadJobs.remove(it.id)?.cancel() }
+        scope.launch {
+            active.forEach {
+                downloadQueueDao.updateState(it.id, DownloadState.QUEUED.name)
+                downloadQueueDao.updateProgress(it.id, it.bytesDownloaded)
+            }
+        }
+        val parked = active.map { it.copy(state = DownloadState.QUEUED, bytesPerSecond = 0, isAwaitingServer = false) }
+        _state.update { state ->
+            state.copy(
+                activeDownloads = state.activeDownloads.filter { current -> active.none { it.id == current.id } },
+                queue = parked + state.queue
+            )
+        }
+    }
+
+    private fun clearRetryState(id: Long) {
+        retryAttempts.remove(id)
+        retryBytes.remove(id)
+        retryNotBefore.remove(id)
     }
 
     private suspend fun restoreQueueFromDatabase() {
@@ -287,6 +356,7 @@ class DownloadManager @Inject constructor(
     companion object {
         private const val TAG = "DownloadManager"
         private const val CONNECTION_WAIT_TIMEOUT_MS = 30_000L
+        private const val CONNECTION_RETRY_MS = 60_000L
     }
 
     /**
@@ -419,6 +489,16 @@ class DownloadManager @Inject constructor(
     }
 
     private suspend fun startDownloadJob(progress: DownloadProgress) {
+        if (transferGate.hold.value != TransferHold.NONE) {
+            _state.update { state ->
+                if (state.queue.any { it.id == progress.id }) {
+                    state
+                } else {
+                    state.copy(queue = state.queue + progress.copy(state = DownloadState.QUEUED))
+                }
+            }
+            return
+        }
         val plan = planStorage(progress, claimStaging = true)
         val availableStorage = getAvailableStorageBytes(progress.platformSlug)
 
@@ -476,11 +556,14 @@ class DownloadManager @Inject constructor(
     private suspend fun settleDownload(progress: DownloadProgress, result: DownloadResult) {
         val finalProgress = when (result) {
             is DownloadResult.Success -> {
+                clearRetryState(progress.id)
                 downloadQueueDao.updateState(progress.id, DownloadState.COMPLETED.name)
                 soundManager.play(SoundType.DOWNLOAD_COMPLETE)
                 progress.copy(state = DownloadState.COMPLETED, bytesDownloaded = result.bytesWritten)
             }
-            is DownloadResult.Failure -> {
+            is DownloadResult.Failure -> if (scheduleRetry(progress, result)) {
+                progress.copy(state = DownloadState.QUEUED)
+            } else {
                 downloadQueueDao.updateState(
                     progress.id, DownloadState.FAILED.name, DownloadFailureReasonCodec.encode(result.reason)
                 )
@@ -503,6 +586,24 @@ class DownloadManager @Inject constructor(
 
         when (result) {
             is DownloadResult.Cancelled -> return
+            is DownloadResult.Failure -> if (finalProgress.state == DownloadState.QUEUED) {
+                _state.update { state ->
+                    state.copy(
+                        activeDownloads = state.activeDownloads.filter { it.id != progress.id },
+                        queue = listOf(finalProgress) + state.queue.filter { it.id != progress.id }
+                    )
+                }
+                notifySlotFreed()
+            } else {
+                _state.update { state ->
+                    state.copy(
+                        activeDownloads = state.activeDownloads.filter { it.id != progress.id },
+                        completed = state.completed + finalProgress
+                    )
+                }
+                clearRetryState(progress.id)
+                notifySlotFreed()
+            }
             is DownloadResult.WaitingForStorage -> {
                 _state.value = _state.value.copy(
                     activeDownloads = _state.value.activeDownloads.filter { it.id != progress.id },
@@ -522,6 +623,27 @@ class DownloadManager @Inject constructor(
                 }
             }
         }
+    }
+
+    private suspend fun scheduleRetry(progress: DownloadProgress, result: DownloadResult.Failure): Boolean {
+        if (!result.transient) return false
+        val reached = _state.value.activeDownloads.firstOrNull { it.id == progress.id }?.bytesDownloaded
+            ?: progress.bytesDownloaded
+        val madeProgress = reached > (retryBytes[progress.id] ?: -1L)
+        val attempt = retryPolicy.nextAttempt(retryAttempts[progress.id] ?: 0, madeProgress)
+        if (!retryPolicy.shouldRetry(attempt)) return false
+        val delayMillis = retryPolicy.delayFor(attempt)
+        retryAttempts[progress.id] = attempt
+        retryBytes[progress.id] = reached
+        retryNotBefore[progress.id] = System.currentTimeMillis() + delayMillis
+        Logger.info(TAG, "Download retry | game=${progress.gameTitle} attempt=$attempt in ${delayMillis}ms")
+        downloadQueueDao.updateState(progress.id, DownloadState.QUEUED.name)
+        downloadQueueDao.updateProgress(progress.id, reached)
+        scope.launch {
+            delay(delayMillis)
+            processQueue()
+        }
+        return true
     }
 
     private fun broadcastDownloadCompleted(gameId: Long) {
@@ -981,6 +1103,16 @@ class DownloadManager @Inject constructor(
         return gameFolder
     }
 
+    private fun scheduleConnectionRetry() {
+        if (connectionRetryScheduled) return
+        connectionRetryScheduled = true
+        scope.launch {
+            delay(CONNECTION_RETRY_MS)
+            connectionRetryScheduled = false
+            processQueue()
+        }
+    }
+
     private suspend fun processQueue() {
         if (!romMRepository.isConnected()) {
             Log.d(TAG, "processQueue: waiting for RomM connection")
@@ -989,9 +1121,15 @@ class DownloadManager @Inject constructor(
             }
             if (connected == null) {
                 Log.d(TAG, "processQueue: RomM connection timeout, deferring")
+                scheduleConnectionRetry()
                 return
             }
             Log.d(TAG, "processQueue: RomM connected, proceeding")
+        }
+
+        if (transferGate.hold.value != TransferHold.NONE) {
+            Log.d(TAG, "processQueue: transfers held (${transferGate.hold.value}), returning")
+            return
         }
 
         val maxConcurrent = preferencesRepository.userPreferences.first().maxConcurrentDownloads
@@ -1008,6 +1146,7 @@ class DownloadManager @Inject constructor(
         val slotsAvailable = maxConcurrent - currentActive
         val nextItems = _state.value.queue
             .filter { it.state == DownloadState.QUEUED }
+            .filter { (retryNotBefore[it.id] ?: 0L) <= System.currentTimeMillis() }
             .take(slotsAvailable)
 
         Log.d(TAG, "processQueue: found ${nextItems.size} QUEUED items to process")
@@ -1191,7 +1330,7 @@ class DownloadManager @Inject constructor(
 
                         val startOffset = if (response.isPartialContent) existingBytes else 0L
 
-                        body.byteStream().use { input ->
+                        transferGate.limiter.wrap(body.byteStream()).use { input ->
                             createOutputStream(tempFile, response.isPartialContent).use { output ->
                                 val buffer = ByteArray(DOWNLOAD_BUFFER_SIZE)
                                 var bytesRead: Long = startOffset
@@ -1301,7 +1440,10 @@ class DownloadManager @Inject constructor(
                             "Download failed | game=${progress.gameTitle} id=${progress.rommId} " +
                                 "file=${progress.fileName} code=${result.code} msg=${result.message}"
                         )
-                        DownloadResult.Failure(DownloadFailureReason.ServerError(result.message))
+                        DownloadResult.Failure(
+                            DownloadFailureReason.ServerError(result.message),
+                            transient = result.kind == null && DownloadRetryPolicy.isTransientHttp(result.code)
+                        )
                     }
                 }
             } catch (_: CancellationException) {
@@ -1312,7 +1454,16 @@ class DownloadManager @Inject constructor(
                     "Download error | game=${progress.gameTitle} id=${progress.rommId} file=${progress.fileName}",
                     e
                 )
-                DownloadResult.Failure(DownloadFailureReason.Unexpected(e.message))
+                if (e.isNoSpaceLeft()) {
+                    DownloadResult.WaitingForStorage(
+                        DownloadFailureReason.InsufficientDeploySpace(
+                            requiredBytes = progress.totalBytes,
+                            availableBytes = getAvailableStorageBytes(progress.platformSlug)
+                        )
+                    )
+                } else {
+                    DownloadResult.Failure(DownloadFailureReason.Unexpected(e.message), transient = e is IOException)
+                }
             }
         }
 
@@ -1977,6 +2128,20 @@ class DownloadManager @Inject constructor(
         } else {
             updateAvailableStorage()
         }
+    }
+
+    fun pauseAllDownloads() {
+        val snapshot = _state.value
+        val ids = snapshot.activeDownloads.map { it.rommId } +
+            snapshot.queue.filter { it.state == DownloadState.QUEUED }.map { it.rommId }
+        ids.distinct().forEach(::pauseDownload)
+    }
+
+    fun cancelAllDownloads() {
+        val snapshot = _state.value
+        val ids = snapshot.activeDownloads.map { it.rommId } +
+            snapshot.queue.filter { it.state == DownloadState.QUEUED }.map { it.rommId }
+        ids.distinct().forEach(::cancelDownload)
     }
 
     fun cancelDownload(rommId: Long) {

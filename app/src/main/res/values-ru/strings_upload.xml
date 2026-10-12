@@ -238,4 +238,9 @@
     <string name="upload_settings_missing_subtitle">Игры на этом устройстве, которых нет в RomM</string>
     <string name="upload_import_missing_title">Загрузить отсутствующие ROM</string>
     <string name="upload_import_missing_none">Все игры на этом устройстве уже есть в RomM.</string>
+    <string name="upload_downloads_wifi_only_title">Скачивать только по Wi-Fi</string>
+    <string name="upload_downloads_wifi_only_subtitle">Загрузки ждут при мобильных данных и продолжаются по Wi-Fi</string>
+    <string name="upload_downloads_charging_only_title">Скачивать только при зарядке</string>
+    <string name="upload_downloads_charging_only_subtitle">Загрузки ждут подключения зарядки</string>
+    <string name="upload_downloads_bandwidth_title">Ограничение скорости скачивания</string>
 </resources>

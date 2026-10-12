@@ -138,6 +138,9 @@ class UserPreferencesRepository @Inject constructor(
             maxConcurrentDownloads = storage.maxConcurrentDownloads,
             allowRemoteInstalls = storage.allowRemoteInstalls,
             autoStartDownloads = storage.autoStartDownloads,
+            downloadWifiOnly = storage.downloadWifiOnly,
+            downloadChargingOnly = storage.downloadChargingOnly,
+            downloadBandwidthLimitKiBps = storage.downloadBandwidthLimitKiBps,
             instantDownloadThresholdMb = storage.instantDownloadThresholdMb,
             stageDownloadsInternally = storage.stageDownloadsInternally,
             folderNameFromRom = storage.folderNameFromRom,
@@ -513,6 +516,9 @@ class UserPreferencesRepository @Inject constructor(
     suspend fun setMaxConcurrentDownloads(count: Int) = storagePrefs.setMaxConcurrentDownloads(count)
     suspend fun setAllowRemoteInstalls(enabled: Boolean) = storagePrefs.setAllowRemoteInstalls(enabled)
     suspend fun setAutoStartDownloads(enabled: Boolean) = storagePrefs.setAutoStartDownloads(enabled)
+    suspend fun setDownloadWifiOnly(enabled: Boolean) = storagePrefs.setDownloadWifiOnly(enabled)
+    suspend fun setDownloadChargingOnly(enabled: Boolean) = storagePrefs.setDownloadChargingOnly(enabled)
+    suspend fun setDownloadBandwidthLimitKiBps(kibps: Int) = storagePrefs.setDownloadBandwidthLimitKiBps(kibps)
     suspend fun setInstantDownloadThresholdMb(value: Int) = storagePrefs.setInstantDownloadThresholdMb(value)
     suspend fun setStageDownloadsInternally(enabled: Boolean) = storagePrefs.setStageDownloadsInternally(enabled)
 
@@ -851,6 +857,9 @@ data class UserPreferences(
     val maxConcurrentDownloads: Int = 1,
     val allowRemoteInstalls: Boolean = true,
     val autoStartDownloads: Boolean = true,
+    val downloadWifiOnly: Boolean = false,
+    val downloadChargingOnly: Boolean = false,
+    val downloadBandwidthLimitKiBps: Int = 0,
     val instantDownloadThresholdMb: Int = 50,
     val stageDownloadsInternally: Boolean = true,
     val folderNameFromRom: Boolean = false,

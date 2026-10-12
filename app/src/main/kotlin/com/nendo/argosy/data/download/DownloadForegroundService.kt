@@ -259,17 +259,31 @@ class DownloadForegroundService : Service() {
         contentText: String,
         progress: Int,
         maxProgress: Int
-    ) = NotificationCompat.Builder(this, DownloadNotificationChannel.CHANNEL_ID)
-        .setSmallIcon(R.drawable.ic_helm)
-        .setContentTitle(getString(R.string.app_name))
-        .setContentText(contentText)
-        .setPriority(NotificationCompat.PRIORITY_LOW)
-        .setOngoing(true)
-        .setOnlyAlertOnce(true)
-        .setSilent(true)
-        .setProgress(maxProgress, progress, progress == 0 && maxProgress == 0)
-        .setContentIntent(createContentIntent())
-        .build()
+    ): android.app.Notification {
+        val builder = NotificationCompat.Builder(this, DownloadNotificationChannel.CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_helm)
+            .setContentTitle(getString(R.string.app_name))
+            .setContentText(contentText)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setOngoing(true)
+            .setOnlyAlertOnce(true)
+            .setSilent(true)
+            .setProgress(maxProgress, progress, progress == 0 && maxProgress == 0)
+            .setContentIntent(createContentIntent())
+        builder.addAction(0, getString(R.string.upload_action_pause), actionIntent(DownloadActionReceiver.ACTION_PAUSE))
+        if (downloadManager.state.value.hasPaused) {
+            builder.addAction(0, getString(R.string.upload_action_resume), actionIntent(DownloadActionReceiver.ACTION_RESUME))
+        }
+        builder.addAction(0, getString(R.string.upload_action_cancel), actionIntent(DownloadActionReceiver.ACTION_CANCEL))
+        return builder.build()
+    }
+
+    private fun actionIntent(action: String): PendingIntent = PendingIntent.getBroadcast(
+        this,
+        action.hashCode(),
+        Intent(this, DownloadActionReceiver::class.java).setAction(action),
+        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+    )
 
     private fun createContentIntent(): PendingIntent {
         val intent = Intent(this, MainActivity::class.java).apply {

@@ -44,6 +44,7 @@ class DownloadServiceController @Inject constructor(
             ) { rommActive, steamActive -> rommActive || steamActive }
                 .distinctUntilChanged()
                 .collect { hasActiveWork ->
+                    if (hasActiveWork) DownloadResumeWorker.schedule(context) else DownloadResumeWorker.cancel(context)
                     if (hasActiveWork && !isServiceRunning) {
                         isServiceRunning = true
                         DownloadForegroundService.start(context)

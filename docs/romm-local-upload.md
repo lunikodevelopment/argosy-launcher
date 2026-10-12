@@ -205,6 +205,29 @@ notification that has Pause/Resume/Cancel.
 - **Wi-Fi only / charging only:** jobs wait until the condition holds; WorkManager restarts them when
   it does.
 
+### ROM downloads
+
+Downloads from RomM follow the same rules, with these differences.
+
+- **Resume:** a partial download keeps its `.tmp` file and continues with an HTTP `Range` request.
+  The check is the file size and the server's status code; Argosy does not compare an ETag, so a
+  file replaced on the server with the same length would not be noticed.
+- **Retry:** a dropped connection, a timeout or a 408/425/429/5xx reply requeues the download with
+  exponential backoff (5 s up to 5 minutes). Attempts that moved no new bytes count towards six;
+  one that made progress starts the count over. Other errors fail the download as before.
+- **Network return:** when connectivity comes back, waiting downloads start at once instead of
+  waiting out their backoff.
+- **Wi-Fi only, charging only, speed limit:** Settings → Storage → Downloads. While a condition
+  does not hold, running downloads are parked in the queue with their partial files and start again
+  when it holds. The speed limit applies to every running download together.
+- **Disk full:** running out of space mid-download parks the download as waiting for storage rather
+  than failing it. It resumes when you free space and open the downloads drawer.
+- **Notification:** Pause, Resume (when something is paused) and Cancel act on every ROM download.
+  Cancel discards the partial files.
+- **Process death:** the queue is restored when Argosy starts. A 15-minute WorkManager job, active
+  only while downloads are queued and a network exists, starts Argosy again so the queue restores
+  without you opening the app. Android may delay it under Doze or battery restrictions.
+
 ### Android limits
 
 - Android 13 and later need the notification permission to show transfer progress. Transfers still

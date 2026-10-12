@@ -165,6 +165,10 @@
             android:name=".data.upload.UploadActionReceiver"
             android:exported="false" />
 
+        <receiver
+            android:name=".data.download.DownloadActionReceiver"
+            android:exported="false" />
+
         <service
             android:name=".data.sync.SyncForegroundService"
             android:foregroundServiceType="specialUse|dataSync"

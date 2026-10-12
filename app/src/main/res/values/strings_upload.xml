@@ -276,4 +276,11 @@ Only trust it if the server was reinstalled or its keys were regenerated.</strin
     <string name="upload_settings_missing_subtitle">Games on this device that RomM doesn\'t have</string>
     <string name="upload_import_missing_title">Upload missing ROMs</string>
     <string name="upload_import_missing_none">Every game on this device is already in RomM.</string>
+
+    <!-- Download limits -->
+    <string name="upload_downloads_wifi_only_title">Download on Wi-Fi only</string>
+    <string name="upload_downloads_wifi_only_subtitle">Downloads wait on mobile data and resume on Wi-Fi</string>
+    <string name="upload_downloads_charging_only_title">Download while charging only</string>
+    <string name="upload_downloads_charging_only_subtitle">Downloads wait until the charger is connected</string>
+    <string name="upload_downloads_bandwidth_title">Download speed limit</string>
 </resources>

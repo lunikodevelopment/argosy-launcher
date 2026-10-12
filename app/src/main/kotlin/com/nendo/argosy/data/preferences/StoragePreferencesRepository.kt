@@ -20,6 +20,9 @@ data class StoragePreferences(
     val maxConcurrentDownloads: Int = 1,
     val allowRemoteInstalls: Boolean = true,
     val autoStartDownloads: Boolean = true,
+    val downloadWifiOnly: Boolean = false,
+    val downloadChargingOnly: Boolean = false,
+    val downloadBandwidthLimitKiBps: Int = 0,
     val instantDownloadThresholdMb: Int = 50,
     val stageDownloadsInternally: Boolean = true,
     val folderNameFromRom: Boolean = false,
@@ -41,6 +44,9 @@ class StoragePreferencesRepository @Inject constructor(
         val MAX_CONCURRENT_DOWNLOADS = intPreferencesKey("max_concurrent_downloads")
         val ALLOW_REMOTE_INSTALLS = booleanPreferencesKey("allow_remote_installs")
         val AUTO_START_DOWNLOADS = booleanPreferencesKey("auto_start_downloads")
+        val DOWNLOAD_WIFI_ONLY = booleanPreferencesKey("download_wifi_only")
+        val DOWNLOAD_CHARGING_ONLY = booleanPreferencesKey("download_charging_only")
+        val DOWNLOAD_BANDWIDTH_LIMIT_KIBPS = intPreferencesKey("download_bandwidth_limit_kibps")
         val INSTANT_DOWNLOAD_THRESHOLD_MB = intPreferencesKey("instant_download_threshold_mb")
         val STAGE_DOWNLOADS_INTERNALLY = booleanPreferencesKey("stage_downloads_internally")
         val FOLDER_NAME_FROM_ROM = booleanPreferencesKey("folder_name_from_rom")
@@ -62,6 +68,9 @@ class StoragePreferencesRepository @Inject constructor(
             maxConcurrentDownloads = prefs[Keys.MAX_CONCURRENT_DOWNLOADS] ?: 1,
             allowRemoteInstalls = prefs[Keys.ALLOW_REMOTE_INSTALLS] ?: true,
             autoStartDownloads = prefs[Keys.AUTO_START_DOWNLOADS] ?: true,
+            downloadWifiOnly = prefs[Keys.DOWNLOAD_WIFI_ONLY] ?: false,
+            downloadChargingOnly = prefs[Keys.DOWNLOAD_CHARGING_ONLY] ?: false,
+            downloadBandwidthLimitKiBps = prefs[Keys.DOWNLOAD_BANDWIDTH_LIMIT_KIBPS] ?: 0,
             instantDownloadThresholdMb = prefs[Keys.INSTANT_DOWNLOAD_THRESHOLD_MB] ?: 50,
             stageDownloadsInternally = prefs[Keys.STAGE_DOWNLOADS_INTERNALLY] ?: true,
             folderNameFromRom = prefs[Keys.FOLDER_NAME_FROM_ROM] ?: false,
@@ -99,6 +108,18 @@ class StoragePreferencesRepository @Inject constructor(
 
     suspend fun setAllowRemoteInstalls(enabled: Boolean) {
         dataStore.edit { it[Keys.ALLOW_REMOTE_INSTALLS] = enabled }
+    }
+
+    suspend fun setDownloadWifiOnly(enabled: Boolean) {
+        dataStore.edit { it[Keys.DOWNLOAD_WIFI_ONLY] = enabled }
+    }
+
+    suspend fun setDownloadChargingOnly(enabled: Boolean) {
+        dataStore.edit { it[Keys.DOWNLOAD_CHARGING_ONLY] = enabled }
+    }
+
+    suspend fun setDownloadBandwidthLimitKiBps(kibps: Int) {
+        dataStore.edit { it[Keys.DOWNLOAD_BANDWIDTH_LIMIT_KIBPS] = kibps.coerceAtLeast(0) }
     }
 
     suspend fun setAutoStartDownloads(enabled: Boolean) {

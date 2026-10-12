@@ -31,6 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.nendo.argosy.ui.screens.settings.PlatformMigrationInfo
 import com.nendo.argosy.ui.screens.settings.PlatformStorageConfig
+import com.nendo.argosy.ui.screens.settings.RomUploadState
 import com.nendo.argosy.ui.screens.settings.StorageState
 import com.nendo.argosy.util.Logger
 import kotlinx.coroutines.CoroutineScope
@@ -150,6 +151,32 @@ class StorageSettingsDelegate @Inject constructor(
             val next = !_state.value.autoStartDownloads
             preferencesRepository.setAutoStartDownloads(next)
             _state.update { it.copy(autoStartDownloads = next) }
+        }
+    }
+
+    fun toggleDownloadWifiOnly(scope: CoroutineScope) {
+        scope.launch {
+            val next = !_state.value.downloadWifiOnly
+            preferencesRepository.setDownloadWifiOnly(next)
+            _state.update { it.copy(downloadWifiOnly = next) }
+        }
+    }
+
+    fun toggleDownloadChargingOnly(scope: CoroutineScope) {
+        scope.launch {
+            val next = !_state.value.downloadChargingOnly
+            preferencesRepository.setDownloadChargingOnly(next)
+            _state.update { it.copy(downloadChargingOnly = next) }
+        }
+    }
+
+    fun cycleDownloadBandwidth(scope: CoroutineScope, direction: Int) {
+        scope.launch {
+            val options = RomUploadState.BANDWIDTH_OPTIONS_KIBPS
+            val current = options.indexOf(_state.value.downloadBandwidthLimitKiBps).coerceAtLeast(0)
+            val next = options[(current + direction).mod(options.size)]
+            preferencesRepository.setDownloadBandwidthLimitKiBps(next)
+            _state.update { it.copy(downloadBandwidthLimitKiBps = next) }
         }
     }
 

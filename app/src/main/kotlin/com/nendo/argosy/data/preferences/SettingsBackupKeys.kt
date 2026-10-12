@@ -263,6 +263,9 @@ object SettingsBackupKeys {
     private val DOWNLOADS_AND_CACHES = listOf(
         SettingsBackupKey("max_concurrent_downloads", SettingsBackupType.INT),
         SettingsBackupKey("auto_start_downloads", SettingsBackupType.BOOLEAN),
+        SettingsBackupKey("download_wifi_only", SettingsBackupType.BOOLEAN),
+        SettingsBackupKey("download_charging_only", SettingsBackupType.BOOLEAN),
+        SettingsBackupKey("download_bandwidth_limit_kibps", SettingsBackupType.INT),
         SettingsBackupKey("allow_remote_installs", SettingsBackupType.BOOLEAN),
         SettingsBackupKey("instant_download_threshold_mb", SettingsBackupType.INT),
         SettingsBackupKey("stage_downloads_internally", SettingsBackupType.BOOLEAN),

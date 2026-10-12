@@ -90,6 +90,18 @@ internal class StorageSectionInput(
                 viewModel.adjustMaxConcurrentDownloads(direction)
                 return InputResult.HANDLED
             }
+            StorageItem.DownloadBandwidth -> {
+                viewModel.cycleDownloadBandwidth(direction)
+                return InputResult.handled(SoundType.TOGGLE)
+            }
+            StorageItem.DownloadWifiOnly -> {
+                viewModel.toggleDownloadWifiOnly()
+                return InputResult.handled(SoundType.TOGGLE)
+            }
+            StorageItem.DownloadChargingOnly -> {
+                viewModel.toggleDownloadChargingOnly()
+                return InputResult.handled(SoundType.TOGGLE)
+            }
             StorageItem.Threshold -> {
                 viewModel.cycleInstantDownloadThreshold(direction)
                 return InputResult.HANDLED
