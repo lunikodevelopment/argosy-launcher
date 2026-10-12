@@ -295,6 +295,10 @@ dependencies {
     // QuayPass credential Ed25519 verification (Conscrypt lacks an Ed25519 KeyFactory)
     implementation(libs.bouncycastle)
 
+    // ROM uploads to a RomM library host over SFTP and SMB2/3
+    implementation(libs.sshj)
+    implementation(libs.smbj)
+
     // argosy-sigil — title id / serial extraction (replaces in-tree :libchdr +
     // Iso9660Utils + AesXts + ZArchiveReader + GameCubeHeaderParser.parseRomHeader)
     implementation(project(":sigil"))
@@ -319,6 +323,8 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation("net.java.dev.jna:jna:5.14.0")
     testImplementation("org.json:json:20240303")
+    testImplementation(libs.apache.sshd.core)
+    testImplementation(libs.apache.sshd.sftp)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
