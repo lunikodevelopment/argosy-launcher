@@ -218,21 +218,21 @@ class SftpTransferClientTest {
                 return n
             }
         }
-        val runtime = Runtime.getRuntime()
-        System.gc()
-        val before = runtime.totalMemory() - runtime.freeMemory()
-        var peak = before
+        var maxReadAhead = 0L
+        var callbacks = 0
         client().use { c ->
             c.connect()
             val executor = UploadExecutor(c, { stream })
             val task = UploadFileTask("f", "/local/Huge.iso", "Huge.iso", "roms/gba/Huge.iso", size)
-            val outcome = executor.execute(task, context(), {
-                peak = maxOf(peak, runtime.totalMemory() - runtime.freeMemory())
+            val outcome = executor.execute(task, context(), { totalSent ->
+                callbacks++
+                maxReadAhead = maxOf(maxReadAhead, stream.sent - totalSent)
             }, CancellationCheck.NEVER)
             assertEquals(UploadItemState.COMPLETED, outcome.state)
         }
         assertEquals(size, File(root, "roms/gba/Huge.iso").length())
-        assertTrue("heap grew by ${(peak - before) / 1024 / 1024} MB", peak - before < size)
+        assertTrue("only $callbacks progress callbacks", callbacks > 1)
+        assertTrue("read ${maxReadAhead / 1024 / 1024} MB ahead of the wire", maxReadAhead < MAX_READ_AHEAD)
     }
 
     @Test
@@ -260,5 +260,6 @@ class SftpTransferClientTest {
     companion object {
         private const val USER = "romm"
         private const val PASSWORD = "secret"
+        private const val MAX_READ_AHEAD = 16L * 1024 * 1024
     }
 }
