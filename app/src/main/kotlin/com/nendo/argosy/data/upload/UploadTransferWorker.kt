@@ -31,7 +31,8 @@ import kotlinx.coroutines.flow.first
 class UploadTransferWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
-    private val uploadManager: UploadManager
+    private val uploadManager: UploadManager,
+    private val scanService: RommScanService
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
@@ -48,8 +49,14 @@ class UploadTransferWorker @AssistedInject constructor(
             }
 
         val jobs = engine.jobs.value
-        if (uploadManager.preferences.value.settings.notifyOnCompletion) {
-            UploadNotifications.showSummary(applicationContext, jobs.filter { it.id in initial && it.state.isTerminal })
+        val finished = jobs.filter { it.id in initial && it.state.isTerminal }
+        val settings = uploadManager.preferences.value.settings
+        if (settings.notifyOnCompletion) {
+            UploadNotifications.showSummary(applicationContext, finished)
+        }
+        val uploadedFolders = finished.filter { it.state == UploadItemState.COMPLETED }.mapNotNull { it.remoteFolderName }
+        if (settings.scanAfterUpload && uploadedFolders.isNotEmpty()) {
+            scanService.scanAndRefresh(uploadedFolders)
         }
         if (jobs.any { it.state == UploadItemState.WAITING_FOR_NETWORK }) {
             schedule(applicationContext, uploadManager.preferences.value.settings, ExistingWorkPolicy.APPEND_OR_REPLACE)
