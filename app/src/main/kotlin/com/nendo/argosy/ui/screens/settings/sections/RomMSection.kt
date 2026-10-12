@@ -11,6 +11,7 @@ import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Dns
 import androidx.compose.material.icons.filled.ManageAccounts
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -40,6 +41,7 @@ internal sealed class RomMItem(val key: String, val section: String) {
     data object Accounts : RomMItem("rommAccounts", "server")
     data object SyncSettings : RomMItem("syncSettings", "library")
     data object SyncLibrary : RomMItem("syncLibrary", "library")
+    data object RomUploads : RomMItem("romUploads", "server")
 }
 
 internal fun buildRomMItems(
@@ -49,6 +51,7 @@ internal fun buildRomMItems(
     add(RomMItem.Header("serverHeader", "server", R.string.settings_romm_section_server))
     add(RomMItem.RomManager)
     add(RomMItem.Accounts)
+    add(RomMItem.RomUploads)
     if (isSignedIntoRomM) {
         add(RomMItem.RomMSignOut)
     }
@@ -210,6 +213,14 @@ private fun RomMContent(uiState: SettingsUiState, viewModel: SettingsViewModel) 
                 subtitle = stringResource(R.string.settings_romm_sync_settings_subtitle),
                 isFocused = isFocused(item),
                 onClick = { openFrom(item) { viewModel.navigateToSection(SettingsSection.SYNC_SETTINGS) } }
+            )
+
+            RomMItem.RomUploads -> NavigationPreference(
+                icon = Icons.Default.CloudUpload,
+                title = stringResource(R.string.upload_settings_romm_row_title),
+                subtitle = stringResource(R.string.upload_settings_romm_row_subtitle),
+                isFocused = isFocused(item),
+                onClick = { openFrom(item) { viewModel.navigateToSection(SettingsSection.ROM_UPLOADS) } }
             )
 
             RomMItem.SyncLibrary -> {

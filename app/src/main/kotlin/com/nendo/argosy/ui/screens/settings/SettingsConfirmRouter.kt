@@ -144,6 +144,8 @@ import com.nendo.argosy.ui.screens.settings.sections.savesItemAtFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.savesMaxFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.syncSettingsItemAtFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.syncSettingsMaxFocusIndex
+import com.nendo.argosy.ui.screens.settings.sections.romUploadProfileMaxFocusIndex
+import com.nendo.argosy.ui.screens.settings.sections.romUploadsMaxFocusIndex
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import com.nendo.argosy.ui.screens.settings.sections.libraryMaxFocusIndex
@@ -304,6 +306,8 @@ internal fun routeConfirm(vm: SettingsViewModel): InputResult {
         SettingsSection.CORE_OPTIONS -> InputResult.HANDLED
         SettingsSection.SOCIAL -> vm.handleSocialConfirm(state)
         SettingsSection.MANAGED_INSTALLERS -> routeInstallersConfirm(vm, state)
+        SettingsSection.ROM_UPLOADS -> routeRomUploadsConfirm(vm, state)
+        SettingsSection.ROM_UPLOAD_PROFILE -> routeRomUploadProfileConfirm(vm, state)
     }
 }
 
@@ -409,6 +413,7 @@ private fun routeRomMConfirm(vm: SettingsViewModel, state: SettingsUiState): Inp
         RomMItem.RomMSignOut -> vm.requestRommSignOut()
         RomMItem.Accounts -> vm.navigateToSection(SettingsSection.ACCOUNTS)
         RomMItem.SyncSettings -> vm.navigateToSection(SettingsSection.SYNC_SETTINGS)
+        RomMItem.RomUploads -> vm.navigateToSection(SettingsSection.ROM_UPLOADS)
         RomMItem.SyncLibrary -> if (isOnline) vm.syncRomm()
         else -> {}
     }
@@ -1307,6 +1312,8 @@ private fun computeMaxFocusIndex(
     }
     SettingsSection.SAVES -> savesMaxFocusIndex(SavesLayoutState.from(state))
     SettingsSection.SYNC_SETTINGS -> syncSettingsMaxFocusIndex()
+    SettingsSection.ROM_UPLOADS -> romUploadsMaxFocusIndex(state.romUpload)
+    SettingsSection.ROM_UPLOAD_PROFILE -> romUploadProfileMaxFocusIndex(state.romUpload)
     SettingsSection.STEAM_SETTINGS -> steamMaxFocusIndex(state.steam)
     SettingsSection.JELLYFIN -> when {
         state.jellyfin.configuring -> JELLYFIN_CONFIG_CANCEL_INDEX

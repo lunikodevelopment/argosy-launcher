@@ -4,6 +4,20 @@ Argosy can copy ROMs from the handheld into a RomM library over **SFTP** or **SM
 transfers never use RomM's HTTP upload API; the RomM API is used only to read the library layout,
 trigger a scan and refresh Argosy afterwards.
 
+## Adding a server
+
+Open **Settings → RomM → ROM uploads** and choose **Add upload server**. Fill in the protocol,
+host, port, username and password or private key, plus the share for SMB and the library root.
+**Test connection** saves the server, connects, checks that the library root is a folder and counts
+the platform folders it finds. On the first SFTP connection Argosy asks you to confirm the server's
+host-key fingerprint. Leaving the editor with Back saves a complete server; an incomplete new
+server is discarded.
+
+Passwords, private keys and passphrases are stored encrypted on the device and are never shown
+again; the editor only says whether one is saved. The same screen holds the transfer settings
+(duplicates, simultaneous uploads, Wi-Fi only, charging only, speed limits, notifications) and the
+RomM scan settings.
+
 ## How it works
 
 1. Argosy groups the selected files into games. Multi-disc and multi-file sets (`.m3u`, `.cue` +

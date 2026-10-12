@@ -25,4 +25,145 @@
     <string name="upload_summary_title">ROM uploads finished</string>
     <!-- %1$d uploaded games, %2$d games already on the server, %3$d failed games. -->
     <string name="upload_summary_counts">Uploaded: %1$d · Already there: %2$d · Failed: %3$d</string>
+
+    <!-- Settings: ROM uploads screen -->
+    <string name="upload_settings_header">ROM uploads</string>
+    <string name="upload_settings_romm_row_title">ROM uploads</string>
+    <string name="upload_settings_romm_row_subtitle">Send local ROMs to your RomM library over SFTP or SMB</string>
+    <string name="upload_settings_section_servers">Servers</string>
+    <string name="upload_settings_section_transfers">Transfers</string>
+    <string name="upload_settings_section_scan">Library scan</string>
+    <!-- %1$s is the protocol (SFTP or SMB), %2$s the username, %3$s the host. -->
+    <string name="upload_settings_profile_subtitle">%1$s · %2$s@%3$s</string>
+    <string name="upload_settings_profile_default_badge">Default</string>
+    <string name="upload_settings_add_profile_title">Add upload server</string>
+    <string name="upload_settings_add_profile_subtitle">SFTP or SMB access to the RomM library folder</string>
+    <string name="upload_settings_duplicates_title">When a file already exists</string>
+    <string name="upload_settings_concurrency_title">Simultaneous uploads</string>
+    <string name="upload_settings_concurrency_subtitle">One at a time while a game is running</string>
+    <string name="upload_settings_wifi_only_title">Wi-Fi only</string>
+    <string name="upload_settings_wifi_only_subtitle">Wait for a network without data limits</string>
+    <string name="upload_settings_charging_only_title">Only while charging</string>
+    <string name="upload_settings_charging_only_subtitle">Wait until the device is plugged in</string>
+    <string name="upload_settings_bandwidth_title">Upload speed limit</string>
+    <string name="upload_settings_in_game_limit_title">Speed limit while playing</string>
+    <string name="upload_settings_speed_unlimited">Unlimited</string>
+    <!-- %1$d is a speed in kilobytes per second. -->
+    <string name="upload_settings_speed_kibps">%1$d KB/s</string>
+    <!-- %1$d is a speed in megabytes per second. -->
+    <string name="upload_settings_speed_mibps">%1$d MB/s</string>
+    <string name="upload_settings_notify_title">Notify when finished</string>
+    <string name="upload_settings_notify_subtitle">Show a summary when a batch ends</string>
+    <string name="upload_settings_scan_after_title">Scan RomM after uploading</string>
+    <string name="upload_settings_scan_after_subtitle">Ask RomM to scan the folders that received files</string>
+    <string name="upload_settings_scan_token_title">Scan token</string>
+    <string name="upload_settings_scan_token_set">Saved. Argosy can start RomM scans</string>
+    <!-- tasks.run is a RomM permission scope name and stays untranslated. -->
+    <string name="upload_settings_scan_token_missing">Needed for scans: a RomM client token with the tasks.run scope</string>
+    <string name="upload_settings_scan_token_remove_title">Remove scan token</string>
+    <string name="upload_settings_scan_token_remove_subtitle">Argosy stops starting RomM scans</string>
+
+    <!-- Duplicate policy labels -->
+    <string name="upload_duplicate_skip">Skip</string>
+    <string name="upload_duplicate_keep_both">Keep both</string>
+    <string name="upload_duplicate_overwrite">Overwrite after confirming</string>
+    <string name="upload_duplicate_cancel">Stop the batch</string>
+
+    <!-- Upload server editor -->
+    <string name="upload_profile_header_new">New upload server</string>
+    <string name="upload_profile_header_edit">Upload server</string>
+    <string name="upload_profile_value_unset">Not set</string>
+    <string name="upload_profile_secret_stored">Saved on this device</string>
+    <string name="upload_profile_name_title">Name</string>
+    <string name="upload_profile_name_empty">Uses the host when empty</string>
+    <string name="upload_profile_protocol_title">Protocol</string>
+    <!-- Protocol name, never translated. -->
+    <string name="upload_protocol_sftp">SFTP</string>
+    <!-- Protocol name, never translated. -->
+    <string name="upload_protocol_smb">SMB</string>
+    <string name="upload_profile_host_title">Host</string>
+    <string name="upload_profile_port_title">Port</string>
+    <string name="upload_profile_username_title">Username</string>
+    <string name="upload_profile_auth_title">Sign in with</string>
+    <string name="upload_auth_password">Password</string>
+    <string name="upload_auth_private_key">Private key</string>
+    <string name="upload_profile_password_title">Password</string>
+    <string name="upload_profile_private_key_title">Private key file</string>
+    <string name="upload_profile_private_key_empty">Choose an OpenSSH or PEM key file</string>
+    <string name="upload_profile_private_key_unreadable">That file is not a readable private key</string>
+    <string name="upload_profile_passphrase_title">Key passphrase</string>
+    <string name="upload_profile_passphrase_empty">Only if the key is encrypted</string>
+    <string name="upload_profile_share_title">Share</string>
+    <string name="upload_profile_domain_title">Domain</string>
+    <string name="upload_profile_optional">Optional</string>
+    <string name="upload_profile_encryption_title">Require encryption</string>
+    <string name="upload_profile_encryption_subtitle">SMB3 encryption, if the server supports it</string>
+    <string name="upload_profile_root_title">Library root</string>
+    <string name="upload_profile_root_empty">The share or login folder itself</string>
+    <string name="upload_profile_template_title">Library layout</string>
+    <!-- Folder layout; roms stays as is, <platform> stands for the platform folder. -->
+    <string name="upload_layout_roms_platform">roms/&lt;platform&gt;</string>
+    <!-- Folder layout; roms stays as is, <platform> stands for the platform folder. -->
+    <string name="upload_layout_platform_roms">&lt;platform&gt;/roms</string>
+    <string name="upload_profile_create_folders_title">Create missing platform folders</string>
+    <string name="upload_profile_create_folders_subtitle">When off, uploads only go into existing platform folders</string>
+    <string name="upload_profile_default_title">Default server</string>
+    <string name="upload_profile_default_subtitle">Preselected when you upload ROMs</string>
+    <string name="upload_profile_host_key_title">Trusted host key</string>
+    <!-- %1$s is the key type, %2$s the SHA256 fingerprint. -->
+    <string name="upload_profile_host_key_subtitle">%1$s %2$s. Select to forget it</string>
+    <string name="upload_profile_test_title">Test connection</string>
+    <string name="upload_profile_test_idle">Saves the server and checks the library root</string>
+    <string name="upload_profile_test_incomplete">Fill in the host and username, and the share for SMB</string>
+    <string name="upload_profile_test_running">Connecting…</string>
+    <!-- %1$d is the number of platform folders found in the library. -->
+    <string name="upload_profile_test_success">Connected. %1$d platform folders found</string>
+    <!-- %1$d is the number of platform folders, %2$s the free space such as 120 GB. -->
+    <string name="upload_profile_test_success_space">Connected. %1$d platform folders found, %2$s free</string>
+    <string name="upload_profile_save_title">Save</string>
+    <string name="upload_profile_save_dirty">Save the changes to this server</string>
+    <string name="upload_profile_save_clean">No unsaved changes</string>
+    <string name="upload_profile_delete_title">Delete server</string>
+    <string name="upload_profile_delete_subtitle">Removes the server and its saved password and key</string>
+    <!-- %1$s is the server name. -->
+    <string name="upload_profile_delete_confirm_title">Delete %1$s?</string>
+    <string name="upload_profile_delete_confirm_message">Its saved password, key and trusted host key are removed from this device. Files on the server are not touched.</string>
+    <string name="upload_profile_delete_confirm_action">Delete</string>
+    <string name="upload_text_entry_confirm">Save</string>
+    <string name="upload_text_entry_cancel">Cancel</string>
+    <string name="upload_key_file_browser_title">Choose private key</string>
+
+    <!-- SSH host key prompt -->
+    <string name="upload_host_key_unknown_title">Trust this server?</string>
+    <!-- %1$s is the host, %2$s the key type, %3$s the SHA256 fingerprint. -->
+    <string name="upload_host_key_unknown_message">%1$s presented this %2$s key:
+%3$s
+Compare it with the fingerprint on the server before trusting it.</string>
+    <string name="upload_host_key_changed_title">Host key changed</string>
+    <!-- %1$s is the host, %2$s the trusted fingerprint, %3$s the presented fingerprint. -->
+    <string name="upload_host_key_changed_message">The key for %1$s changed.
+Trusted: %2$s
+Presented: %3$s
+Only trust it if the server was reinstalled or its keys were regenerated.</string>
+    <string name="upload_host_key_trust">Trust</string>
+    <string name="upload_host_key_trust_new">Trust new key</string>
+
+    <!-- Upload error labels -->
+    <string name="upload_error_auth_failed">Sign-in failed. Check the username, password or key</string>
+    <string name="upload_error_host_key_unknown">The server’s host key is not trusted yet</string>
+    <string name="upload_error_host_key_changed">The server’s host key changed</string>
+    <string name="upload_error_connection_failed">Could not reach the server</string>
+    <string name="upload_error_network_lost">The connection dropped</string>
+    <string name="upload_error_timeout">The server stopped responding</string>
+    <string name="upload_error_permission_denied">No permission to write there</string>
+    <string name="upload_error_destination_invalid">The library root or share is not a usable folder</string>
+    <string name="upload_error_platform_folder_missing">The platform folder does not exist</string>
+    <string name="upload_error_source_unreadable">Could not read the local file</string>
+    <string name="upload_error_source_changed">The local file changed during the upload</string>
+    <string name="upload_error_size_mismatch">The server stored a different size</string>
+    <string name="upload_error_remote_exists">The file already exists on the server</string>
+    <string name="upload_error_no_space">The server is out of space</string>
+    <string name="upload_error_unsupported">The server does not support this</string>
+    <string name="upload_error_cancelled">Cancelled</string>
+    <string name="upload_error_unknown">Something went wrong</string>
 </resources>

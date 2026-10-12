@@ -258,6 +258,22 @@ class UploadManager @Inject constructor(
 
     fun newProfileId(): String = UUID.randomUUID().toString()
 
+    suspend fun readPrivateKeyFile(path: String): CharArray? = withContext(Dispatchers.IO) {
+        if (fileAccess.length(path) > MAX_KEY_FILE_BYTES) return@withContext null
+        val bytes = fileAccess.readBytes(path) ?: return@withContext null
+        try {
+            val chars = Charsets.UTF_8.decode(java.nio.ByteBuffer.wrap(bytes))
+            CharArray(chars.remaining()).also { chars.get(it) }.takeIf { key -> key.containsMarker(KEY_MARKER) }
+        } finally {
+            bytes.fill(0)
+        }
+    }
+
+    fun hasSecret(profileId: String, kind: UploadSecretKind): Boolean = secrets.has(profileId, kind)
+
+    private fun CharArray.containsMarker(marker: String): Boolean =
+        (0..size - marker.length).any { start -> marker.indices.all { this[start + it] == marker[it] } }
+
     companion object {
         private const val UPLOAD_DIR = "uploads"
         private const val SECRETS_DIR = "upload_secrets"
@@ -265,5 +281,7 @@ class UploadManager @Inject constructor(
         private const val HOST_KEYS_FILE = "host_keys.json"
         private const val PROBE_FOLDER = "probe"
         private const val BYTES_PER_KIB = 1024L
+        private const val MAX_KEY_FILE_BYTES = 64 * 1024L
+        private const val KEY_MARKER = "PRIVATE KEY"
     }
 }

@@ -56,6 +56,10 @@ internal fun routeObserveDelegateStates(vm: SettingsViewModel) {
         vm._uiState.update { it.copy(managedInstallers = installers) }
     }.launchIn(vm.viewModelScope)
 
+    vm.romUploadDelegate.state.onEach { romUpload ->
+        vm._uiState.update { it.copy(romUpload = romUpload) }
+    }.launchIn(vm.viewModelScope)
+
     vm.soundsDelegate.state.onEach { sounds ->
         vm._uiState.update { it.copy(sounds = sounds) }
     }.launchIn(vm.viewModelScope)
@@ -388,6 +392,7 @@ internal fun routeObserveModalResetSignal(vm: SettingsViewModel) {
 internal fun routeLoadSettings(vm: SettingsViewModel) {
     vm.viewModelScope.launch {
         val prefs = vm.preferencesRepository.preferences.first()
+        vm.romUploadDelegate.updateFromPreferences(prefs.romUpload)
         val installedEmulators = vm.emulatorDetector.detectEmulators()
         val platforms = vm.platformRepository.observeAllPlatforms().first()
 
