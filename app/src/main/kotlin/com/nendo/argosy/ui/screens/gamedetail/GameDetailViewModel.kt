@@ -128,6 +128,7 @@ class GameDetailViewModel @Inject constructor(
     private val moreOptionsDelegate: MoreOptionsDelegate,
     private val perGameSettingsDelegate: PerGameSettingsDelegate,
     val speedrunSplitsDelegate: com.nendo.argosy.ui.screens.gamedetail.delegates.SpeedrunSplitsDelegate,
+    val rommUploadDelegate: com.nendo.argosy.ui.screens.gamedetail.delegates.RommUploadDelegate,
     private val socialRepository: com.nendo.argosy.data.social.SocialRepository,
     private val steamContentManager: com.nendo.argosy.data.steam.SteamContentManager,
     private val steamDownloadPromptController: com.nendo.argosy.data.steam.SteamDownloadPromptController,
@@ -243,6 +244,7 @@ class GameDetailViewModel @Inject constructor(
 
     init {
         modalResetSignal.signal.onEach { resetAllModals() }.launchIn(viewModelScope)
+        rommUploadDelegate.observe(viewModelScope)
 
         viewModelScope.launch {
             var publishedArt: Triple<Long, String?, String?>? = null
@@ -1301,7 +1303,8 @@ class GameDetailViewModel @Inject constructor(
             hasUpdates = state.updateFiles.isNotEmpty() || state.dlcFiles.isNotEmpty(),
             hasManageableFiles = state.hasManageableFiles,
             platformSlug = state.game?.platformSlug,
-            launchDisplayCount = state.launchDisplayNumbers.size
+            launchDisplayCount = state.launchDisplayNumbers.size,
+            canUploadToRomm = rommUploadDelegate.state.value.hasProfiles
         )
     }
 
@@ -1395,6 +1398,11 @@ class GameDetailViewModel @Inject constructor(
             MoreOptionAction.SpeedrunSplits -> {
                 toggleMoreOptions()
                 speedrunSplitsDelegate.open(viewModelScope, currentGameId, _uiState.value.game?.title ?: "")
+            }
+            MoreOptionAction.UploadToRomm -> {
+                toggleMoreOptions()
+                val game = _uiState.value.game ?: return
+                rommUploadDelegate.open(currentGameId, game.platformName)
             }
             MoreOptionAction.AddToCollection -> showAddToCollectionModal()
             MoreOptionAction.Artwork -> showArtwork()
@@ -2457,6 +2465,7 @@ class GameDetailViewModel @Inject constructor(
         playOptionsDelegate.reset()
         screenshotDelegate.reset()
         siblingChoice.reset()
+        rommUploadDelegate.dismiss()
         _uiState.update {
             it.copy(
                 showPermissionModal = false,

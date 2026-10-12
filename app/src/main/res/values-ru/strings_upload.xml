@@ -132,4 +132,24 @@
     <string name="upload_error_unsupported">Сервер это не поддерживает</string>
     <string name="upload_error_cancelled">Отменено</string>
     <string name="upload_error_unknown">Что-то пошло не так</string>
+    <string name="upload_detail_menu_entry">Загрузить в RomM</string>
+    <string name="upload_detail_title">Загрузить в RomM</string>
+    <string name="upload_detail_server">Сервер</string>
+    <string name="upload_detail_platform">Платформа</string>
+    <string name="upload_detail_destination">Назначение</string>
+    <string name="upload_detail_destination_unknown">Неизвестно</string>
+    <string name="upload_detail_files">Файлы</string>
+    <string name="upload_detail_files_value">%1$d (%2$s)</string>
+    <string name="upload_detail_planning">Проверка файлов игры…</string>
+    <string name="upload_detail_unavailable">Не удаётся прочитать файлы этой игры для загрузки.</string>
+    <string name="upload_detail_no_folder">В RomM нет известной папки для этой платформы, поэтому игру некуда поместить.</string>
+    <string name="upload_detail_missing_files">Отсутствуют файлы, на которые ссылается игра: %1$s</string>
+    <string name="upload_detail_start">Загрузить</string>
+    <string name="upload_detail_cancel">Отмена</string>
+    <string name="upload_detail_footer_change">Изменить</string>
+    <string name="upload_detail_overwrite_title">Перезаписать на сервере?</string>
+    <string name="upload_detail_overwrite_message">Если %1$s уже есть на %2$s, его файлы будут заменены. Это нельзя отменить.</string>
+    <string name="upload_detail_overwrite_confirm">Перезаписать</string>
+    <string name="upload_detail_queued">%1$s поставлена в очередь на загрузку в %2$s</string>
+    <string name="upload_detail_queue_failed">Не удалось поставить %1$s в очередь на загрузку</string>
 </resources>

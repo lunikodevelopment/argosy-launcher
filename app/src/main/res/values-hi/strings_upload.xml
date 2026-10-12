@@ -132,4 +132,24 @@
     <string name="upload_error_unsupported">सर्वर इसका समर्थन नहीं करता</string>
     <string name="upload_error_cancelled">रद्द किया गया</string>
     <string name="upload_error_unknown">कुछ गलत हो गया</string>
+    <string name="upload_detail_menu_entry">RomM पर अपलोड करें</string>
+    <string name="upload_detail_title">RomM पर अपलोड करें</string>
+    <string name="upload_detail_server">सर्वर</string>
+    <string name="upload_detail_platform">प्लेटफ़ॉर्म</string>
+    <string name="upload_detail_destination">गंतव्य</string>
+    <string name="upload_detail_destination_unknown">अज्ञात</string>
+    <string name="upload_detail_files">फ़ाइलें</string>
+    <string name="upload_detail_files_value">%1$d (%2$s)</string>
+    <string name="upload_detail_planning">गेम फ़ाइलें जाँची जा रही हैं…</string>
+    <string name="upload_detail_unavailable">अपलोड के लिए इस गेम की फ़ाइलें पढ़ी नहीं जा सकतीं।</string>
+    <string name="upload_detail_no_folder">RomM में इस प्लेटफ़ॉर्म का कोई ज्ञात फ़ोल्डर नहीं है, इसलिए गेम रखा नहीं जा सकता।</string>
+    <string name="upload_detail_missing_files">गेम जिन फ़ाइलों का उल्लेख करता है वे गायब हैं: %1$s</string>
+    <string name="upload_detail_start">अपलोड करें</string>
+    <string name="upload_detail_cancel">रद्द करें</string>
+    <string name="upload_detail_footer_change">बदलें</string>
+    <string name="upload_detail_overwrite_title">सर्वर पर अधिलेखित करें?</string>
+    <string name="upload_detail_overwrite_message">यदि %1$s पहले से %2$s पर है, तो उसकी फ़ाइलें बदल दी जाएँगी। इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="upload_detail_overwrite_confirm">अधिलेखित करें</string>
+    <string name="upload_detail_queued">%1$s को %2$s पर अपलोड के लिए कतार में रखा गया</string>
+    <string name="upload_detail_queue_failed">%1$s को अपलोड कतार में नहीं रखा जा सका</string>
 </resources>

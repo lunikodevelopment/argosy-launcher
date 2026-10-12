@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Checklist
+import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.Tag
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Tv
@@ -112,6 +113,11 @@ private fun MoreOptionAction.toMenuEntry(
         context.getString(R.string.gamedetail_more_options_files),
         action = this
     )
+    MoreOptionAction.UploadToRomm -> MoreMenuEntry.Option(
+        Icons.Default.CloudUpload,
+        context.getString(R.string.upload_detail_menu_entry),
+        action = this
+    )
     MoreOptionAction.RefreshData -> MoreMenuEntry.Option(
         Icons.Default.Refresh,
         context.getString(R.string.gamedetail_more_options_refresh_data),
@@ -172,6 +178,7 @@ fun MoreOptionsModal(
     hasManageableFiles: Boolean = false,
     launchDisplayNumbers: List<Int> = emptyList(),
     launchDisplayIndex: Int = 0,
+    canUploadToRomm: Boolean = false,
     onAction: (MoreOptionAction) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -189,7 +196,8 @@ fun MoreOptionsModal(
             hasUpdates = updateCount > 0,
             hasManageableFiles = hasManageableFiles,
             platformSlug = game.platformSlug,
-            launchDisplayCount = launchDisplayNumbers.size
+            launchDisplayCount = launchDisplayNumbers.size,
+            canUploadToRomm = canUploadToRomm
         )
     )
 

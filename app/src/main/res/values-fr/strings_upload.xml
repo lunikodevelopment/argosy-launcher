@@ -132,4 +132,24 @@ Ne lui faites confiance que si le serveur a été réinstallé ou ses clés rég
     <string name="upload_error_unsupported">Le serveur ne le prend pas en charge</string>
     <string name="upload_error_cancelled">Annulé</string>
     <string name="upload_error_unknown">Une erreur est survenue</string>
+    <string name="upload_detail_menu_entry">Envoyer vers RomM</string>
+    <string name="upload_detail_title">Envoyer vers RomM</string>
+    <string name="upload_detail_server">Serveur</string>
+    <string name="upload_detail_platform">Plateforme</string>
+    <string name="upload_detail_destination">Destination</string>
+    <string name="upload_detail_destination_unknown">Inconnue</string>
+    <string name="upload_detail_files">Fichiers</string>
+    <string name="upload_detail_files_value">%1$d (%2$s)</string>
+    <string name="upload_detail_planning">Vérification des fichiers du jeu…</string>
+    <string name="upload_detail_unavailable">Les fichiers de ce jeu ne peuvent pas être lus pour l’envoi.</string>
+    <string name="upload_detail_no_folder">RomM ne connaît aucun dossier pour cette plateforme, le jeu ne peut donc pas être placé.</string>
+    <string name="upload_detail_missing_files">Fichiers manquants référencés par le jeu : %1$s</string>
+    <string name="upload_detail_start">Envoyer</string>
+    <string name="upload_detail_cancel">Annuler</string>
+    <string name="upload_detail_footer_change">Modifier</string>
+    <string name="upload_detail_overwrite_title">Écraser sur le serveur ?</string>
+    <string name="upload_detail_overwrite_message">Si %1$s existe déjà sur %2$s, ses fichiers seront remplacés. Cette action est irréversible.</string>
+    <string name="upload_detail_overwrite_confirm">Écraser</string>
+    <string name="upload_detail_queued">%1$s est en file d’attente pour %2$s</string>
+    <string name="upload_detail_queue_failed">Impossible de mettre %1$s en file d’attente</string>
 </resources>

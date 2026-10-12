@@ -132,4 +132,24 @@ Nur vertrauen, wenn der Server neu installiert oder seine Schlüssel neu erzeugt
     <string name="upload_error_unsupported">Der Server unterstützt das nicht</string>
     <string name="upload_error_cancelled">Abgebrochen</string>
     <string name="upload_error_unknown">Etwas ist schiefgelaufen</string>
+    <string name="upload_detail_menu_entry">Zu RomM hochladen</string>
+    <string name="upload_detail_title">Zu RomM hochladen</string>
+    <string name="upload_detail_server">Server</string>
+    <string name="upload_detail_platform">Plattform</string>
+    <string name="upload_detail_destination">Ziel</string>
+    <string name="upload_detail_destination_unknown">Unbekannt</string>
+    <string name="upload_detail_files">Dateien</string>
+    <string name="upload_detail_files_value">%1$d (%2$s)</string>
+    <string name="upload_detail_planning">Spieldateien werden geprüft…</string>
+    <string name="upload_detail_unavailable">Die Dateien dieses Spiels können nicht zum Hochladen gelesen werden.</string>
+    <string name="upload_detail_no_folder">RomM kennt keinen Ordner für diese Plattform, daher kann das Spiel nicht abgelegt werden.</string>
+    <string name="upload_detail_missing_files">Fehlende Dateien, auf die das Spiel verweist: %1$s</string>
+    <string name="upload_detail_start">Hochladen</string>
+    <string name="upload_detail_cancel">Abbrechen</string>
+    <string name="upload_detail_footer_change">Ändern</string>
+    <string name="upload_detail_overwrite_title">Auf dem Server überschreiben?</string>
+    <string name="upload_detail_overwrite_message">Falls %1$s bereits auf %2$s existiert, werden die Dateien ersetzt. Das kann nicht rückgängig gemacht werden.</string>
+    <string name="upload_detail_overwrite_confirm">Überschreiben</string>
+    <string name="upload_detail_queued">%1$s wird zu %2$s hochgeladen</string>
+    <string name="upload_detail_queue_failed">%1$s konnte nicht zum Hochladen eingereiht werden</string>
 </resources>

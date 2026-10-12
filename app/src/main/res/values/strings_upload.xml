@@ -166,4 +166,31 @@ Only trust it if the server was reinstalled or its keys were regenerated.</strin
     <string name="upload_error_unsupported">The server does not support this</string>
     <string name="upload_error_cancelled">Cancelled</string>
     <string name="upload_error_unknown">Something went wrong</string>
+
+    <!-- Game details upload -->
+    <string name="upload_detail_menu_entry">Upload to RomM</string>
+    <string name="upload_detail_title">Upload to RomM</string>
+    <string name="upload_detail_server">Server</string>
+    <string name="upload_detail_platform">Platform</string>
+    <string name="upload_detail_destination">Destination</string>
+    <string name="upload_detail_destination_unknown">Unknown</string>
+    <string name="upload_detail_files">Files</string>
+    <!-- %1$d is the file count, %2$s the total size such as 1.2 GB. -->
+    <string name="upload_detail_files_value">%1$d (%2$s)</string>
+    <string name="upload_detail_planning">Checking the game files…</string>
+    <string name="upload_detail_unavailable">This game\'s files can\'t be read for upload.</string>
+    <string name="upload_detail_no_folder">RomM has no known folder for this platform, so the game can\'t be placed.</string>
+    <!-- %1$s is a comma-separated list of file names. -->
+    <string name="upload_detail_missing_files">Missing files the game refers to: %1$s</string>
+    <string name="upload_detail_start">Upload</string>
+    <string name="upload_detail_cancel">Cancel</string>
+    <string name="upload_detail_footer_change">Change</string>
+    <string name="upload_detail_overwrite_title">Overwrite on the server?</string>
+    <!-- %1$s is the game title, %2$s the server name. -->
+    <string name="upload_detail_overwrite_message">If %1$s already exists on %2$s, its files will be replaced. This can\'t be undone.</string>
+    <string name="upload_detail_overwrite_confirm">Overwrite</string>
+    <!-- %1$s is the game title, %2$s the server name. -->
+    <string name="upload_detail_queued">%1$s is queued for upload to %2$s</string>
+    <!-- %1$s is the game title. -->
+    <string name="upload_detail_queue_failed">Couldn\'t queue %1$s for upload</string>
 </resources>

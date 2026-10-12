@@ -208,7 +208,8 @@ data class MoreOptionsContext(
     val hasUpdates: Boolean = false,
     val hasManageableFiles: Boolean = false,
     val platformSlug: String? = null,
-    val launchDisplayCount: Int = 0
+    val launchDisplayCount: Int = 0,
+    val canUploadToRomm: Boolean = false
 )
 
 /**
@@ -230,6 +231,7 @@ fun buildMoreOptions(ctx: MoreOptionsContext): List<MoreOptionAction> = buildLis
     if (ctx.hasVariants && isEmulatedGame) add(MoreOptionAction.SelectVariant)
     if (ctx.hasSiblingGroup) add(MoreOptionAction.ActiveVariant)
     if ((ctx.hasManageableFiles || ctx.hasUpdates) && ctx.isDownloaded) add(MoreOptionAction.Files)
+    if (ctx.canUploadToRomm && ctx.isDownloaded && isEmulatedGame) add(MoreOptionAction.UploadToRomm)
     if (canTrackProgress) add(MoreOptionAction.RefreshData)
     add(MoreOptionAction.AddToCollection)
     add(MoreOptionAction.Artwork)
@@ -254,6 +256,7 @@ sealed class MoreOptionAction {
     data object SelectVariant : MoreOptionAction()
     data object ActiveVariant : MoreOptionAction()
     data object Files : MoreOptionAction()
+    data object UploadToRomm : MoreOptionAction()
     data object RefreshData : MoreOptionAction()
     data object AddToCollection : MoreOptionAction()
     data object RefreshTitleId : MoreOptionAction()

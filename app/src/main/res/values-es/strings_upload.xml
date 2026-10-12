@@ -132,4 +132,24 @@ Confía solo si el servidor se reinstaló o se regeneraron sus claves.</string>
     <string name="upload_error_unsupported">El servidor no lo admite</string>
     <string name="upload_error_cancelled">Cancelado</string>
     <string name="upload_error_unknown">Algo salió mal</string>
+    <string name="upload_detail_menu_entry">Subir a RomM</string>
+    <string name="upload_detail_title">Subir a RomM</string>
+    <string name="upload_detail_server">Servidor</string>
+    <string name="upload_detail_platform">Plataforma</string>
+    <string name="upload_detail_destination">Destino</string>
+    <string name="upload_detail_destination_unknown">Desconocido</string>
+    <string name="upload_detail_files">Archivos</string>
+    <string name="upload_detail_files_value">%1$d (%2$s)</string>
+    <string name="upload_detail_planning">Comprobando los archivos del juego…</string>
+    <string name="upload_detail_unavailable">No se pueden leer los archivos de este juego para subirlos.</string>
+    <string name="upload_detail_no_folder">RomM no tiene una carpeta conocida para esta plataforma, así que no se puede colocar el juego.</string>
+    <string name="upload_detail_missing_files">Faltan archivos a los que hace referencia el juego: %1$s</string>
+    <string name="upload_detail_start">Subir</string>
+    <string name="upload_detail_cancel">Cancelar</string>
+    <string name="upload_detail_footer_change">Cambiar</string>
+    <string name="upload_detail_overwrite_title">¿Sobrescribir en el servidor?</string>
+    <string name="upload_detail_overwrite_message">Si %1$s ya existe en %2$s, sus archivos se reemplazarán. Esto no se puede deshacer.</string>
+    <string name="upload_detail_overwrite_confirm">Sobrescribir</string>
+    <string name="upload_detail_queued">%1$s está en cola para subirse a %2$s</string>
+    <string name="upload_detail_queue_failed">No se pudo poner %1$s en cola para subir</string>
 </resources>

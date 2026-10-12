@@ -18,6 +18,22 @@ again; the editor only says whether one is saved. The same screen holds the tran
 (duplicates, simultaneous uploads, Wi-Fi only, charging only, speed limits, notifications) and the
 RomM scan settings.
 
+## Uploading one game
+
+Open a downloaded game, press the More Options button, and choose **Upload to RomM**. The entry
+appears once at least one server is saved, for every downloaded game except Steam games and
+Android apps.
+
+The dialog starts on your default server and your duplicate setting. Left and right change
+either one; changing the server re-checks where the game would land. Below them it shows the
+platform, the remote folder the files will be written to, and the file count and size. Disc sets
+bring their sibling files along, and any file a playlist or cue sheet names but the folder lacks
+is listed as missing.
+
+**Upload** is disabled when RomM has no known folder for the platform. Choosing **Overwrite**
+asks for a second confirmation before anything is queued. Once queued, the upload runs in the
+background like any other.
+
 ## How it works
 
 1. Argosy groups the selected files into games. Multi-disc and multi-file sets (`.m3u`, `.cue` +

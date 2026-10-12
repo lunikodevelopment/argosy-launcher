@@ -155,6 +155,16 @@ class UploadManager @Inject constructor(
     suspend fun plan(selections: List<LocalSelection>, profile: UploadProfile): UploadPlan =
         withContext(Dispatchers.IO) { plannerFor(profile).plan(selections) }
 
+    suspend fun planLibraryGame(
+        localPath: String,
+        platformSlug: String,
+        title: String,
+        profile: UploadProfile
+    ): UploadPlan = withContext(Dispatchers.IO) {
+        val selection = LocalSelection(localPath, fileAccess.isDirectory(localPath), platformSlug, title)
+        plannerFor(profile).plan(listOf(selection))
+    }
+
     suspend fun plannerFor(profile: UploadProfile): UploadPlanner {
         val prefs = preferences.value
         val rommFolders = platformDao.observeAllPlatforms().first()

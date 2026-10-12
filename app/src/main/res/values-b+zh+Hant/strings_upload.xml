@@ -132,4 +132,24 @@
     <string name="upload_error_unsupported">伺服器不支援此操作</string>
     <string name="upload_error_cancelled">已取消</string>
     <string name="upload_error_unknown">發生問題</string>
+    <string name="upload_detail_menu_entry">上傳到 RomM</string>
+    <string name="upload_detail_title">上傳到 RomM</string>
+    <string name="upload_detail_server">伺服器</string>
+    <string name="upload_detail_platform">平台</string>
+    <string name="upload_detail_destination">目標位置</string>
+    <string name="upload_detail_destination_unknown">未知</string>
+    <string name="upload_detail_files">檔案</string>
+    <string name="upload_detail_files_value">%1$d（%2$s）</string>
+    <string name="upload_detail_planning">正在檢查遊戲檔案…</string>
+    <string name="upload_detail_unavailable">無法讀取此遊戲的檔案進行上傳。</string>
+    <string name="upload_detail_no_folder">RomM 沒有此平台的已知資料夾，因此無法放置該遊戲。</string>
+    <string name="upload_detail_missing_files">遊戲引用的檔案遺失：%1$s</string>
+    <string name="upload_detail_start">上傳</string>
+    <string name="upload_detail_cancel">取消</string>
+    <string name="upload_detail_footer_change">變更</string>
+    <string name="upload_detail_overwrite_title">要覆寫伺服器上的檔案嗎？</string>
+    <string name="upload_detail_overwrite_message">如果 %2$s 上已存在 %1$s，其檔案將被取代。此操作無法復原。</string>
+    <string name="upload_detail_overwrite_confirm">覆寫</string>
+    <string name="upload_detail_queued">%1$s 已加入上傳到 %2$s 的佇列</string>
+    <string name="upload_detail_queue_failed">無法將 %1$s 加入上傳佇列</string>
 </resources>

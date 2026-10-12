@@ -894,6 +894,7 @@ private fun GameDetailModals(
     onBack: () -> Unit
 ) {
     val pickerState by viewModel.pickerModalDelegate.state.collectAsState()
+    val rommUploadState by viewModel.rommUploadDelegate.state.collectAsState()
 
     AnimatedVisibility(
         visible = uiState.showMoreOptions,
@@ -910,6 +911,7 @@ private fun GameDetailModals(
             hasManageableFiles = uiState.hasManageableFiles,
             launchDisplayNumbers = uiState.launchDisplayNumbers,
             launchDisplayIndex = uiState.launchDisplayIndex,
+            canUploadToRomm = rommUploadState.hasProfiles,
             onAction = { action -> viewModel.handleMoreOptionAction(action, onBack, onNavigateToPlatformSettings) },
             onDismiss = viewModel::toggleMoreOptions
         )
@@ -954,6 +956,13 @@ private fun GameDetailModals(
             selectedCardPath = uiState.perGameSettings.selectedMemcardPath ?: "",
             onSelectCard = viewModel::selectPerGameMemcard,
             onDismiss = viewModel::dismissPerGameMemcardPicker
+        )
+    }
+
+    if (rommUploadState.visible) {
+        com.nendo.argosy.ui.screens.gamedetail.modals.RommUploadModal(
+            state = rommUploadState,
+            delegate = viewModel.rommUploadDelegate
         )
     }
 
