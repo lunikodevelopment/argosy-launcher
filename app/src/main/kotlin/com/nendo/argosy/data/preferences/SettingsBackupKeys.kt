@@ -311,11 +311,24 @@ object SettingsBackupKeys {
         SettingsBackupKey("close_emulator_on_session_end", SettingsBackupType.BOOLEAN)
     )
 
+    private val ROM_UPLOADS = listOf(
+        SettingsBackupKey("upload_max_concurrent", SettingsBackupType.INT),
+        SettingsBackupKey("upload_duplicate_policy", SettingsBackupType.STRING),
+        SettingsBackupKey("upload_wifi_only", SettingsBackupType.BOOLEAN),
+        SettingsBackupKey("upload_charging_only", SettingsBackupType.BOOLEAN),
+        SettingsBackupKey("upload_bandwidth_limit_kibps", SettingsBackupType.INT),
+        SettingsBackupKey("upload_in_game_limit_kibps", SettingsBackupType.INT),
+        SettingsBackupKey("upload_scan_after_upload", SettingsBackupType.BOOLEAN),
+        SettingsBackupKey("upload_notify_on_completion", SettingsBackupType.BOOLEAN),
+        SettingsBackupKey("upload_remote_folder_mappings_json", SettingsBackupType.STRING)
+    )
+
     val EXPORTED: List<SettingsBackupKey> =
         APPEARANCE + BACKDROP + BOX_ART + BACKGROUND + HOME_AND_LIBRARY + APP_SHELVES +
             FEEDBACK + NAVIGATION + BUILTIN_GENERAL + BUILTIN_VIDEO + BUILTIN_AUDIO +
             BUILTIN_MOTION + BUILTIN_INPUT + BUILTIN_TOUCH + BUILTIN_HUD + BUILTIN_SPEEDRUN +
-            DOWNLOADS_AND_CACHES + SYNC_FILTERS + MEDIA_PLAYBACK + UPDATES + SESSIONS
+            DOWNLOADS_AND_CACHES + SYNC_FILTERS + MEDIA_PLAYBACK + UPDATES + SESSIONS +
+            ROM_UPLOADS
 
     val BY_NAME: Map<String, SettingsBackupKey> = EXPORTED.associateBy { it.name }
 }

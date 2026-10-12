@@ -165,6 +165,8 @@ data class UploadJob(
     val platformSlug: String?,
     val remoteFolderName: String?,
     val remoteGameDirectory: String,
+    val libraryRoot: String,
+    val platformDirectory: String?,
     val layout: GameLayout,
     val files: List<UploadFileTask>,
     val duplicatePolicy: DuplicatePolicy,
@@ -173,6 +175,7 @@ data class UploadJob(
     val createdAtMillis: Long,
     val state: UploadItemState = UploadItemState.PENDING,
     val error: UploadError? = null,
+    val attempts: Int = 0,
     val nextAttemptAtMillis: Long? = null,
     val completedAtMillis: Long? = null
 ) {

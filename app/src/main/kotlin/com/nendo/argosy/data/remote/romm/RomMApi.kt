@@ -44,6 +44,12 @@ interface RomMApi {
     @GET("api/permissions/me")
     suspend fun getMyPermissions(): Response<RomMPermissionsResponse>
 
+    @POST("api/tasks/scan")
+    suspend fun startScan(@Body body: RomMScanRequest): Response<RomMTaskResponse>
+
+    @GET("api/tasks/{taskId}")
+    suspend fun getTask(@Path("taskId") taskId: String): Response<RomMTaskResponse>
+
     @POST("api/users/{id}/ra/refresh")
     suspend fun refreshRAProgression(
         @Path("id") userId: Long,

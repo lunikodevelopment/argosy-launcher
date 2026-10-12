@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_channel_name">ROM 上傳</string>
+    <string name="upload_channel_description">顯示 ROM 上傳到 RomM 的進度</string>
+    <string name="upload_notification_title">ROM 上傳（%1$d）</string>
+    <string name="upload_notification_uploading">正在上傳 %1$s</string>
+    <string name="upload_notification_preparing">正在準備上傳…</string>
+    <string name="upload_notification_paused">上傳已暫停</string>
+    <string name="upload_notification_waiting_network">正在等待網路連線</string>
+    <string name="upload_notification_waiting_wifi">正在等待 Wi-Fi</string>
+    <string name="upload_notification_waiting_charger">正在等待充電</string>
+    <string name="upload_notification_retrying">連線中斷，稍後重試</string>
+    <string name="upload_action_pause">暫停</string>
+    <string name="upload_action_resume">繼續</string>
+    <string name="upload_action_cancel">取消</string>
+    <string name="upload_summary_title">ROM 上傳完成</string>
+    <string name="upload_summary_counts">已上傳：%1$d · 已存在：%2$d · 失敗：%3$d</string>
+</resources>

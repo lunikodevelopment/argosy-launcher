@@ -23,7 +23,8 @@ class SettingsBackupKeysTest {
         "social_display_name", "jellyfin_access_token", "jellyfin_device_id",
         "jellyfin_server_url", "jellyfin_user_id", "jellyfin_user_name", "quaypass_credential",
         "quaypass_credential_expires_at", "quaypass_client_install_id",
-        "quaypass_install_key_alias", "quaypass_install_social_user_id"
+        "quaypass_install_key_alias", "quaypass_install_social_user_id",
+        "upload_profiles_json", "upload_default_profile"
     )
 
     private val presenceSharingAndServiceAccounts = setOf(
@@ -68,7 +69,7 @@ class SettingsBackupKeysTest {
         "custom_bios_path", "custom_background_path", "builtin_custom_save_path",
         "builtin_custom_state_path", "font_body_path", "font_body_name", "font_display_path",
         "font_display_name", "gamenative_sync_dir", "file_logging_path",
-        "ambient_audio_uri", "steam_install_volume"
+        "ambient_audio_uri", "steam_install_volume", "upload_local_folder_mappings_json"
     )
 
     private val hardwareAndUnit = setOf(

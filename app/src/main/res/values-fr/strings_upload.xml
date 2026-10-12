@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_channel_name">Envois de ROM</string>
+    <string name="upload_channel_description">Affiche la progression de l’envoi des ROM vers RomM</string>
+    <string name="upload_notification_title">Envois de ROM (%1$d)</string>
+    <string name="upload_notification_uploading">Envoi de %1$s</string>
+    <string name="upload_notification_preparing">Préparation des envois…</string>
+    <string name="upload_notification_paused">Envois en pause</string>
+    <string name="upload_notification_waiting_network">En attente d’une connexion réseau</string>
+    <string name="upload_notification_waiting_wifi">En attente du Wi-Fi</string>
+    <string name="upload_notification_waiting_charger">En attente du chargeur</string>
+    <string name="upload_notification_retrying">Connexion perdue, nouvelle tentative bientôt</string>
+    <string name="upload_action_pause">Pause</string>
+    <string name="upload_action_resume">Reprendre</string>
+    <string name="upload_action_cancel">Annuler</string>
+    <string name="upload_summary_title">Envois de ROM terminés</string>
+    <string name="upload_summary_counts">Envoyés : %1$d · Déjà présents : %2$d · Échecs : %3$d</string>
+</resources>

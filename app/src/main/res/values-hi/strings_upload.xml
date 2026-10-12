@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_channel_name">ROM अपलोड</string>
+    <string name="upload_channel_description">RomM पर ROM अपलोड होते समय प्रगति दिखाता है</string>
+    <string name="upload_notification_title">ROM अपलोड (%1$d)</string>
+    <string name="upload_notification_uploading">%1$s अपलोड हो रहा है</string>
+    <string name="upload_notification_preparing">अपलोड की तैयारी हो रही है…</string>
+    <string name="upload_notification_paused">अपलोड रुके हुए हैं</string>
+    <string name="upload_notification_waiting_network">नेटवर्क कनेक्शन की प्रतीक्षा</string>
+    <string name="upload_notification_waiting_wifi">Wi-Fi की प्रतीक्षा</string>
+    <string name="upload_notification_waiting_charger">चार्जर की प्रतीक्षा</string>
+    <string name="upload_notification_retrying">कनेक्शन टूट गया, जल्द फिर कोशिश होगी</string>
+    <string name="upload_action_pause">रोकें</string>
+    <string name="upload_action_resume">जारी रखें</string>
+    <string name="upload_action_cancel">रद्द करें</string>
+    <string name="upload_summary_title">ROM अपलोड पूरे हुए</string>
+    <string name="upload_summary_counts">अपलोड: %1$d · पहले से मौजूद: %2$d · विफल: %3$d</string>
+</resources>
