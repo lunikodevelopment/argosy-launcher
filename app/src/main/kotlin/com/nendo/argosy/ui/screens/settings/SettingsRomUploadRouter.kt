@@ -5,7 +5,9 @@ import com.nendo.argosy.core.input.SoundType
 import com.nendo.argosy.ui.input.InputResult
 import com.nendo.argosy.ui.screens.settings.sections.RomUploadItem
 import com.nendo.argosy.ui.screens.settings.sections.RomUploadProfileItem
+import com.nendo.argosy.ui.screens.settings.sections.RomUploadQueueItem
 import com.nendo.argosy.ui.screens.settings.sections.romUploadProfileItemAtFocusIndex
+import com.nendo.argosy.ui.screens.settings.sections.romUploadQueueItemAtFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.romUploadsItemAtFocusIndex
 
 internal fun routeRomUploadsConfirm(vm: SettingsViewModel, state: SettingsUiState): InputResult {
@@ -18,6 +20,10 @@ internal fun routeRomUploadsActivate(vm: SettingsViewModel, item: RomUploadItem)
     val scope = vm.viewModelScope
     return when (item) {
         is RomUploadItem.Header -> InputResult.HANDLED
+        RomUploadItem.Queue -> {
+            vm.navigateToSection(SettingsSection.ROM_UPLOAD_QUEUE)
+            InputResult.HANDLED
+        }
         is RomUploadItem.Profile -> {
             delegate.openProfile(scope, item.profileId)
             vm.navigateToSection(SettingsSection.ROM_UPLOAD_PROFILE)
@@ -123,6 +129,35 @@ internal fun routeRomUploadProfileCycle(vm: SettingsViewModel, item: RomUploadPr
         else -> return false
     }
     return true
+}
+
+internal fun routeRomUploadQueueConfirm(vm: SettingsViewModel, state: SettingsUiState): InputResult {
+    val item = romUploadQueueItemAtFocusIndex(state.focusedIndex, state.romUpload) ?: return InputResult.HANDLED
+    return routeRomUploadQueueActivate(vm, item)
+}
+
+internal fun routeRomUploadQueueActivate(vm: SettingsViewModel, item: RomUploadQueueItem): InputResult {
+    val delegate = vm.romUploadDelegate
+    return when (item) {
+        is RomUploadQueueItem.Header, is RomUploadQueueItem.Notice, RomUploadQueueItem.Empty -> InputResult.HANDLED
+        is RomUploadQueueItem.Job -> if (delegate.openJobMenu(item.jobId)) {
+            InputResult.handled(SoundType.OPEN_MODAL)
+        } else {
+            InputResult.handled(SoundType.BOUNDARY)
+        }
+        RomUploadQueueItem.PauseAll -> {
+            delegate.pauseAllJobs()
+            InputResult.handled(SoundType.SELECT)
+        }
+        RomUploadQueueItem.ResumeAll -> {
+            delegate.resumeAllJobs()
+            InputResult.handled(SoundType.SELECT)
+        }
+        RomUploadQueueItem.ClearFinished -> {
+            delegate.clearFinishedJobs()
+            InputResult.handled(SoundType.SELECT)
+        }
+    }
 }
 
 private inline fun toggled(action: () -> Unit): InputResult {

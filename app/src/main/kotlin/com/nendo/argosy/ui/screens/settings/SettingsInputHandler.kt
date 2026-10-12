@@ -77,6 +77,7 @@ class SettingsInputHandler(
         val romUploadsInput = RomUploadsSectionInput(viewModel)
         put(SettingsSection.ROM_UPLOADS, romUploadsInput)
         put(SettingsSection.ROM_UPLOAD_PROFILE, romUploadsInput)
+        put(SettingsSection.ROM_UPLOAD_QUEUE, romUploadsInput)
         for (s in listOf(
             SettingsSection.MAIN,
             SettingsSection.ACCOUNTS,

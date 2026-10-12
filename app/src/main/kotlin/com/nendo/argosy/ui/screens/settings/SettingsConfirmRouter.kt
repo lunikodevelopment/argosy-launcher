@@ -145,6 +145,7 @@ import com.nendo.argosy.ui.screens.settings.sections.savesMaxFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.syncSettingsItemAtFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.syncSettingsMaxFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.romUploadProfileMaxFocusIndex
+import com.nendo.argosy.ui.screens.settings.sections.romUploadQueueMaxFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.romUploadsMaxFocusIndex
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -308,6 +309,7 @@ internal fun routeConfirm(vm: SettingsViewModel): InputResult {
         SettingsSection.MANAGED_INSTALLERS -> routeInstallersConfirm(vm, state)
         SettingsSection.ROM_UPLOADS -> routeRomUploadsConfirm(vm, state)
         SettingsSection.ROM_UPLOAD_PROFILE -> routeRomUploadProfileConfirm(vm, state)
+        SettingsSection.ROM_UPLOAD_QUEUE -> routeRomUploadQueueConfirm(vm, state)
     }
 }
 
@@ -1314,6 +1316,7 @@ private fun computeMaxFocusIndex(
     SettingsSection.SYNC_SETTINGS -> syncSettingsMaxFocusIndex()
     SettingsSection.ROM_UPLOADS -> romUploadsMaxFocusIndex(state.romUpload)
     SettingsSection.ROM_UPLOAD_PROFILE -> romUploadProfileMaxFocusIndex(state.romUpload)
+    SettingsSection.ROM_UPLOAD_QUEUE -> romUploadQueueMaxFocusIndex(state.romUpload)
     SettingsSection.STEAM_SETTINGS -> steamMaxFocusIndex(state.steam)
     SettingsSection.JELLYFIN -> when {
         state.jellyfin.configuring -> JELLYFIN_CONFIG_CANCEL_INDEX

@@ -10,12 +10,16 @@ import com.nendo.argosy.domain.model.upload.DuplicatePolicy
 import com.nendo.argosy.domain.model.upload.HostKeyFingerprint
 import com.nendo.argosy.domain.model.upload.SftpAuthMethod
 import com.nendo.argosy.domain.model.upload.TransferProtocol
+import com.nendo.argosy.domain.model.upload.UploadJob
 import com.nendo.argosy.domain.model.upload.UploadProfile
 import com.nendo.argosy.domain.model.upload.UploadSettings
 import com.nendo.argosy.ui.components.TEXT_ENTRY_CANCEL_BUTTON
 import com.nendo.argosy.ui.components.TEXT_ENTRY_CONFIRM_BUTTON
 import com.nendo.argosy.ui.components.TextEntryRow
 import com.nendo.argosy.ui.screens.settings.RomUploadHostKeyPrompt
+import com.nendo.argosy.ui.screens.settings.RomUploadJobAction
+import com.nendo.argosy.ui.screens.settings.RomUploadJobMenu
+import com.nendo.argosy.ui.screens.settings.RomUploadJobUi
 import com.nendo.argosy.ui.screens.settings.RomUploadProfileDraft
 import com.nendo.argosy.ui.screens.settings.RomUploadState
 import com.nendo.argosy.ui.screens.settings.RomUploadTestPhase
@@ -27,6 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -68,11 +73,74 @@ class RomUploadSettingsDelegate @Inject constructor(
             }
         }
         scope.launch {
-            uploadManager.jobs.collect { jobs ->
-                _state.update { state -> state.copy(openJobs = jobs.count { !it.state.isTerminal }) }
+            combine(uploadManager.jobs, uploadManager.preferences) { jobs, prefs ->
+                val names = prefs.profiles.associate { it.id to it.name.ifBlank { it.host } }
+                jobs.map { it.toUi(names[it.profileId].orEmpty()) }
+            }.collect { jobs ->
+                _state.update { state ->
+                    val menu = state.jobMenu?.takeIf { open -> jobs.any { it.id == open.jobId && it.actions.isNotEmpty() } }
+                    state.copy(openJobs = jobs.count { !it.state.isTerminal }, jobs = jobs, jobMenu = menu)
+                }
             }
         }
+        scope.launch {
+            uploadManager.hold.collect { hold -> _state.update { it.copy(hold = hold) } }
+        }
     }
+
+    private fun UploadJob.toUi(serverName: String) = RomUploadJobUi(
+        id = id,
+        title = gameTitle,
+        serverName = serverName,
+        state = state,
+        bytesDone = files.sumOf { it.bytesTransferred },
+        bytesTotal = files.sumOf { it.sizeBytes },
+        errorKind = error?.kind,
+        finishedAtMillis = completedAtMillis
+    )
+
+    fun openJobMenu(jobId: String): Boolean {
+        val job = _state.value.jobs.firstOrNull { it.id == jobId } ?: return false
+        if (job.actions.isEmpty()) return false
+        _state.update { it.copy(jobMenu = RomUploadJobMenu(jobId)) }
+        return true
+    }
+
+    fun moveJobMenuFocus(delta: Int) {
+        _state.update { state ->
+            val menu = state.jobMenu ?: return@update state
+            val count = state.jobs.firstOrNull { it.id == menu.jobId }?.actions?.size ?: return@update state
+            state.copy(jobMenu = menu.copy(focusIndex = (menu.focusIndex + delta).mod(count)))
+        }
+    }
+
+    fun closeJobMenu() {
+        _state.update { it.copy(jobMenu = null) }
+    }
+
+    fun confirmJobMenu() {
+        val state = _state.value
+        val menu = state.jobMenu ?: return
+        val action = state.jobs.firstOrNull { it.id == menu.jobId }?.actions?.getOrNull(menu.focusIndex) ?: return
+        runJobAction(menu.jobId, action)
+    }
+
+    fun runJobAction(jobId: String, action: RomUploadJobAction) {
+        closeJobMenu()
+        val engine = uploadManager.engine
+        when (action) {
+            RomUploadJobAction.PAUSE -> engine.pause(jobId)
+            RomUploadJobAction.RESUME -> engine.resume(jobId)
+            RomUploadJobAction.RETRY -> engine.retry(jobId)
+            RomUploadJobAction.CANCEL -> engine.cancel(jobId)
+        }
+    }
+
+    fun pauseAllJobs() = uploadManager.engine.pauseAll()
+
+    fun resumeAllJobs() = uploadManager.engine.resumeAll()
+
+    fun clearFinishedJobs() = uploadManager.engine.clearFinished()
 
     private fun editSettings(scope: CoroutineScope, transform: (UploadSettings) -> UploadSettings, persist: suspend (UploadSettings) -> Unit) {
         val next = transform(_state.value.settings)

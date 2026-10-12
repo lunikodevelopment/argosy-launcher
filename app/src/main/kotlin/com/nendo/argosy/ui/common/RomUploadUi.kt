@@ -6,7 +6,9 @@ import com.nendo.argosy.domain.model.upload.DuplicatePolicy
 import com.nendo.argosy.domain.model.upload.SftpAuthMethod
 import com.nendo.argosy.domain.model.upload.TransferProtocol
 import com.nendo.argosy.domain.model.upload.UploadErrorKind
+import com.nendo.argosy.domain.model.upload.UploadItemState
 import com.nendo.argosy.domain.model.upload.UploadProfile
+import com.nendo.argosy.domain.upload.TransferHold
 
 @get:StringRes
 val DuplicatePolicy.labelRes: Int
@@ -59,4 +61,30 @@ val UploadErrorKind.labelRes: Int
         UploadErrorKind.UNSUPPORTED -> R.string.upload_error_unsupported
         UploadErrorKind.CANCELLED -> R.string.upload_error_cancelled
         UploadErrorKind.UNKNOWN -> R.string.upload_error_unknown
+    }
+
+@get:StringRes
+val UploadItemState.labelRes: Int
+    get() = when (this) {
+        UploadItemState.PENDING -> R.string.upload_queue_state_pending
+        UploadItemState.CONNECTING -> R.string.upload_queue_state_connecting
+        UploadItemState.CHECKING_DESTINATION -> R.string.upload_queue_state_checking
+        UploadItemState.UPLOADING -> R.string.upload_queue_state_uploading
+        UploadItemState.VERIFYING -> R.string.upload_queue_state_verifying
+        UploadItemState.FINALIZING -> R.string.upload_queue_state_finalizing
+        UploadItemState.COMPLETED -> R.string.upload_queue_state_completed
+        UploadItemState.SKIPPED -> R.string.upload_queue_state_skipped
+        UploadItemState.FAILED -> R.string.upload_queue_state_failed
+        UploadItemState.CANCELLED -> R.string.upload_queue_state_cancelled
+        UploadItemState.WAITING_FOR_NETWORK -> R.string.upload_queue_state_waiting
+        UploadItemState.PAUSED -> R.string.upload_queue_state_paused
+    }
+
+@get:StringRes
+val TransferHold.queueNoticeRes: Int?
+    get() = when (this) {
+        TransferHold.NONE -> null
+        TransferHold.OFFLINE -> R.string.upload_queue_hold_offline
+        TransferHold.METERED_NETWORK -> R.string.upload_queue_hold_wifi
+        TransferHold.NOT_CHARGING -> R.string.upload_queue_hold_charger
     }

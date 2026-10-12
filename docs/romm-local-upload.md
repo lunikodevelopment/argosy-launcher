@@ -34,6 +34,16 @@ is listed as missing.
 asks for a second confirmation before anything is queued. Once queued, the upload runs in the
 background like any other.
 
+## Upload queue
+
+Settings → RomM → ROM uploads → **Upload queue** lists every upload. Running and waiting uploads
+are on top with their progress; finished, skipped, failed and cancelled ones sit below, newest
+first. When uploads are held for Wi-Fi, a charger or a network, the reason shows above the list.
+
+Select an upload to pause, resume, retry or cancel it. Completed and skipped uploads have nothing
+to do. **Pause all**, **Resume all** and **Clear finished** sit at the bottom; clearing only tidies
+the list and never touches files on the device or the server.
+
 ## How it works
 
 1. Argosy groups the selected files into games. Multi-disc and multi-file sets (`.m3u`, `.cue` +

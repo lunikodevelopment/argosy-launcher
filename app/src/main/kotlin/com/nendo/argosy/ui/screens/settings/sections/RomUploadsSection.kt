@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.Dns
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.LinkOff
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import com.nendo.argosy.R
 import com.nendo.argosy.ui.common.labelRes
@@ -36,6 +38,7 @@ internal sealed class RomUploadItem(val key: String, val section: String) {
 
     class Header(key: String, section: String, val titleRes: Int) : RomUploadItem(key, section)
 
+    data object Queue : RomUploadItem("queue", SECTION_QUEUE)
     data class Profile(val profileId: String) : RomUploadItem("profile-$profileId", SECTION_SERVERS)
     data object AddProfile : RomUploadItem("addProfile", SECTION_SERVERS)
     data object DuplicatePolicy : RomUploadItem("duplicatePolicy", SECTION_TRANSFERS)
@@ -50,6 +53,7 @@ internal sealed class RomUploadItem(val key: String, val section: String) {
     data object RemoveScanToken : RomUploadItem("removeScanToken", SECTION_SCAN)
 
     companion object {
+        const val SECTION_QUEUE = "queue"
         const val SECTION_SERVERS = "servers"
         const val SECTION_TRANSFERS = "transfers"
         const val SECTION_SCAN = "scan"
@@ -57,6 +61,8 @@ internal sealed class RomUploadItem(val key: String, val section: String) {
 }
 
 internal fun buildRomUploadItems(state: RomUploadState): List<RomUploadItem> = buildList {
+    add(RomUploadItem.Header("queueHeader", RomUploadItem.SECTION_QUEUE, R.string.upload_settings_section_queue))
+    add(RomUploadItem.Queue)
     add(RomUploadItem.Header("serversHeader", RomUploadItem.SECTION_SERVERS, R.string.upload_settings_section_servers))
     state.profiles.forEach { add(RomUploadItem.Profile(it.id)) }
     add(RomUploadItem.AddProfile)
@@ -81,6 +87,7 @@ private fun romUploadsLayout(state: RomUploadState) = SettingsLayout<RomUploadIt
     sectionOf = { it.section },
     sectionTitleRes = {
         when (it) {
+            RomUploadItem.SECTION_QUEUE -> R.string.upload_settings_section_queue
             RomUploadItem.SECTION_SERVERS -> R.string.upload_settings_section_servers
             RomUploadItem.SECTION_TRANSFERS -> R.string.upload_settings_section_transfers
             RomUploadItem.SECTION_SCAN -> R.string.upload_settings_section_scan
@@ -139,11 +146,22 @@ fun RomUploadsSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
     ) { item ->
         when (item) {
             is RomUploadItem.Header -> {
-                if (item.section != RomUploadItem.SECTION_SERVERS) {
+                if (item.section != RomUploadItem.SECTION_QUEUE) {
                     Spacer(modifier = Modifier.height(Dimens.spacingSm))
                 }
                 SectionHeader(stringResource(item.titleRes))
             }
+            RomUploadItem.Queue -> NavigationPreference(
+                icon = Icons.Default.CloudUpload,
+                title = stringResource(R.string.upload_settings_queue_title),
+                subtitle = if (state.openJobs > 0) {
+                    pluralStringResource(R.plurals.upload_settings_queue_open, state.openJobs, state.openJobs)
+                } else {
+                    stringResource(R.string.upload_settings_queue_idle)
+                },
+                isFocused = isFocused(item),
+                onClick = { activate(item) }
+            )
             is RomUploadItem.Profile -> {
                 val profile = state.profiles.firstOrNull { it.id == item.profileId }
                 if (profile != null) {

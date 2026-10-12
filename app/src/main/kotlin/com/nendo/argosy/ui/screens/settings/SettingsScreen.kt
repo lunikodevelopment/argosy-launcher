@@ -138,6 +138,7 @@ import com.nendo.argosy.ui.screens.settings.sections.playTimeFigureOf
 import com.nendo.argosy.ui.screens.settings.sections.playTimeItemAtFocusIndex
 import com.nendo.argosy.ui.screens.settings.sections.SyncSettingsSection
 import com.nendo.argosy.ui.screens.settings.sections.RomUploadProfileSection
+import com.nendo.argosy.ui.screens.settings.sections.RomUploadQueueSection
 import com.nendo.argosy.ui.screens.settings.sections.RomUploadsSection
 import com.nendo.argosy.data.preferences.FontSlot
 import com.nendo.argosy.ui.screens.settings.sections.ThemeBackdropSection
@@ -646,6 +647,7 @@ fun SettingsScreen(
                     SettingsSection.SYNC_SETTINGS -> SyncSettingsSection(uiState, viewModel, imageCacheProgress)
                     SettingsSection.ROM_UPLOADS -> RomUploadsSection(uiState, viewModel)
                     SettingsSection.ROM_UPLOAD_PROFILE -> RomUploadProfileSection(uiState, viewModel)
+                    SettingsSection.ROM_UPLOAD_QUEUE -> RomUploadQueueSection(uiState, viewModel)
                     SettingsSection.STEAM_SETTINGS -> SteamSection(uiState, viewModel)
                     SettingsSection.JELLYFIN -> JellyfinSection(uiState, viewModel)
                     SettingsSection.RETRO_ACHIEVEMENTS -> RASettingsSection(uiState, viewModel)
@@ -1454,6 +1456,7 @@ private fun settingsSectionTitle(uiState: SettingsUiState): String = when (uiSta
     SettingsSection.SAVES -> stringResource(R.string.settings_shell_header_saves)
     SettingsSection.SYNC_SETTINGS -> stringResource(R.string.settings_shell_header_sync_settings)
     SettingsSection.ROM_UPLOADS -> stringResource(R.string.upload_settings_header)
+    SettingsSection.ROM_UPLOAD_QUEUE -> stringResource(R.string.upload_queue_header)
     SettingsSection.ROM_UPLOAD_PROFILE -> if (uiState.romUpload.draft?.isNew == true) {
         stringResource(R.string.upload_profile_header_new)
     } else {

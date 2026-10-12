@@ -53,6 +53,7 @@ internal class ModalInputRouter(private val viewModel: SettingsViewModel) {
         interceptRomUploadTextEntry(state, method)?.let { return it }
         interceptRomUploadHostKeyPrompt(state, method)?.let { return it }
         interceptRomUploadDeleteConfirm(state, method)?.let { return it }
+        interceptRomUploadJobMenu(state, method)?.let { return it }
 
         return null
     }
@@ -150,6 +151,24 @@ internal class ModalInputRouter(private val viewModel: SettingsViewModel) {
             InputMethod.CONFIRM -> { viewModel.confirmRomUploadDeleteFocus(); InputResult.HANDLED }
             InputMethod.BACK -> {
                 delegate.dismissDelete()
+                InputResult.handled(SoundType.CLOSE_MODAL)
+            }
+            else -> InputResult.HANDLED
+        }
+    }
+
+    private fun interceptRomUploadJobMenu(state: SettingsUiState, method: InputMethod): InputResult? {
+        if (state.romUpload.jobMenu == null) return null
+        val delegate = viewModel.romUploadDelegate
+        return when (method) {
+            InputMethod.UP -> { delegate.moveJobMenuFocus(-1); InputResult.HANDLED }
+            InputMethod.DOWN -> { delegate.moveJobMenuFocus(1); InputResult.HANDLED }
+            InputMethod.CONFIRM -> {
+                delegate.confirmJobMenu()
+                InputResult.handled(SoundType.SELECT)
+            }
+            InputMethod.BACK -> {
+                delegate.closeJobMenu()
                 InputResult.handled(SoundType.CLOSE_MODAL)
             }
             else -> InputResult.HANDLED
