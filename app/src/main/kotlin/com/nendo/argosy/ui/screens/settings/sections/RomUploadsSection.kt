@@ -77,7 +77,7 @@ internal fun buildRomUploadItems(state: RomUploadState): List<RomUploadItem> = b
     add(RomUploadItem.Queue)
     add(RomUploadItem.ImportLocal)
     add(RomUploadItem.ImportMissing)
-    add(RomUploadItem.Header("serversHeader", RomUploadItem.SECTION_SERVERS, R.string.sftp_settings_sections))
+    add(RomUploadItem.Header("serversHeader", RomUploadItem.SECTION_SERVERS, R.string.upload_settings_section_servers))
     state.profiles.forEach { add(RomUploadItem.Profile(it.id)) }
     add(RomUploadItem.AddProfile)
     add(RomUploadItem.Header("transfersHeader", RomUploadItem.SECTION_TRANSFERS, R.string.upload_settings_section_transfers))
@@ -108,7 +108,7 @@ private fun romUploadsLayout(state: RomUploadState) = SettingsLayout<RomUploadIt
     sectionTitleRes = {
         when (it) {
             RomUploadItem.SECTION_QUEUE -> R.string.upload_settings_section_queue
-            RomUploadItem.SECTION_SERVERS -> R.string.sftp_settings_sections
+            RomUploadItem.SECTION_SERVERS -> R.string.upload_settings_section_servers
             RomUploadItem.SECTION_TRANSFERS -> R.string.upload_settings_section_transfers
             RomUploadItem.SECTION_SCAN -> R.string.upload_settings_section_scan
             RomUploadItem.SECTION_SERVER -> R.string.sftp_settings_section
