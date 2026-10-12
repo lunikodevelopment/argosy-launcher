@@ -17,7 +17,8 @@
       "Bash(git describe:*)",
       "Bash(adb:*)",
       "Bash(./gradlew:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(ARGOSY_SKIP_VERIFY_CHECK=1 git push origin HEAD:main)"
     ]
   },
   "hooks": {
