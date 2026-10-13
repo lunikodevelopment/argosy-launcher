@@ -12,9 +12,9 @@ concurrency:
 
 jobs:
   build:
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
-      - uses: useblacksmith/checkout@v1
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -44,9 +44,9 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
 
   test:
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
-      - uses: useblacksmith/checkout@v1
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -78,9 +78,9 @@ jobs:
 
   rules:
     if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'rules-exempt')
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
-      - uses: useblacksmith/checkout@v1
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -95,9 +95,9 @@ jobs:
           python3 scripts/ci/coupling-guard.py --sweep "origin/${{ github.base_ref }}...HEAD" | tee -a "$GITHUB_STEP_SUMMARY"
 
   lint:
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     steps:
-      - uses: useblacksmith/checkout@v1
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
