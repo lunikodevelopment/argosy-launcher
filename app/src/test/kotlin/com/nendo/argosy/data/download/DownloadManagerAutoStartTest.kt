@@ -50,7 +50,7 @@ class DownloadManagerAutoStartTest {
         romMRepository = mockk(relaxed = true)
         preferencesRepository = mockk(relaxed = true)
         mediaDownloadManager = mockk(relaxed = true)
-        every { romMRepository.isConnected() } returns false
+        every { romMRepository.isConnected() } returns true
         every { romMRepository.connectionState } returns MutableStateFlow(ConnectionState.Disconnected)
         coEvery { downloadQueueDao.getByGameId(any()) } returns null
         coEvery { downloadQueueDao.getPendingDownloads() } returns emptyList()
@@ -66,6 +66,7 @@ class DownloadManagerAutoStartTest {
         every { preferencesRepository.userPreferences } returns flowOf(
             UserPreferences(
                 autoStartDownloads = autoStart,
+                maxConcurrentDownloads = 0,
                 romStoragePath = storage.root.absolutePath
             )
         )
