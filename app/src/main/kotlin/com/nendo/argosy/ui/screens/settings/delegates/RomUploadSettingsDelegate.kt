@@ -85,7 +85,13 @@ class RomUploadSettingsDelegate @Inject constructor(
             }.collect { jobs ->
                 _state.update { state ->
                     val menu = state.jobMenu?.takeIf { open -> jobs.any { it.id == open.jobId && it.actions.isNotEmpty() } }
-                    state.copy(openJobs = jobs.count { !it.state.isTerminal }, jobs = jobs, jobMenu = menu)
+                    val openCount = jobs.count { !it.state.isTerminal }
+                    state.copy(
+                        openJobs = openCount,
+                        jobs = jobs,
+                        jobMenu = menu,
+                        cancelAllArmed = state.cancelAllArmed && openCount > 0
+                    )
                 }
             }
         }
@@ -142,11 +148,34 @@ class RomUploadSettingsDelegate @Inject constructor(
         }
     }
 
-    fun pauseAllJobs() = uploadManager.engine.pauseAll()
+    fun pauseAllJobs() {
+        disarmCancelAll()
+        uploadManager.engine.pauseAll()
+    }
 
-    fun resumeAllJobs() = uploadManager.engine.resumeAll()
+    fun resumeAllJobs() {
+        disarmCancelAll()
+        uploadManager.engine.resumeAll()
+    }
 
-    fun clearFinishedJobs() = uploadManager.engine.clearFinished()
+    fun clearFinishedJobs() {
+        disarmCancelAll()
+        uploadManager.engine.clearFinished()
+    }
+
+    fun cancelAllJobs(): Boolean {
+        if (!_state.value.cancelAllArmed) {
+            _state.update { it.copy(cancelAllArmed = true) }
+            return false
+        }
+        _state.update { it.copy(cancelAllArmed = false) }
+        uploadManager.engine.cancelAll()
+        return true
+    }
+
+    fun disarmCancelAll() {
+        if (_state.value.cancelAllArmed) _state.update { it.copy(cancelAllArmed = false) }
+    }
 
     private fun editSettings(scope: CoroutineScope, transform: (UploadSettings) -> UploadSettings, persist: suspend (UploadSettings) -> Unit) {
         val next = transform(_state.value.settings)

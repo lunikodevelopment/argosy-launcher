@@ -55,6 +55,7 @@ internal sealed class RomUploadQueueItem(val key: String, val section: String?) 
         RomUploadQueueItem("job-$jobId", if (finished) SECTION_HISTORY else SECTION_ACTIVE)
     data object PauseAll : RomUploadQueueItem("pauseAll", SECTION_ACTIONS)
     data object ResumeAll : RomUploadQueueItem("resumeAll", SECTION_ACTIONS)
+    data object CancelAll : RomUploadQueueItem("cancelAll", SECTION_ACTIONS)
     data object ClearFinished : RomUploadQueueItem("clearFinished", SECTION_ACTIONS)
 
     companion object {
@@ -76,6 +77,7 @@ internal fun buildRomUploadQueueItems(state: RomUploadState): List<RomUploadQueu
     add(RomUploadQueueItem.Header("actionsHeader", RomUploadQueueItem.SECTION_ACTIONS, R.string.upload_queue_section_actions))
     if (state.hasRunningJobs) add(RomUploadQueueItem.PauseAll)
     if (state.hasPausedJobs) add(RomUploadQueueItem.ResumeAll)
+    if (open.isNotEmpty()) add(RomUploadQueueItem.CancelAll)
     if (finished.isNotEmpty()) add(RomUploadQueueItem.ClearFinished)
 }
 
@@ -104,7 +106,7 @@ internal fun romUploadQueueMaxFocusIndex(state: RomUploadState): Int =
 fun RomUploadQueueSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
     val state = uiState.romUpload
     val context = LocalContext.current
-    val layout = remember(state.jobs, state.hold) { romUploadQueueLayout(state) }
+    val layout = remember(state.jobs, state.hold, state.cancelAllArmed) { romUploadQueueLayout(state) }
     val items = remember(layout) { layout.visibleItems(Unit) }
     val sections = remember(layout, context) { layout.buildSections(Unit, context) }
     val jobsById = remember(state.jobs) { state.jobs.associateBy { it.id } }
@@ -151,6 +153,20 @@ fun RomUploadQueueSection(uiState: SettingsUiState, viewModel: SettingsViewModel
                 icon = Icons.Default.PlayArrow,
                 title = stringResource(R.string.upload_queue_resume_all_title),
                 subtitle = stringResource(R.string.upload_queue_resume_all_subtitle),
+                isFocused = isFocused(item),
+                onClick = { activate(item) }
+            )
+            RomUploadQueueItem.CancelAll -> ActionPreference(
+                icon = Icons.Default.Cancel,
+                title = stringResource(
+                    if (state.cancelAllArmed) R.string.upload_queue_cancel_all_confirm_title
+                    else R.string.upload_queue_cancel_all_title
+                ),
+                subtitle = stringResource(
+                    if (state.cancelAllArmed) R.string.upload_queue_cancel_all_confirm_subtitle
+                    else R.string.upload_queue_cancel_all_subtitle
+                ),
+                isDangerous = true,
                 isFocused = isFocused(item),
                 onClick = { activate(item) }
             )

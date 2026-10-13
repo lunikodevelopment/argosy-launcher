@@ -169,6 +169,10 @@
     <string name="upload_queue_resume_all_subtitle">繼續所有已暫停的上傳</string>
     <string name="upload_queue_clear_title">清除已結束</string>
     <string name="upload_queue_clear_subtitle">僅從此清單中移除</string>
+    <string name="upload_queue_cancel_all_title">全部取消</string>
+    <string name="upload_queue_cancel_all_subtitle">停止所有未完成的上傳</string>
+    <string name="upload_queue_cancel_all_confirm_title">確認：全部取消</string>
+    <string name="upload_queue_cancel_all_confirm_subtitle">再次按下以取消所有未完成的上傳</string>
     <string name="upload_queue_job_subtitle">%1$s · %2$s</string>
     <string name="upload_queue_job_progress">%1$s / %2$s</string>
     <string name="upload_queue_action_pause">暫停</string>

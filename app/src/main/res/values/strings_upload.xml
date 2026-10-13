@@ -214,6 +214,10 @@ Only trust it if the server was reinstalled or its keys were regenerated.</strin
     <string name="upload_queue_resume_all_subtitle">Continue every paused upload</string>
     <string name="upload_queue_clear_title">Clear finished</string>
     <string name="upload_queue_clear_subtitle">Removes them from this list only</string>
+    <string name="upload_queue_cancel_all_title">Cancel all</string>
+    <string name="upload_queue_cancel_all_subtitle">Stops every upload that is not finished</string>
+    <string name="upload_queue_cancel_all_confirm_title">Confirm: cancel all</string>
+    <string name="upload_queue_cancel_all_confirm_subtitle">Press again to cancel every open upload</string>
     <!-- %1$s is the server name, %2$s the upload status. -->
     <string name="upload_queue_job_subtitle">%1$s · %2$s</string>
     <!-- Sizes such as 120 MB of 300 MB. -->

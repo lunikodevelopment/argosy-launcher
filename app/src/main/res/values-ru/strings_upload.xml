@@ -172,6 +172,10 @@
     <string name="upload_queue_resume_all_subtitle">Продолжить все приостановленные загрузки</string>
     <string name="upload_queue_clear_title">Очистить завершённые</string>
     <string name="upload_queue_clear_subtitle">Удаляет только из этого списка</string>
+    <string name="upload_queue_cancel_all_title">Отменить все</string>
+    <string name="upload_queue_cancel_all_subtitle">Останавливает все незавершённые загрузки</string>
+    <string name="upload_queue_cancel_all_confirm_title">Подтвердить: отменить все</string>
+    <string name="upload_queue_cancel_all_confirm_subtitle">Нажмите ещё раз, чтобы отменить все открытые загрузки</string>
     <string name="upload_queue_job_subtitle">%1$s · %2$s</string>
     <string name="upload_queue_job_progress">%1$s из %2$s</string>
     <string name="upload_queue_action_pause">Приостановить</string>

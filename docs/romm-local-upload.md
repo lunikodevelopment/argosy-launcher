@@ -41,8 +41,9 @@ are on top with their progress; finished, skipped, failed and cancelled ones sit
 first. When uploads are held for Wi-Fi, a charger or a network, the reason shows above the list.
 
 Select an upload to pause, resume, retry or cancel it. Completed and skipped uploads have nothing
-to do. **Pause all**, **Resume all** and **Clear finished** sit at the bottom; clearing only tidies
-the list and never touches files on the device or the server.
+to do. **Pause all**, **Resume all**, **Cancel all** and **Clear finished** sit at the bottom. Cancel all
+needs a second press to confirm and stops every unfinished upload; the notification's Cancel does
+the same. Clearing only tidies the list and never touches files on the device or the server.
 
 ## Importing local ROMs
 

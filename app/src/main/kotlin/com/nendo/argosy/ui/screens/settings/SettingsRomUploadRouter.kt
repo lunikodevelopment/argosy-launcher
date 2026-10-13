@@ -192,6 +192,13 @@ internal fun routeRomUploadQueueActivate(vm: SettingsViewModel, item: RomUploadQ
             delegate.resumeAllJobs()
             InputResult.handled(SoundType.SELECT)
         }
+        RomUploadQueueItem.CancelAll -> {
+            if (delegate.cancelAllJobs()) {
+                InputResult.handled(SoundType.SELECT)
+            } else {
+                InputResult.handled(SoundType.OPEN_MODAL)
+            }
+        }
         RomUploadQueueItem.ClearFinished -> {
             delegate.clearFinishedJobs()
             InputResult.handled(SoundType.SELECT)

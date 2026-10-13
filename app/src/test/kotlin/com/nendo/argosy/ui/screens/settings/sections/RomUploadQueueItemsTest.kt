@@ -50,10 +50,20 @@ class RomUploadQueueItemsTest {
                 RomUploadQueueItem.Job("new", finished = true),
                 RomUploadQueueItem.Job("old", finished = true),
                 RomUploadQueueItem.PauseAll,
+                RomUploadQueueItem.CancelAll,
                 RomUploadQueueItem.ClearFinished
             ),
             focusable
         )
+    }
+
+    @Test
+    fun `cancel all appears only with open work`() {
+        val open = buildRomUploadQueueItems(RomUploadState(jobs = listOf(job("a", UploadItemState.PAUSED))))
+        val done = buildRomUploadQueueItems(RomUploadState(jobs = listOf(job("a", UploadItemState.COMPLETED, finishedAt = 1))))
+
+        assertTrue(open.contains(RomUploadQueueItem.CancelAll))
+        assertFalse(done.contains(RomUploadQueueItem.CancelAll))
     }
 
     @Test

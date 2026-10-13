@@ -170,6 +170,10 @@ Nur vertrauen, wenn der Server neu installiert oder seine Schlüssel neu erzeugt
     <string name="upload_queue_resume_all_subtitle">Alle pausierten Uploads fortsetzen</string>
     <string name="upload_queue_clear_title">Abgeschlossene entfernen</string>
     <string name="upload_queue_clear_subtitle">Entfernt sie nur aus dieser Liste</string>
+    <string name="upload_queue_cancel_all_title">Alle abbrechen</string>
+    <string name="upload_queue_cancel_all_subtitle">Beendet jeden unfertigen Upload</string>
+    <string name="upload_queue_cancel_all_confirm_title">Bestätigen: alle abbrechen</string>
+    <string name="upload_queue_cancel_all_confirm_subtitle">Erneut drücken, um alle offenen Uploads abzubrechen</string>
     <string name="upload_queue_job_subtitle">%1$s · %2$s</string>
     <string name="upload_queue_job_progress">%1$s von %2$s</string>
     <string name="upload_queue_action_pause">Pausieren</string>

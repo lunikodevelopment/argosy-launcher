@@ -98,7 +98,8 @@ data class RomUploadState(
     val keyFileBrowserOpen: Boolean = false,
     val quickFolder: String? = null,
     val quickFolderBrowserOpen: Boolean = false,
-    val keyImportFailed: Boolean = false
+    val keyImportFailed: Boolean = false,
+    val cancelAllArmed: Boolean = false
 ) {
     val hasModal: Boolean
         get() = textEntry != null || hostKeyPrompt != null || deleteConfirmFocus != null || jobMenu != null

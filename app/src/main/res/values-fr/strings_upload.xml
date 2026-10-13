@@ -171,6 +171,10 @@ Ne lui faites confiance que si le serveur a été réinstallé ou ses clés rég
     <string name="upload_queue_resume_all_subtitle">Reprendre tous les envois en pause</string>
     <string name="upload_queue_clear_title">Effacer les terminés</string>
     <string name="upload_queue_clear_subtitle">Les retire uniquement de cette liste</string>
+    <string name="upload_queue_cancel_all_title">Tout annuler</string>
+    <string name="upload_queue_cancel_all_subtitle">Arrête tous les envois non terminés</string>
+    <string name="upload_queue_cancel_all_confirm_title">Confirmer : tout annuler</string>
+    <string name="upload_queue_cancel_all_confirm_subtitle">Appuyez à nouveau pour annuler tous les envois en cours</string>
     <string name="upload_queue_job_subtitle">%1$s · %2$s</string>
     <string name="upload_queue_job_progress">%1$s sur %2$s</string>
     <string name="upload_queue_action_pause">Pause</string>

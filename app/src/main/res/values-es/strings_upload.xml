@@ -171,6 +171,10 @@ Confía solo si el servidor se reinstaló o se regeneraron sus claves.</string>
     <string name="upload_queue_resume_all_subtitle">Continuar todas las subidas en pausa</string>
     <string name="upload_queue_clear_title">Borrar terminadas</string>
     <string name="upload_queue_clear_subtitle">Solo las quita de esta lista</string>
+    <string name="upload_queue_cancel_all_title">Cancelar todas</string>
+    <string name="upload_queue_cancel_all_subtitle">Detiene todas las subidas sin terminar</string>
+    <string name="upload_queue_cancel_all_confirm_title">Confirmar: cancelar todas</string>
+    <string name="upload_queue_cancel_all_confirm_subtitle">Pulsa de nuevo para cancelar todas las subidas abiertas</string>
     <string name="upload_queue_job_subtitle">%1$s · %2$s</string>
     <string name="upload_queue_job_progress">%1$s de %2$s</string>
     <string name="upload_queue_action_pause">Pausar</string>
