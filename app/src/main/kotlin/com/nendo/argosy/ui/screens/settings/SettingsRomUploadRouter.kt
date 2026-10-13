@@ -25,6 +25,21 @@ internal fun routeRomUploadsActivate(vm: SettingsViewModel, item: RomUploadItem)
         } else {
             InputResult.handled(SoundType.BOUNDARY)
         }
+        RomUploadItem.QuickFolder -> {
+            delegate.openQuickFolderBrowser()
+            InputResult.handled(SoundType.OPEN_MODAL)
+        }
+        RomUploadItem.QuickUpload -> {
+            val folder = delegate.state.value.quickFolder
+            when {
+                folder == null -> {
+                    delegate.openQuickFolderBrowser()
+                    InputResult.handled(SoundType.OPEN_MODAL)
+                }
+                vm.romUploadImportDelegate.uploadFolder(folder) -> InputResult.handled(SoundType.OPEN_MODAL)
+                else -> InputResult.handled(SoundType.BOUNDARY)
+            }
+        }
         RomUploadItem.ImportMissing -> if (vm.romUploadImportDelegate.openMissing()) {
             InputResult.handled(SoundType.OPEN_MODAL)
         } else {

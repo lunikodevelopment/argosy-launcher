@@ -65,6 +65,12 @@ class RomUploadImportDelegate @Inject constructor(
         return true
     }
 
+    fun uploadFolder(path: String): Boolean {
+        if (uploadManager.preferences.value.profiles.isEmpty()) return false
+        onPathsSelected(listOf(path))
+        return true
+    }
+
     fun onPathsSelected(paths: List<String>) {
         selectedPaths = paths
         startDialog(RomUploadImportKind.PICKED)

@@ -44,7 +44,8 @@ data class UploadPreferences(
     val localFolderMappings: Map<String, String> = emptyMap(),
     val remoteFolderMappings: Map<String, String> = emptyMap(),
     val sftpServerPort: Int = DEFAULT_SFTP_SERVER_PORT,
-    val sftpServerWritable: Boolean = false
+    val sftpServerWritable: Boolean = false,
+    val quickFolder: String? = null
 ) {
     val defaultProfile: UploadProfile?
         get() = profiles.firstOrNull { it.id == defaultProfileId } ?: profiles.firstOrNull()
@@ -74,6 +75,7 @@ class UploadPreferencesRepository @Inject constructor(
         val REMOTE_FOLDER_MAPPINGS = stringPreferencesKey("upload_remote_folder_mappings_json")
         val SFTP_SERVER_PORT = intPreferencesKey("sftp_server_port")
         val SFTP_SERVER_WRITABLE = booleanPreferencesKey("sftp_server_writable")
+        val QUICK_FOLDER = stringPreferencesKey("upload_quick_folder")
     }
 
     private val profilesAdapter = moshi.adapter<List<UploadProfileRecord>>(
@@ -102,7 +104,8 @@ class UploadPreferencesRepository @Inject constructor(
             localFolderMappings = decodeMap(prefs[Keys.LOCAL_FOLDER_MAPPINGS]),
             remoteFolderMappings = decodeMap(prefs[Keys.REMOTE_FOLDER_MAPPINGS]),
             sftpServerPort = (prefs[Keys.SFTP_SERVER_PORT] ?: DEFAULT_SFTP_SERVER_PORT).coerceIn(MIN_SFTP_SERVER_PORT, MAX_PORT),
-            sftpServerWritable = prefs[Keys.SFTP_SERVER_WRITABLE] ?: false
+            sftpServerWritable = prefs[Keys.SFTP_SERVER_WRITABLE] ?: false,
+            quickFolder = prefs[Keys.QUICK_FOLDER]?.takeIf { it.isNotBlank() }
         )
     }
 
@@ -138,6 +141,12 @@ class UploadPreferencesRepository @Inject constructor(
 
     suspend fun setNotifyOnCompletion(enabled: Boolean) {
         dataStore.edit { it[Keys.NOTIFY_ON_COMPLETION] = enabled }
+    }
+
+    suspend fun setQuickFolder(path: String?) {
+        dataStore.edit {
+            if (path.isNullOrBlank()) it.remove(Keys.QUICK_FOLDER) else it[Keys.QUICK_FOLDER] = path
+        }
     }
 
     suspend fun setSftpServerPort(port: Int) {

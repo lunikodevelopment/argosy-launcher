@@ -57,6 +57,7 @@ class RomUploadSettingsDelegate @Inject constructor(
                 settings = prefs.settings,
                 profiles = prefs.profiles,
                 defaultProfileId = prefs.defaultProfile?.id,
+                quickFolder = prefs.quickFolder,
                 hasScanToken = hasScanToken
             )
         }
@@ -68,7 +69,12 @@ class RomUploadSettingsDelegate @Inject constructor(
         scope.launch {
             uploadManager.preferences.collect { prefs ->
                 _state.update {
-                    it.copy(settings = prefs.settings, profiles = prefs.profiles, defaultProfileId = prefs.defaultProfile?.id)
+                    it.copy(
+                        settings = prefs.settings,
+                        profiles = prefs.profiles,
+                        defaultProfileId = prefs.defaultProfile?.id,
+                        quickFolder = prefs.quickFolder
+                    )
                 }
             }
         }
@@ -429,6 +435,19 @@ class RomUploadSettingsDelegate @Inject constructor(
 
     fun openKeyFileBrowser() {
         _state.update { it.copy(keyFileBrowserOpen = true, keyImportFailed = false) }
+    }
+
+    fun openQuickFolderBrowser() {
+        _state.update { it.copy(quickFolderBrowserOpen = true) }
+    }
+
+    fun closeQuickFolderBrowser() {
+        _state.update { it.copy(quickFolderBrowserOpen = false) }
+    }
+
+    fun setQuickFolder(scope: CoroutineScope, path: String) {
+        closeQuickFolderBrowser()
+        scope.launch { preferencesRepository.setUploadQuickFolder(path) }
     }
 
     fun closeKeyFileBrowser() {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_settings_quick_folder_title">Carpeta de subida rápida</string>
+    <string name="upload_settings_quick_folder_unset">Sin definir. Elige una carpeta de este dispositivo</string>
+    <string name="upload_settings_quick_upload_title">Subir la carpeta rápida a RomM</string>
+    <string name="upload_settings_quick_upload_subtitle">Subir todo lo de %1$s</string>
+    <string name="upload_settings_quick_upload_needs_folder">Elige primero una carpeta de subida rápida</string>
+    <string name="upload_settings_quick_folder_browser_title">Elige la carpeta que subir</string>
+</resources>

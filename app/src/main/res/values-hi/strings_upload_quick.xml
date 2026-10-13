@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_settings_quick_folder_title">त्वरित अपलोड फ़ोल्डर</string>
+    <string name="upload_settings_quick_folder_unset">सेट नहीं है। इस डिवाइस पर कोई फ़ोल्डर चुनें</string>
+    <string name="upload_settings_quick_upload_title">त्वरित फ़ोल्डर को RomM पर अपलोड करें</string>
+    <string name="upload_settings_quick_upload_subtitle">%1$s की सभी फ़ाइलें अपलोड करें</string>
+    <string name="upload_settings_quick_upload_needs_folder">पहले एक त्वरित अपलोड फ़ोल्डर चुनें</string>
+    <string name="upload_settings_quick_folder_browser_title">अपलोड करने के लिए फ़ोल्डर चुनें</string>
+</resources>

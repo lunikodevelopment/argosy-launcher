@@ -537,6 +537,8 @@ class UserPreferencesRepository @Inject constructor(
     suspend fun setUploadInGameBandwidthLimitKiBps(value: Int) = uploadPrefs.setInGameBandwidthLimitKiBps(value)
     suspend fun setUploadScanAfterUpload(enabled: Boolean) = uploadPrefs.setScanAfterUpload(enabled)
     suspend fun setUploadNotifyOnCompletion(enabled: Boolean) = uploadPrefs.setNotifyOnCompletion(enabled)
+
+    suspend fun setUploadQuickFolder(path: String?) = uploadPrefs.setQuickFolder(path)
     suspend fun setUploadDefaultProfile(profileId: String) = uploadPrefs.setDefaultProfile(profileId)
 
     suspend fun setJellyfinServerUrl(url: String?) = jellyfinPrefs.setServerUrl(url)

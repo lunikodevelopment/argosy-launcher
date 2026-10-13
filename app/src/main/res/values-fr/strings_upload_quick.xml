@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_settings_quick_folder_title">Dossier d\'envoi rapide</string>
+    <string name="upload_settings_quick_folder_unset">Non défini. Choisissez un dossier sur cet appareil</string>
+    <string name="upload_settings_quick_upload_title">Envoyer le dossier rapide vers RomM</string>
+    <string name="upload_settings_quick_upload_subtitle">Envoyer tout le contenu de %1$s</string>
+    <string name="upload_settings_quick_upload_needs_folder">Choisissez d\'abord un dossier d\'envoi rapide</string>
+    <string name="upload_settings_quick_folder_browser_title">Choisir le dossier à envoyer</string>
+</resources>

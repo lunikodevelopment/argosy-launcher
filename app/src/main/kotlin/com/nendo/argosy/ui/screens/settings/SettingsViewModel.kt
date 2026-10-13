@@ -1505,6 +1505,7 @@ class SettingsViewModel @Inject constructor(
     fun trustRomUploadHostKey() = romUploadDelegate.trustPresentedKey(viewModelScope)
     fun deleteRomUploadProfile() = romUploadDelegate.deleteDraftProfile(viewModelScope) { navigateBack() }
     fun importRomUploadPrivateKey(path: String) = romUploadDelegate.importPrivateKey(viewModelScope, path)
+    fun setRomUploadQuickFolder(path: String) = romUploadDelegate.setQuickFolder(viewModelScope, path)
     fun confirmRomUploadTextEntry() = romUploadDelegate.confirmTextEntryFocus(viewModelScope)
     fun confirmRomUploadHostKeyFocus() = romUploadDelegate.confirmHostKeyFocus(viewModelScope)
     fun confirmRomUploadDeleteFocus() = romUploadDelegate.confirmDeleteFocus(viewModelScope) { navigateBack() }

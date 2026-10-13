@@ -57,6 +57,15 @@ reports how many games are ready, how many have a platform guessed only from the
 (left out unless you turn on **Include uncertain platforms**), how many have no RomM folder and
 will be skipped, and how many selections could not be read.
 
+### Quick upload folder
+
+**Quick upload folder** remembers one folder on this device. Choose it once with the folder
+browser, then **Upload quick folder to RomM** plans everything in it against your default server
+and opens the same dialog as above, so you can check the platform guesses and the duplicate
+setting before pressing **Upload**. Pressing the upload button with no folder saved opens the
+folder browser first. The folder path is a location on this device and is not part of a settings
+backup.
+
 ### Upload missing ROMs
 
 **Upload missing ROMs**, next to it, takes every game Argosy found on this device that RomM does
