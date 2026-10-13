@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_settings_quick_folder_title">快速上傳資料夾</string>
+    <string name="upload_settings_quick_folder_unset">未設定。請在此裝置上選擇資料夾</string>
+    <string name="upload_settings_quick_upload_title">將快速上傳資料夾上傳到 RomM</string>
+    <string name="upload_settings_quick_upload_subtitle">上傳 %1$s 中的所有內容</string>
+    <string name="upload_settings_quick_upload_needs_folder">請先選擇快速上傳資料夾</string>
+    <string name="upload_settings_quick_folder_browser_title">選擇要上傳的資料夾</string>
+</resources>

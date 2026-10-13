@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_settings_quick_folder_title">Quick upload folder</string>
+    <string name="upload_settings_quick_folder_unset">Not set. Choose a folder on this device</string>
+    <string name="upload_settings_quick_upload_title">Upload quick folder to RomM</string>
+    <string name="upload_settings_quick_upload_subtitle">Upload everything in %1$s</string>
+    <string name="upload_settings_quick_upload_needs_folder">Choose a quick upload folder first</string>
+    <string name="upload_settings_quick_folder_browser_title">Choose the folder to upload</string>
+</resources>

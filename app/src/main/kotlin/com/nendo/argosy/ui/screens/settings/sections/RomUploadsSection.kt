@@ -44,6 +44,8 @@ internal sealed class RomUploadItem(val key: String, val section: String) {
 
     data object Queue : RomUploadItem("queue", SECTION_QUEUE)
     data object ImportLocal : RomUploadItem("importLocal", SECTION_QUEUE)
+    data object QuickFolder : RomUploadItem("quickFolder", SECTION_QUEUE)
+    data object QuickUpload : RomUploadItem("quickUpload", SECTION_QUEUE)
     data object ImportMissing : RomUploadItem("importMissing", SECTION_QUEUE)
     data class Profile(val profileId: String) : RomUploadItem("profile-$profileId", SECTION_SERVERS)
     data object AddProfile : RomUploadItem("addProfile", SECTION_SERVERS)
@@ -76,6 +78,8 @@ internal fun buildRomUploadItems(state: RomUploadState): List<RomUploadItem> = b
     add(RomUploadItem.Header("queueHeader", RomUploadItem.SECTION_QUEUE, R.string.upload_settings_section_queue))
     add(RomUploadItem.Queue)
     add(RomUploadItem.ImportLocal)
+    add(RomUploadItem.QuickFolder)
+    add(RomUploadItem.QuickUpload)
     add(RomUploadItem.ImportMissing)
     add(RomUploadItem.Header("serversHeader", RomUploadItem.SECTION_SERVERS, R.string.upload_settings_section_servers))
     state.profiles.forEach { add(RomUploadItem.Profile(it.id)) }
@@ -208,6 +212,25 @@ fun RomUploadsSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
                         R.string.upload_settings_import_subtitle
                     }
                 ),
+                isFocused = isFocused(item),
+                isEnabled = state.profiles.isNotEmpty(),
+                onClick = { activate(item) }
+            )
+            RomUploadItem.QuickFolder -> ActionPreference(
+                icon = Icons.Default.FolderOpen,
+                title = stringResource(R.string.upload_settings_quick_folder_title),
+                subtitle = state.quickFolder ?: stringResource(R.string.upload_settings_quick_folder_unset),
+                isFocused = isFocused(item),
+                onClick = { activate(item) }
+            )
+            RomUploadItem.QuickUpload -> ActionPreference(
+                icon = Icons.Default.CloudUpload,
+                title = stringResource(R.string.upload_settings_quick_upload_title),
+                subtitle = when {
+                    state.profiles.isEmpty() -> stringResource(R.string.upload_settings_import_needs_server)
+                    state.quickFolder == null -> stringResource(R.string.upload_settings_quick_upload_needs_folder)
+                    else -> stringResource(R.string.upload_settings_quick_upload_subtitle, state.quickFolder.substringAfterLast('/'))
+                },
                 isFocused = isFocused(item),
                 isEnabled = state.profiles.isNotEmpty(),
                 onClick = { activate(item) }

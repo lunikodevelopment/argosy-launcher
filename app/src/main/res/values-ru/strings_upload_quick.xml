@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_settings_quick_folder_title">Папка быстрой загрузки</string>
+    <string name="upload_settings_quick_folder_unset">Не задана. Выберите папку на этом устройстве</string>
+    <string name="upload_settings_quick_upload_title">Загрузить папку быстрой загрузки в RomM</string>
+    <string name="upload_settings_quick_upload_subtitle">Загрузить всё из %1$s</string>
+    <string name="upload_settings_quick_upload_needs_folder">Сначала выберите папку быстрой загрузки</string>
+    <string name="upload_settings_quick_folder_browser_title">Выберите папку для загрузки</string>
+</resources>

@@ -69,7 +69,8 @@ class SettingsBackupKeysTest {
         "custom_bios_path", "custom_background_path", "builtin_custom_save_path",
         "builtin_custom_state_path", "font_body_path", "font_body_name", "font_display_path",
         "font_display_name", "gamenative_sync_dir", "file_logging_path",
-        "ambient_audio_uri", "steam_install_volume", "upload_local_folder_mappings_json"
+        "ambient_audio_uri", "steam_install_volume", "upload_local_folder_mappings_json",
+        "upload_quick_folder"
     )
 
     private val hardwareAndUnit = setOf(

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_settings_quick_folder_title">Schnell-Upload-Ordner</string>
+    <string name="upload_settings_quick_folder_unset">Nicht festgelegt. Ordner auf diesem Gerät wählen</string>
+    <string name="upload_settings_quick_upload_title">Schnell-Upload-Ordner zu RomM hochladen</string>
+    <string name="upload_settings_quick_upload_subtitle">Alles in %1$s hochladen</string>
+    <string name="upload_settings_quick_upload_needs_folder">Zuerst einen Schnell-Upload-Ordner wählen</string>
+    <string name="upload_settings_quick_folder_browser_title">Ordner zum Hochladen auswählen</string>
+</resources>

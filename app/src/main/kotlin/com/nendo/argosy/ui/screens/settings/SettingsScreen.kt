@@ -1271,6 +1271,15 @@ fun SettingsScreen(
         )
     }
 
+    if (uiState.romUpload.quickFolderBrowserOpen) {
+        FileBrowserScreen(
+            mode = FileBrowserMode.FOLDER_SELECTION,
+            title = stringResource(R.string.upload_settings_quick_folder_browser_title),
+            onPathSelected = { path -> viewModel.setRomUploadQuickFolder(path) },
+            onDismiss = { viewModel.romUploadDelegate.closeQuickFolderBrowser() }
+        )
+    }
+
     if (uiState.romUpload.keyFileBrowserOpen) {
         FileBrowserScreen(
             mode = FileBrowserMode.FILE_SELECTION,

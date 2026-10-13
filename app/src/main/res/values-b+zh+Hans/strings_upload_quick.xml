@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="upload_settings_quick_folder_title">快速上传文件夹</string>
+    <string name="upload_settings_quick_folder_unset">未设置。请在此设备上选择一个文件夹</string>
+    <string name="upload_settings_quick_upload_title">将快速上传文件夹上传到 RomM</string>
+    <string name="upload_settings_quick_upload_subtitle">上传 %1$s 中的所有内容</string>
+    <string name="upload_settings_quick_upload_needs_folder">请先选择快速上传文件夹</string>
+    <string name="upload_settings_quick_folder_browser_title">选择要上传的文件夹</string>
+</resources>
