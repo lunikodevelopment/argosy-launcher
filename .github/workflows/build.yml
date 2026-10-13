@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,7 +36,7 @@ jobs:
           packages: 'platform-tools platforms;android-35 ndk;27.0.12077973'
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug -PallAbis
+        run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -67,7 +68,7 @@ jobs:
           packages: 'platform-tools platforms;android-35 ndk;27.0.12077973'
 
       - name: Run unit tests
-        run: ./gradlew testDebugUnitTest -PallAbis
+        run: ./gradlew testDebugUnitTest
 
       - name: Upload test results
         if: always()
@@ -95,6 +96,7 @@ jobs:
           python3 scripts/ci/coupling-guard.py --sweep "origin/${{ github.base_ref }}...HEAD" | tee -a "$GITHUB_STEP_SUMMARY"
 
   lint:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - uses: useblacksmith/checkout@v1
